@@ -1,0 +1,962 @@
+\documentclass[a4paper,12pt]{article} %размер бумаги устанавливаем А4, шрифт 12 пунктов
+
+\usepackage[utf8]{inputenc}%включаем свою кодировку: koi8-r или utf8 в UNIX, cp1251 в Windows
+\usepackage[english,russian]{babel}%используем русский и английский языки с переносами
+\usepackage{cmap}
+
+\usepackage{amsmath} %подключаем нужные пакеты расширений
+\usepackage{url}
+
+\usepackage{geometry} % Меняем поля страницы
+\geometry{left=2cm}% левое поле
+\geometry{right=1.5cm}% правое поле
+\geometry{top=1.5cm}% верхнее поле
+\geometry{bottom=1.5cm}% нижнее поле
+
+\usepackage{listings}
+\usepackage{xcolor} % for setting colors
+\definecolor{sh_comment}{rgb}{0.12, 0.38, 0.18 } %adjusted, in Eclipse: {0.25, 0.42, 0.30 } = #3F6A4D
+\definecolor{sh_keyword}{rgb}{0.37, 0.08, 0.25}  % #5F1441
+\definecolor{sh_string}{rgb}{0.06, 0.10, 0.98} % #101AF9
+
+\DeclareUnicodeCharacter{00A0}{~}
+
+% set the default code style
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+	basicstyle=\small,
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    stringstyle=\color{sh_string},
+	keywordstyle = \color{sh_keyword}\bfseries,
+	commentstyle=\color{sh_comment}\itshape % string color
+}
+
+\begin{document}
+
+
+\begin{titlepage}
+\newpage
+
+\begin{center}
+Санкт-Петербургский государственный политехнический университет \\
+Институт Информационных Технологий и Управления \\*
+Кафедра компьютерных систем и программных технологий \\*
+\hrulefill
+\end{center}
+
+\vspace{18em}
+
+\begin{center}
+\Large Отчет по расчетной работе № 1 \\ по предмету «Системное программное обеспечение» \\
+\end{center}
+
+\vspace{1em}
+
+% \linebreak
+\begin{center}
+\textsc{\textbf{Обработка исключений в ОС Windows}}
+\end{center}
+
+\vspace{16em}
+
+\begin{flushleft}
+Работу выполнил студент гр. 53501/3\hrulefill Мартынов С. А. \\
+\vspace{1.5em}
+Работу принял преподаватель \hrulefill Душутина Е. В. \\
+\end{flushleft}
+
+\vspace{\fill}
+
+\begin{center}
+Санкт-Петербург \\
+2014
+\end{center}
+
+\end{titlepage}
+\newpage
+
+%------------------------------------------------
+Постановка задачи:
+
+\begin{enumerate}
+	\item Сгенерировать и обработать исключения с помощью функций WinAPI;
+	\item Получить код исключения с помощью функции GetExceptionCode.
+		\begin{itemize}
+		\item Использовать эту функции в выражении фильтре;
+		\item Использовать эту функцию в обработчике.
+		\end{itemize}
+	\item Создать собственную функцию-фильтр;
+	\item Получить информацию об исключении с помощью функции GetExceptionInformation; сгенерировать исключение с помощью функции RaiseException;
+	\item Использовать функции UnhandledExceptionFilter и SetUnhandledExceptionFilter для необработанных исключений;
+	\item Обработать вложенные исключения;
+	\item Выйти из блока \_\_try с помощью оператора goto;
+	\item Выйти из блока \_\_try с помощью оператора \_\_leave;
+	\item Преобразовать структурное исключение в исключение языка С, используя функцию translator;
+	\item Использовать финальный обработчик finally;
+	\item Проверить корректность выхода из блока \_\_try с помощью функции AbnormalTermination в финальном обработчике \_\_finally.
+\end{enumerate}
+
+
+На каждый пункт представить отдельную программу, специфический код, связанный с особенностями генерации заданного исключения структурировать в отдельный элемент (функцию, макрос или иное).
+
+\vspace{1em}
+В данной работе рассматриваются следующие исключения:
+\begin{itemize}
+\item \textbf{EXCEPTION\_FLT\_DIVIDE\_BY\_ZERO} - поток попытался сделать деление на ноль с плавающей точкой;
+\item \textbf{EXCEPTION\_FLT\_OVERFLOW} - переполнение при операции над числами с плавающей точкой.
+\end{itemize}
+
+\vspace{1em}
+Исходный код всех представленных листингов доступен по адресу \\ \url{https://github.com/SemenMartynov/SPbPU_SystemProgramming}.
+
+\setcounter{page}{2}
+\newpage
+
+%------------------------------------------------
+
+В листинге 1 показана работа с исключениями. В зависимости от параметра, передаваемого при запуске, вызывается либо исключение деления на ноль, либо переполнение разрядной сетки при работе с типом float. Особо стоит обратить внимание на две вещи: изначально, все ошибки типа float маскируются, и для получения исключений нужно от этого маскирования избавиться (см. стр. 48-40); кроме того, операции с плавающими точками выполняются асинхронно, и нужно на этапе компиляции отключить расширения векторизации.
+
+В 53-й строке используется квалификатор volatile, это помогает обмануть статический анализатор среды разработки (visual studio), который честно сигнализирует о явной ошибке (делении на ноль) и не позволяет собрать программу.
+
+\begin{lstlisting}[language=C++, caption={Генерация и обработка исключения с помощью функций WinAPI}]
+/*  Task 1.
+	Generate and handle exceptions using the WinAPI functions;
+*/
+
+// IMPORTANT: Don't forget to disable Enhanced Instructions!!!
+// Properties -> Configuration Properties -> C/C++ -> Code Generation ->
+// Enable Enhanced Instruction Set = No Enhanced Instructions (/arch:IA32)
+
+#include <stdio.h>
+#include <tchar.h>
+#include <cstring>
+#include <cfloat>
+#include <cmath>
+#include <excpt.h>
+#include <windows.h>
+
+void usage(const _TCHAR *prog);
+
+// Task switcher
+enum {
+	DIVIDE_BY_ZERO,
+	FLT_OVERFLOW
+} task;
+
+// Defines the entry point for the console application.
+int _tmain(int argc, _TCHAR* argv[]) {
+	// Check parameters number
+	if (argc != 2) {
+		printf("Too few parameters.\n\n");
+		usage(argv[0]);
+		return 1;
+	}
+
+	// Set task
+	if (!_tcscmp(_T("-d"), argv[1])) {
+		task = DIVIDE_BY_ZERO;
+	}
+	else if (!_tcscmp(_T("-o"), argv[1])) {
+		task = FLT_OVERFLOW;
+	}
+	else {
+		printf("Can't parse parameters.\n\n");
+		usage(argv[0]);
+		return 2;
+	}
+
+	// Floating point exceptions are masked by default.
+	_clearfp();
+	_controlfp_s(NULL, 0, _EM_OVERFLOW | _EM_ZERODIVIDE);
+
+	// Set exception
+	__try {
+		volatile float tmp = 0;
+		switch (task) {
+		case DIVIDE_BY_ZERO:
+			tmp = 1 / tmp;
+			break;
+		case FLT_OVERFLOW:
+			// Note: floating point execution happens asynchronously.
+			// So, the exception will not be handled until the next floating
+			// point instruction.
+			tmp = pow(FLT_MAX, 3);
+			break;
+		default:
+			break;
+		}
+	}
+	__except (EXCEPTION_EXECUTE_HANDLER) {
+		printf("Well, it looks like we caught something.");
+	}
+	return 0;
+}
+
+// Usage manual
+void usage(const _TCHAR *prog) {
+	printf("Usage: \n");
+	_tprintf(_T("\t%s -d\n"), prog);
+	printf("\t\t\t for exception float divide by zero,\n");
+	_tprintf(_T("\t%s -o\n"), prog);
+	printf("\t\t\t for exception float overflow.\n");
+}
+\end{lstlisting}
+Если запустить этот код в отладчике, и пройти его по шагам, то можно увидеть, как управление передаётся с 56-й строки (либо 62-й, в зависимости от параметров, переданных при запуске) передаётся на 68-ю. Фильтр отсутствует, так что обработка сразу переходит на 69-ю строку и дальше до конца программы (до выхода, т.е. обратной передачи управления не происходит). 
+\newpage
+
+%------------------------------------------------
+В листинге 2 показано использование функции GetExceptionCode. В первом случае она участвует в сравнении с макро-константной EXCEPTION\_FLT\_DIVIDE\_BY\_ZERO для определения подходящего обработчика для исключительного события. Во-втором случае она используется уже внутри обработчика, позволяя определить, что исключение вызвано переполнением при операции с типом float.
+
+\begin{lstlisting}[language=C++, caption={Получение кода исключения с помощью функции GetExceptionCode}]
+/*  Task 2.
+	Get the exceptions code using the GetExceptionCode gunction:
+	- Use this function in the filter expression;
+	- Use this function in the handler.
+*/
+
+// IMPORTANT: Don't forget to disable Enhanced Instructions!!!
+// Properties -> Configuration Properties -> C/C++ -> Code Generation ->
+// Enable Enhanced Instruction Set = No Enhanced Instructions (/arch:IA32)
+
+#include <stdio.h>
+#include <tchar.h>
+#include <cstring>
+#include <cfloat>
+#include <cmath>
+#include <excpt.h>
+#include <windows.h>
+
+void usage(const _TCHAR *prog);
+
+// Task switcher
+enum {
+	DIVIDE_BY_ZERO,
+	FLT_OVERFLOW
+} task;
+
+// Defines the entry point for the console application.
+int _tmain(int argc, _TCHAR* argv[]) {
+	// Check parameters number
+	if (argc != 2) {
+		printf("Too few parameters.\n\n");
+		usage(argv[0]);
+		return 1;
+	}
+
+	// Set task
+	if (!_tcscmp(_T("-d"), argv[1])) {
+		task = DIVIDE_BY_ZERO;
+	}
+	else if (!_tcscmp(_T("-o"), argv[1])) {
+		task = FLT_OVERFLOW;
+	}
+	else {
+		printf("Can't parse parameters.\n\n");
+		usage(argv[0]);
+		return 2;
+	}
+
+	// Floating point exceptions are masked by default.
+	_clearfp();
+	_controlfp_s(NULL, 0, _EM_OVERFLOW | _EM_ZERODIVIDE);
+
+	// Set exception
+	volatile float tmp = 0;
+	switch (task) {
+	case DIVIDE_BY_ZERO:
+		__try {
+			tmp = 1 / tmp;
+		}
+		// Use GetExceptionCode() function in the filter expression;
+		__except ((GetExceptionCode() == EXCEPTION_FLT_DIVIDE_BY_ZERO) ?
+		EXCEPTION_EXECUTE_HANDLER :
+								  EXCEPTION_CONTINUE_SEARCH)
+		{
+			printf("Caught exception is: EXCEPTION_FLT_DIVIDE_BY_ZERO");
+		}
+		break;
+	case FLT_OVERFLOW:
+		__try {
+			// Note: floating point execution happens asynchronously.
+			// So, the exception will not be handled until the next
+			// floating point instruction.
+			tmp = pow(FLT_MAX, 3);
+		}
+		// Use GetExceptionCode() function in the handler.
+		__except (EXCEPTION_EXECUTE_HANDLER) {
+			if (GetExceptionCode() == EXCEPTION_FLT_OVERFLOW)
+				printf("Caught exception is: EXCEPTION_FLT_OVERFLOW");
+			else
+				printf("UNKNOWN exception: %x\n", GetExceptionCode());
+		}
+		break;
+	default:
+		break;
+	}
+	return 0;
+}
+
+// Usage manual
+void usage(const _TCHAR *prog) {
+	printf("Usage: \n");
+	_tprintf(_T("\t%s -d\n"), prog);
+	printf("\t\t\t for exception float divide by zero,\n");
+	_tprintf(_T("\t%s -o\n"), prog);
+	printf("\t\t\t for exception float overflow.\n");
+}
+\end{lstlisting}
+
+Таким образом, рассмотрены два способа фильтрации исключений - на уровне входа в блок \_\_except, либо уже непосредственно в обработчике (тогда в \_\_except ставится макро-константа EXCEPTION\_EXECUTE\_HANDLER, позволяющая принимать любые исключения). Далее будет рассмотрен более логичный способ фильтрации исключений специальной функцией.
+
+Запуск под отладчиком позволяет проследить передачу управления через стек вызовов.
+\newpage
+
+%------------------------------------------------
+В листинге 3 представлена функция-фильтр, которая возвращает \\ EXCEPTION\_CONTINUE\_SEARCH только если исключение вызвано \\ EXCEPTION\_FLT\_DIVIDE\_BY\_ZERO или EXCEPTION\_FLT\_OVERFLOW.
+
+\begin{lstlisting}[language=C++, caption={Использование собственной функции фильтра}]
+/*  Task 3.
+	Create your own filter function.
+*/
+
+// IMPORTANT: Don't forget to disable Enhanced Instructions!!!
+// Properties -> Configuration Properties -> C/C++ -> Code Generation ->
+// Enable Enhanced Instruction Set = No Enhanced Instructions (/arch:IA32)
+
+#include <stdio.h>
+#include <tchar.h>
+#include <cstring>
+#include <cfloat>
+#include <cmath>
+#include <excpt.h>
+#include <windows.h>
+
+void usage(const _TCHAR *prog);
+LONG Filter(DWORD dwExceptionGode);
+
+// Task switcher
+enum {
+	DIVIDE_BY_ZERO,
+	FLT_OVERFLOW
+} task;
+
+// Defines the entry point for the console application.
+int _tmain(int argc, _TCHAR* argv[]) {
+	// Check parameters number
+	if (argc != 2) {
+		printf("Too few parameters.\n\n");
+		usage(argv[0]);
+		return 1;
+	}
+
+	// Set task
+	if (!_tcscmp(_T("-d"), argv[1])) {
+		task = DIVIDE_BY_ZERO;
+	}
+	else if (!_tcscmp(_T("-o"), argv[1])) {
+		task = FLT_OVERFLOW;
+	}
+	else {
+		printf("Can't parse parameters.\n\n");
+		usage(argv[0]);
+		return 2;
+	}
+
+	// Floating point exceptions are masked by default.
+	_clearfp();
+	_controlfp_s(NULL, 0, _EM_OVERFLOW | _EM_ZERODIVIDE);
+
+	// Set exception
+	__try {
+		volatile float tmp = 0;
+		switch (task) {
+		case DIVIDE_BY_ZERO:
+			tmp = 1 / tmp;
+			break;
+		case FLT_OVERFLOW:
+			// Note: floating point execution happens asynchronously.
+			// So, the exception will not be handled until the next floating
+			// point instruction.
+			tmp = pow(FLT_MAX, 3);
+			break;
+		default:
+			break;
+		}
+	}
+	// Own filter function.
+	__except (Filter(GetExceptionCode())) {
+		printf("Caught exception is: ");
+		switch (GetExceptionCode()){
+		case EXCEPTION_FLT_DIVIDE_BY_ZERO:
+			printf("EXCEPTION_FLT_DIVIDE_BY_ZERO"); break;
+		case EXCEPTION_FLT_OVERFLOW:
+			printf("EXCEPTION_FLT_OVERFLOW"); break;
+		default:
+			printf("UNKNOWN exception: %x\n", GetExceptionCode()); break;
+		}
+	}
+	return 0;
+}
+
+// Own filter function.
+LONG Filter(DWORD dwExceptionGode) {
+	if (dwExceptionGode == EXCEPTION_FLT_DIVIDE_BY_ZERO ||
+				dwExceptionGode == EXCEPTION_FLT_OVERFLOW)
+		return EXCEPTION_EXECUTE_HANDLER;
+	return EXCEPTION_CONTINUE_SEARCH;
+}
+
+// Usage manual
+void usage(const _TCHAR *prog) {
+	printf("Usage: \n");
+	_tprintf(_T("\t%s -d\n"), prog);
+	printf("\t\t\t for exception float divide by zero,\n");
+	_tprintf(_T("\t%s -o\n"), prog);
+	printf("\t\t\t for exception float overflow.\n");
+}
+\end{lstlisting}
+
+При изучении работы программы под отладчиком, выяснилось что при возникновении исключение не передаётся в то место, где определена функция-фильтр. Вероятно компилятор оптимизирует код и подставляет её целиком на место вызова.
+\newpage
+
+%------------------------------------------------
+Листинг 4 показывает получение информации об исключении из функции \\ GetExceptionInformation, которая, в действительности, никакой информацией не владеет но возвращает указатель на структуру EXCEPTION\_POINTERS. В свою очередь, эта структура содержит два указателя на ExceptionRecord и на ContextRecord, в которых уже находится информация об исключении.
+
+Кроме GetExceptionlnformation, в листинге показан программный вызов исключений при помощи функции RaiseException. Она обладает 4-я параметрами, но наиболее важным является первый, который определяет тип возбуждаемого исключения.
+
+\begin{lstlisting}[language=C++, caption={Программная генерация исключения при помощи функции RaiseException}]
+/*  Task 4.
+	Get information about the exception using the GetExceptionInformation() fnc;
+	throw an exception using the RaiseException() function.
+*/
+
+// IMPORTANT: Don't forget to disable Enhanced Instructions!!!
+// Properties -> Configuration Properties -> C/C++ -> Code Generation ->
+// Enable Enhanced Instruction Set = No Enhanced Instructions (/arch:IA32)
+
+#include <stdio.h>
+#include <tchar.h>
+#include <cstring>
+#include <cfloat>
+#include <cmath>
+#include <excpt.h>
+#include <windows.h>
+
+void usage(const _TCHAR *prog);
+LONG Filter(DWORD dwExceptionGode, const _EXCEPTION_POINTERS *ep);
+
+// Task switcher
+enum {
+	DIVIDE_BY_ZERO,
+	FLT_OVERFLOW
+} task;
+
+// Defines the entry point for the console application.
+int _tmain(int argc, _TCHAR* argv[]) {
+	// Check parameters number
+	if (argc != 2) {
+		printf("Too few parameters.\n\n");
+		usage(argv[0]);
+		return 1;
+	}
+
+	// Set task
+	if (!_tcscmp(_T("-d"), argv[1])) {
+		task = DIVIDE_BY_ZERO;
+	}
+	else if (!_tcscmp(_T("-o"), argv[1])) {
+		task = FLT_OVERFLOW;
+	}
+	else {
+		printf("Can't parse parameters.\n\n");
+		usage(argv[0]);
+		return 2;
+	}
+
+	// Floating point exceptions are masked by default.
+	_clearfp();
+	_controlfp_s(NULL, 0, _EM_OVERFLOW | _EM_ZERODIVIDE);
+
+	__try {
+		switch (task) {
+		case DIVIDE_BY_ZERO:
+			// throw an exception using the RaiseException() function
+			RaiseException(EXCEPTION_FLT_DIVIDE_BY_ZERO, 
+										EXCEPTION_NONCONTINUABLE, 0, NULL);
+			break;
+		case FLT_OVERFLOW:
+			// throw an exception using the RaiseException() function
+			RaiseException(EXCEPTION_FLT_OVERFLOW,
+										EXCEPTION_NONCONTINUABLE, 0, NULL);
+			break;
+		default:
+			break;
+		}
+	}
+	__except (Filter(GetExceptionCode(), GetExceptionInformation())) {
+		// There is nothing to do, everything is done in the filter function.
+	}
+	return 0;
+}
+
+LONG Filter(DWORD dwExceptionGode, 
+							const _EXCEPTION_POINTERS *ExceptionPointers) {
+	enum { size = 200 };
+	char buf[size] = { '\0' };
+	const char* err = "Fatal error!\nexeption code: 0x";
+	const char* mes = "\nProgram terminate!";
+	if (ExceptionPointers)
+	// Get information about the exception using the GetExceptionInformation
+		sprintf_s(buf, "%s%x%s%x%s%x%s", err, 
+				ExceptionPointers->ExceptionRecord->ExceptionCode,
+				", data adress: 0x", 
+				ExceptionPointers->ExceptionRecord->ExceptionInformation[1],
+				", instruction adress: 0x",
+				ExceptionPointers->ExceptionRecord->ExceptionAddress, mes);
+	else
+		sprintf_s(buf, "%s%x%s", err, dwExceptionGode, mes);
+	printf("%s", buf);
+
+	return EXCEPTION_EXECUTE_HANDLER;
+}
+
+// Usage manual
+void usage(const _TCHAR *prog) {
+	printf("Usage: \n");
+	_tprintf(_T("\t%s -d\n"), prog);
+	printf("\t\t\t for exception float divide by zero,\n");
+	_tprintf(_T("\t%s -o\n"), prog);
+	printf("\t\t\t for exception float overflow.\n");
+}
+\end{lstlisting}
+
+Важной особенностью функции GetExceptionlnformation является то, что ее можно вызывать только в функции-фильтре исключений, т.к. структуры CONTEXT, EXCEPTION\_RECORD и EXCEPTION\_POINTERS существуют лишь во время обработки фильтра исключения. В момент, когда управление переходит к обработчику исключений, эти данные в стеке разрушаются.
+\newpage
+
+%------------------------------------------------
+Если ни один из установленных программистом обработчиков не подошла для обработки исключения (либо программист вообще не установил ни один обработчик), то вызывается функция UnhandledExceptionFilter, которая выполняет проверку, запущен ли процесс под отладчиком, и информирует процесс, если отладчик доступен. Далее, функция вызывает фильтр умалчиваемого обработчика (который устанавливается функцией \\ SetUnhandledExceptionFilter и который всегда возвращает EXCEPTION\_EXECUTE\_HANDLER). Затем, в зависимости от настроек операционной системы, вызывается либо отладчик, либо функция NtRaiseHardError, которая отображает сообщение об ошибке. 
+
+Листинг 5 показывает работу с UnhandledExceptionFilter. Этот код лучше запускать под отладчиком, т.к. UnhandledExceptionFilter в конце вызывает EXCEPTION\_CONTINUE\_SEARCH, пытаясь передать управление именно отладчику (или вышестоящему по стеку обработчику, если бы он там был).
+
+\begin{lstlisting}[language=C++, caption={Необработанные исключения}]
+/*  Task 5.
+	Use the UnhandledExceptionFilter and SetUnhandledexceptionfilter
+	for unhandled exceptions;.
+*/
+
+// IMPORTANT: Don't forget to disable Enhanced Instructions!!!
+// Properties -> Configuration Properties -> C/C++ -> Code Generation ->
+// Enable Enhanced Instruction Set = No Enhanced Instructions (/arch:IA32)
+
+#include <stdio.h>
+#include <tchar.h>
+#include <cstring>
+#include <cfloat>
+#include <cmath>
+#include <excpt.h>
+#include <windows.h>
+
+void usage(const _TCHAR *prog);
+LONG WINAPI UnhandledExceptionFilter(
+								const _EXCEPTION_POINTERS *ExceptionInfo);
+
+// Task switcher
+enum {
+	DIVIDE_BY_ZERO,
+	FLT_OVERFLOW
+} task;
+
+// Defines the entry point for the console application.
+int _tmain(int argc, _TCHAR* argv[]) {
+	// Check parameters number
+	if (argc != 2) {
+		printf("Too few parameters.\n\n");
+		usage(argv[0]);
+		return 1;
+	}
+	
+	// Set task
+	if (!_tcscmp(_T("-d"), argv[1])) {
+		task = DIVIDE_BY_ZERO;
+	}
+	else if (!_tcscmp(_T("-o"), argv[1])) {
+		task = FLT_OVERFLOW;
+	}
+	else {
+		printf("Can't parse parameters.\n\n");
+		usage(argv[0]);
+		return 2;
+	}
+
+	// Floating point exceptions are masked by default.
+	_clearfp();
+	_controlfp_s(NULL, 0, _EM_OVERFLOW | _EM_ZERODIVIDE);
+
+	volatile float tmp = 0;
+	SetUnhandledExceptionFilter(UnhandledExceptionFilter);
+
+	switch (task) {
+	case DIVIDE_BY_ZERO:
+		// throw an exception using the RaiseException() function
+		RaiseException(EXCEPTION_FLT_DIVIDE_BY_ZERO,
+											EXCEPTION_EXECUTE_FAULT, 0, NULL);
+		break;
+	case FLT_OVERFLOW:
+		// throw an exception using the RaiseException() function
+		RaiseException(EXCEPTION_FLT_OVERFLOW, 
+											EXCEPTION_EXECUTE_FAULT, 0, NULL);
+		break;
+	default:
+		break;
+	}
+	
+	return 0;
+}
+
+LONG WINAPI UnhandledExceptionFilter(
+							const _EXCEPTION_POINTERS *ExceptionPointers) {
+	enum { size = 200 };
+	char buf[size] = { '\0' };
+	const char* err = "Unhandled exception!\nexeption code : 0x";
+	// Get information about the exception using the GetExceptionInformation
+	sprintf_s(buf, "%s%x%s%x%s%x%s", err,
+					ExceptionPointers->ExceptionRecord->ExceptionCode,
+					", data adress: 0x",
+					ExceptionPointers->ExceptionRecord->ExceptionInformation[1],
+					", instruction adress: 0x",
+					ExceptionPointers->ExceptionRecord->ExceptionAddress);
+	printf("%s", buf);
+	
+	return EXCEPTION_CONTINUE_SEARCH;
+}
+
+// Usage manual
+void usage(const _TCHAR *prog) {
+	printf("Usage: \n");
+	_tprintf(_T("\t%s -d\n"), prog);
+	printf("\t\t\t for exception float divide by zero,\n");
+	_tprintf(_T("\t%s -o\n"), prog);
+	printf("\t\t\t for exception float overflow.\n");
+}
+\end{lstlisting}
+
+При работе с отладчиком, я получал сообщение об ошибке в KernelBase.dll. Возможно, это связано с тем, что я отключил аппаратную поддержку, и какие-то операции выполнялись программно, на уровне ядра.
+
+При запуске без отладчика, исключение долетало до самого верхнего уровня, операционная система сообщала об ошибке и сама предлагала запустить отладчик.
+\newpage
+
+%------------------------------------------------
+Листинг 6 показывает, как происходит передача исключения, в поисках подходящего обработчика. Самым ближайшим (по стеку) обработчиком для исключения, вызванного делением на 0, является обработчик из 29-й строки. Но там стоит ограничение, позволяющее обрабатывать только исключения, вызванные переполнением. В результате обработка этого исключения передаётся в 36-ю строку, хотя этот обработчик дальше по стеку.
+
+\begin{lstlisting}[language=C++, caption={Вложенные исключения}]
+/*  Task 6.
+	Nested exception process;
+*/
+
+// IMPORTANT: Don't forget to disable Enhanced Instructions!!!
+// Properties -> Configuration Properties -> C/C++ -> Code Generation ->
+// Enable Enhanced Instruction Set = No Enhanced Instructions (/arch:IA32)
+
+#include <stdio.h>
+#include <tchar.h>
+#include <cstring>
+#include <cfloat>
+#include <excpt.h>
+#include <windows.h>
+
+void usage(const _TCHAR *prog);
+
+// Defines the entry point for the console application.
+int _tmain(int argc, _TCHAR* argv[]) {
+	// Floating point exceptions are masked by default.
+	_clearfp();
+	_controlfp_s(NULL, 0, _EM_OVERFLOW | _EM_ZERODIVIDE);
+
+	__try {
+		__try {
+			RaiseException(EXCEPTION_FLT_DIVIDE_BY_ZERO,
+									EXCEPTION_NONCONTINUABLE, 0, NULL);
+		}
+		__except ((GetExceptionCode() == EXCEPTION_FLT_OVERFLOW) ?
+			EXCEPTION_EXECUTE_HANDLER :
+								  EXCEPTION_CONTINUE_SEARCH)
+		{
+			printf("Internal handler in action.");
+		}
+	}
+	__except ((GetExceptionCode() == EXCEPTION_FLT_DIVIDE_BY_ZERO) ?
+		EXCEPTION_EXECUTE_HANDLER :
+							  EXCEPTION_CONTINUE_SEARCH)
+	{
+		printf("External handler in action.");
+	}
+	return 0;
+}
+\end{lstlisting}
+
+Запуск отладчика подтвердил ожидаемый результат - поиск подходящего обработчика для исключения происходит снизу вверх. При этом создаётся опасность утечки ресурсов, поэтому желательно обрабатывать исключительные ситуации в месте их возникновения.
+\newpage
+
+%------------------------------------------------
+Использование goto считается дурной практикой по целому ряду причин. В листинге 7, благодаря goto управление со строки 25 передаётся сразу на строку 32. Таким образом осуществляется выход из блока \_\_try без возбуждения и обработки исключения.
+
+\begin{lstlisting}[language=C++, caption={Выход из блока охраняемого кода при помощи goto}]
+/*  Task 7.
+	Get out of the __try block by using the goto;
+*/
+
+// IMPORTANT: Don't forget to disable Enhanced Instructions!!!
+// Properties -> Configuration Properties -> C/C++ -> Code Generation ->
+// Enable Enhanced Instruction Set = No Enhanced Instructions (/arch:IA32)
+
+#include <stdio.h>
+#include <tchar.h>
+#include <cstring>
+#include <cfloat>
+#include <excpt.h>
+#include <windows.h>
+
+void usage(const _TCHAR *prog);
+
+// Defines the entry point for the console application.
+int _tmain(int argc, _TCHAR* argv[]) {
+	// Floating point exceptions are masked by default.
+	_clearfp();
+	_controlfp_s(NULL, 0, _EM_OVERFLOW | _EM_ZERODIVIDE);
+
+	__try {
+		goto OUT_POINT;
+		RaiseException(EXCEPTION_FLT_DIVIDE_BY_ZERO,
+										EXCEPTION_NONCONTINUABLE, 0, NULL);
+	}
+	__except (EXCEPTION_EXECUTE_HANDLER)
+	{
+		printf("Handler in action.");
+	}
+OUT_POINT:
+	printf("A point outside the __try block.");
+	return 0;
+}
+\end{lstlisting}
+
+Использование goto может привести к утечкам памяти в процессе раскрутки стека, в то же время он позволяет сделать переход сразу через несколько участков кода. Таким образом, сфера применения goto достаточно узкая, и требует достаточно чёткого понимания.
+\newpage
+
+%------------------------------------------------
+Листинг 8 похож на листинг 7, но за пределы охраняемого фрейма кода помогает выйти на этот раз \_\_leave. По сути, результат прежний, но этот способ считается более правильным, т.к. не приводит к раскрутке стека.
+
+\begin{lstlisting}[language=C++, caption={Выход из блока охраняемого кода при помощи \_\_leave}]
+/*  Task 8.
+	Get out of the __try block by using the leave;
+*/
+
+// IMPORTANT: Don't forget to disable Enhanced Instructions!!!
+// Properties -> Configuration Properties -> C/C++ -> Code Generation ->
+// Enable Enhanced Instruction Set = No Enhanced Instructions (/arch:IA32)
+
+#include <stdio.h>
+#include <tchar.h>
+#include <cstring>
+#include <cfloat>
+#include <excpt.h>
+#include <windows.h>
+
+void usage(const _TCHAR *prog);
+
+// Defines the entry point for the console application.
+int _tmain(int argc, _TCHAR* argv[]) {
+	// Floating point exceptions are masked by default.
+	_clearfp();
+	_controlfp_s(NULL, 0, _EM_OVERFLOW | _EM_ZERODIVIDE);
+
+	__try {
+		__leave;
+		RaiseException(EXCEPTION_FLT_DIVIDE_BY_ZERO,
+											EXCEPTION_NONCONTINUABLE, 0, NULL);
+	}
+	__except (EXCEPTION_EXECUTE_HANDLER)
+	{
+		printf("Handler in action.");
+	}
+
+	printf("A point outside the __try block.");
+	return 0;
+}
+\end{lstlisting}
+
+Результат использования \_\_leave — переход в конец блока try-finally. После перехода выполняется обработчик завершения. Хотя для получения того же результата можно использовать оператор goto, он (оператор goto) приводит к освобождению стека. Оператор \_\_leave более эффективен, поскольку не вызывает освобождение стека.
+\newpage
+
+%------------------------------------------------
+Листинг 9 показывает встраивание SEH в механизм исключений C/С++. Для этого необходимо включить соответствующие опции в компиляторе (/EHa).
+
+\begin{lstlisting}[language=C++, caption={Трансформация исключений}]
+/*  Task 9.
+	Convert structural exceptions to the C language exceptions,
+	using the translator;
+*/
+
+// IMPORTANT: Don't forget to disable Enhanced Instructions!!!
+// Properties -> Configuration Properties -> C/C++ -> Code Generation ->
+// Enable Enhanced Instruction Set = No Enhanced Instructions (/arch:IA32)
+
+// IMPORTANT: Don't forget to enable SEH!!!
+// Properties -> Configuration Properties -> C/C++ -> Code Generation ->
+// Enable C++ Exceptions = Yes with SEH Exceptions(/ EHa)
+
+#include <stdio.h>
+#include <tchar.h>
+#include <cstring>
+#include <cfloat>
+#include <stdexcept>
+#include <excpt.h>
+#include <windows.h>
+
+void translator(unsigned int u, EXCEPTION_POINTERS* pExp);
+
+// Defines the entry point for the console application.
+int _tmain(int argc, _TCHAR* argv[]) {
+	// Floating point exceptions are masked by default.
+	_clearfp();
+	_controlfp_s(NULL, 0, _EM_OVERFLOW | _EM_ZERODIVIDE);
+
+	try {
+		_set_se_translator(translator);
+		RaiseException(EXCEPTION_FLT_DIVIDE_BY_ZERO,
+										EXCEPTION_NONCONTINUABLE, 0, NULL);
+	}
+	catch (std::overflow_error e) {
+		printf("Error: %s", e.what());
+	}
+	return 0;
+}
+
+void translator(unsigned int u, EXCEPTION_POINTERS* pExp) {
+	if (u == EXCEPTION_FLT_DIVIDE_BY_ZERO)
+		throw std::overflow_error("EXCEPTION_FLT_DIVIDE_BY_ZERO");
+}
+\end{lstlisting}
+
+Если проследить за передачей управления по стеку вызовов, то сразу после возбуждения исключения в 32-й строке, управление передается транслятору, и только после этого в блок catch, где происходит обработка исключения. Этот механизм способен обеспечить взаимодействие SEH с другими языками и системами.
+\newpage
+
+%------------------------------------------------
+В листинге 10 исключение как таковое отсутствует, но есть охраняемый блок кода, и блок \_\_finally, управление в который будет передано в любой ситуации.
+
+\begin{lstlisting}[language=C++, caption={Исполнение кода в блоке \_\_finally}]
+/*  Task 10.
+	Use the final handler finally;
+*/
+
+// IMPORTANT: Don't forget to disable Enhanced Instructions!!!
+// Properties -> Configuration Properties -> C/C++ -> Code Generation ->
+// Enable Enhanced Instruction Set = No Enhanced Instructions (/arch:IA32)
+
+#include <stdio.h>
+#include <tchar.h>
+#include <cfloat>
+#include <excpt.h>
+
+void usage(const _TCHAR *prog);
+
+// Defines the entry point for the console application.
+int _tmain(int argc, _TCHAR* argv[]) {
+	// Floating point exceptions are masked by default.
+	_clearfp();
+	_controlfp_s(NULL, 0, _EM_OVERFLOW | _EM_ZERODIVIDE);
+
+	__try {
+		// No exception
+	}
+	__finally
+	{
+		printf("Thre is no exception, but the handler is called.\n");
+	}
+
+	return 0;
+}
+\end{lstlisting}
+
+Вместо передачи управления обратно в программу, управление передаётся в блок \_\_finally. Похожие механизмы есть в других распространённых языках программирования, они позволяют обеспечить строгие гарантии исключений, и не допустить нахождение объекта в не консестентном состоянии.
+\newpage
+
+%------------------------------------------------
+В листинге 11 сравниваются два механизма из блока \_\_try. Благодаря тому, что управление будет передано блоку \_\_finally в любом случае, оказывается удобно в этом блоке проверять корректность выхода из блока \_\_try (при помощи функции AbnormalTermination), и, в случае необходимости, корректно освобождать захваченные ресурсы.
+
+\begin{lstlisting}[language=C++, caption={Проверка корректности выхода из блока \_\_try}]
+/*  Task 11.
+	Check the correctness of the exit from the __try block using
+	the AbnormalTermination function in the final handler finally.
+*/
+
+// IMPORTANT: Don't forget to disable Enhanced Instructions!!!
+// Properties -> Configuration Properties -> C/C++ -> Code Generation ->
+// Enable Enhanced Instruction Set = No Enhanced Instructions (/arch:IA32)
+
+#include <stdio.h>
+#include <tchar.h>
+#include <cstring>
+#include <cfloat>
+#include <excpt.h>
+#include <windows.h>
+
+void usage(const _TCHAR *prog);
+
+// Defines the entry point for the console application.
+int _tmain(int argc, _TCHAR* argv[]) {
+	// Floating point exceptions are masked by default.
+	_clearfp();
+	_controlfp_s(NULL, 0, _EM_OVERFLOW | _EM_ZERODIVIDE);
+
+	__try {
+		goto OUT_POINT;
+		RaiseException(EXCEPTION_FLT_DIVIDE_BY_ZERO,
+										EXCEPTION_NONCONTINUABLE, 0, NULL);
+	}
+	__finally
+	{
+		if (AbnormalTermination())
+			printf("%s", "Abnormal termination in goto case\n");
+		else
+			printf("%s", "Normal termination  in goto case\n");
+	}
+OUT_POINT:
+	__try {
+		__leave;
+		RaiseException(EXCEPTION_FLT_DIVIDE_BY_ZERO,
+										EXCEPTION_NONCONTINUABLE, 0, NULL);
+	}
+	__finally
+	{
+		if (AbnormalTermination())
+			printf("%s", "Abnormal termination in __leave case");
+		else
+			printf("%s", "Normal termination  in __leave case");
+	}
+	
+	return 0;
+}
+\end{lstlisting}
+
+Функция AbnormalTermination() не в состоянии отследить выход по goto и всё время возвращает результат правильно завершения (как при возбуждении исключения, так и до этого), но она правильно отрабатывает при вызове \_\_leave (вероятно, благодаря тому, что \_\_leave выставляет нужные флаги). Следовательно, если по какой-то причине нужно выйти из защищаемого блока (хотя причина такой необходимости не очевидна) лучше использовать \_\_leave, т.к. с goto больше шансов на утечку ресурсов, захваченных (и не освобождённых) в блоке \_\_try.
+\newpage
+
+%------------------------------------------------
+
+Вывод
+
+\vspace{3em}
+При обработке исключений в С++ используются ключевые слова catch и throw, а сам механизм исключений реализован с использованием SEH. Тем не менее, обработка исключений в С++ и SEH — это разные вещи. Их совместное применение требует внимательного обращения, поскольку обработчики исключений, написанные пользователем и сгенерированные C++, могут взаимодействовать между собой и приводить к нежелательным последствиям. Документация Microsoft рекомендует полностью отказаться от использования обработчиков Windows в прикладных программах на С++ и ограничиться применением в них только обработчиков исключений С++.
+
+\vspace{2em}
+Кроме того, обработчики исключений или завершения Windows не осуществляют вызов деструкторов, что в ряде случаев необходимо для уничтожения экземпляров объектов С++.
+
+\vspace{2em}
+В то же время, наличие таких мощных инструментов как блок \_\_finally, гибкая система фильтрации и извлечение контекста исключения делает их незаменимыми при разработке системного ПО.
+
+\vspace{2em}
+Таким образом, нужно чётко понимать, что механизм SEH и исключения, реализованные на уровня языка C++ это разные инструменты, требующие разного подхода.
+
+\end{document}
