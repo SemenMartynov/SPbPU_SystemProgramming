@@ -1,7 +1,7 @@
 /*  Task 11.
 	Check the correctness of the exit from the __try block using
 	the AbnormalTermination function in the final handler finally.
-*/
+	*/
 
 // IMPORTANT: Don't forget to disable Enhanced Instructions!!!
 // Properties -> Configuration Properties -> C/C++ -> Code Generation ->
@@ -18,47 +18,68 @@
 // log
 FILE* logfile;
 
-void usage(const _TCHAR *prog);
 void initlog(const _TCHAR* prog);
 void closelog();
 void writelog(_TCHAR* format, ...);
 
 // Defines the entry point for the console application.
 int _tmain(int argc, _TCHAR* argv[]) {
+	//Init log
+	initlog(argv[0]);
+
 	// Floating point exceptions are masked by default.
 	_clearfp();
 	_controlfp_s(NULL, 0, _EM_OVERFLOW | _EM_ZERODIVIDE);
 
 	__try {
+		writelog(_T("Call goto"));
 		goto OUT_POINT;
-		RaiseException(EXCEPTION_FLT_DIVIDE_BY_ZERO, EXCEPTION_NONCONTINUABLE, 0, NULL);
+		writelog(_T("Ready for generate DIVIDE_BY_ZERO exception."));
+		RaiseException(EXCEPTION_FLT_DIVIDE_BY_ZERO, 
+			EXCEPTION_NONCONTINUABLE, 0, NULL);
+		writelog(_T("DIVIDE_BY_ZERO exception is generated."));
 	}
 	__finally
 	{
-		if (AbnormalTermination())
-			printf("%s", "Normal termination  in goto case\n"); 
-		else
-			printf("%s", "Abnormal termination in goto case\n");
+		if (AbnormalTermination()) {
+			writelog(_T("%s"), _T("Abnormal termination in goto case."));
+			_tprintf(_T("%s"), _T("Abnormal termination in goto case.\n"));
+		}
+		else {
+			writelog(_T("%s"), _T("Normal termination in goto case."));
+			_tprintf(_T("%s"), _T("Normal termination in goto case.\n"));
+		}
 	}
 OUT_POINT:
+	writelog(_T("A point outside the first __try block."));
+
 	__try {
+		writelog(_T("Call __leave"));
 		__leave;
-		RaiseException(EXCEPTION_FLT_DIVIDE_BY_ZERO, EXCEPTION_NONCONTINUABLE, 0, NULL);
+		writelog(_T("Ready for generate EXCEPTION_FLT_DIVIDE_BY_ZERO exception."));
+		RaiseException(EXCEPTION_FLT_DIVIDE_BY_ZERO,
+			EXCEPTION_NONCONTINUABLE, 0, NULL);
+		writelog(_T("EXCEPTION_FLT_DIVIDE_BY_ZERO exception is generated."));
 	}
 	__finally
 	{
-		if (AbnormalTermination())
-			printf("%s", "Normal termination  in __leave case");
-		else
-			printf("%s", "Abnormal termination in __leave case");
-			
+		if (AbnormalTermination()) {
+			writelog(_T("%s"), _T("Abnormal termination in __leave case."));
+			_tprintf(_T("%s"), _T("Abnormal termination in __leave case.\n"));
+		}
+		else {
+			writelog(_T("%s"), _T("Normal termination in __leave case."));
+			_tprintf(_T("%s"), _T("Normal termination in __leave case.\n"));
+		}
 	}
-	
+	writelog(_T("A point outside the second __try block."));
+
+	closelog();
 	exit(0);
 }
 
 void initlog(const _TCHAR* prog) {
-	_TCHAR logname[30];
+	_TCHAR logname[255];
 	wcscpy_s(logname, prog);
 
 	// replace extension
@@ -72,6 +93,8 @@ void initlog(const _TCHAR* prog) {
 		_wperror(_T("The following error occurred"));
 		exit(1);
 	}
+
+	writelog(_T("%s is starting."), prog);
 }
 
 void closelog() {
@@ -92,7 +115,9 @@ void writelog(_TCHAR* format, ...) {
 	_localtime64_s(&newtime, &long_time);
 
 	// Convert to normal representation. 
-	swprintf_s(buf, _T("[%d/%d/%d %d:%d:%d] "), newtime.tm_mday, newtime.tm_mon + 1, newtime.tm_year + 1900, newtime.tm_hour, newtime.tm_min, newtime.tm_sec);
+	swprintf_s(buf, _T("[%d/%d/%d %d:%d:%d] "), newtime.tm_mday,
+		newtime.tm_mon + 1, newtime.tm_year + 1900, newtime.tm_hour,
+		newtime.tm_min, newtime.tm_sec);
 
 	// Write date and time
 	fwprintf(logfile, _T("%s"), buf);

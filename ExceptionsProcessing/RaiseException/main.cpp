@@ -1,7 +1,7 @@
 /*  Task 4.
 	Get information about the exception using the GetExceptionInformation() fnc;
 	throw an exception using the RaiseException() function.
-*/
+	*/
 
 // IMPORTANT: Don't forget to disable Enhanced Instructions!!!
 // Properties -> Configuration Properties -> C/C++ -> Code Generation ->
@@ -19,7 +19,7 @@
 // log
 FILE* logfile;
 
-void usage(const _TCHAR *prog);
+void usage(const _TCHAR* prog);
 void initlog(const _TCHAR* prog);
 void closelog();
 void writelog(_TCHAR* format, ...);
@@ -33,23 +33,32 @@ enum {
 
 // Defines the entry point for the console application.
 int _tmain(int argc, _TCHAR* argv[]) {
+	//Init log
+	initlog(argv[0]);
+	
 	// Check parameters number
 	if (argc != 2) {
-		printf("Too few parameters.\n\n");
+		_tprintf(_T("Too few parameters.\n\n"));
+		writelog(_T("Too few parameters."));
 		usage(argv[0]);
+		closelog();
 		exit(1);
 	}
 
 	// Set task
 	if (!_tcscmp(_T("-d"), argv[1])) {
 		task = DIVIDE_BY_ZERO;
+		writelog(_T("Task: DIVIDE_BY_ZERO exception."));
 	}
 	else if (!_tcscmp(_T("-o"), argv[1])) {
 		task = FLT_OVERFLOW;
+		writelog(_T("Task: FLT_OVERFLOW exception."));
 	}
 	else {
-		printf("Can't parse parameters.\n\n");
+		_tprintf(_T("Can't parse parameters.\n\n"));
+		writelog(_T("Can't parse parameters."));
 		usage(argv[0]);
+		closelog();
 		exit(1);
 	}
 
@@ -61,13 +70,17 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		switch (task) {
 		case DIVIDE_BY_ZERO:
 			// throw an exception using the RaiseException() function
-			RaiseException(EXCEPTION_FLT_DIVIDE_BY_ZERO, 
-										EXCEPTION_NONCONTINUABLE, 0, NULL);
+			writelog(_T("Ready for generate DIVIDE_BY_ZERO exception."));
+			RaiseException(EXCEPTION_FLT_DIVIDE_BY_ZERO,
+				EXCEPTION_NONCONTINUABLE, 0, NULL);
+			writelog(_T("DIVIDE_BY_ZERO exception is generated."));
 			break;
 		case FLT_OVERFLOW:
 			// throw an exception using the RaiseException() function
+			writelog(_T("Ready for generate FLT_OVERFLOW exception."));
 			RaiseException(EXCEPTION_FLT_OVERFLOW,
-										EXCEPTION_NONCONTINUABLE, 0, NULL);
+				EXCEPTION_NONCONTINUABLE, 0, NULL);
+			writelog(_T("Task: FLT_OVERFLOW exception is generated."));
 			break;
 		default:
 			break;
@@ -76,40 +89,43 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	__except (Filter(GetExceptionCode(), GetExceptionInformation())) {
 		// There is nothing to do, everything is done in the filter function.
 	}
+	closelog();
 	exit(0);
 }
 
 LONG Filter(DWORD dwExceptionGode, const _EXCEPTION_POINTERS *ExceptionPointers) {
 	enum { size = 200 };
-	char buf[size] = { '\0' };
-	const char* err = "Fatal error!\nexeption code: 0x";
-	const char* mes = "\nProgram terminate!";
+	_TCHAR buf[size] = { '\0' };
+	const _TCHAR* err = _T("Fatal error!\nexeption code: 0x");
+	const _TCHAR* mes = _T("\nProgram terminate!");
 	if (ExceptionPointers)
 		// Get information about the exception using the GetExceptionInformation
-		sprintf_s(buf, "%s%x%s%x%s%x%s", err, 
-						ExceptionPointers->ExceptionRecord->ExceptionCode,
-						", data adress: 0x", 
-						ExceptionPointers->ExceptionRecord->ExceptionInformation[1],
-						", instruction adress: 0x",
-						ExceptionPointers->ExceptionRecord->ExceptionAddress, mes);
+		swprintf_s(buf, _T("%s%x%s%x%s%x"), err,
+		ExceptionPointers->ExceptionRecord->ExceptionCode,
+		_T(", data adress: 0x"),
+		ExceptionPointers->ExceptionRecord->ExceptionInformation[1],
+		_T(", instruction adress: 0x"),
+		ExceptionPointers->ExceptionRecord->ExceptionAddress, mes);
 	else
-		sprintf_s(buf, "%s%x%s", err, dwExceptionGode, mes);
-	printf("%s", buf);
+		swprintf_s(buf, _T("%s%x%s"), err, dwExceptionGode, mes);
+	
+	_tprintf(_T("%s"), buf);
+	writelog(_T("%s"), buf);
 
 	return EXCEPTION_EXECUTE_HANDLER;
 }
 
 // Usage manual
-void usage(const _TCHAR *prog) {
-	printf("Usage: \n");
+void usage(const _TCHAR* prog) {
+	_tprintf(_T("Usage: \n"));
 	_tprintf(_T("\t%s -d\n"), prog);
-	printf("\t\t\t for exception float divide by zero,\n");
+	_tprintf(_T("\t\t\t for exception float divide by zero,\n"));
 	_tprintf(_T("\t%s -o\n"), prog);
-	printf("\t\t\t for exception float overflow.\n");
+	_tprintf(_T("\t\t\t for exception float overflow.\n"));
 }
 
 void initlog(const _TCHAR* prog) {
-	_TCHAR logname[30];
+	_TCHAR logname[255];
 	wcscpy_s(logname, prog);
 
 	// replace extension
@@ -123,6 +139,8 @@ void initlog(const _TCHAR* prog) {
 		_wperror(_T("The following error occurred"));
 		exit(1);
 	}
+
+	writelog(_T("%s is starting."), prog);
 }
 
 void closelog() {
@@ -143,7 +161,9 @@ void writelog(_TCHAR* format, ...) {
 	_localtime64_s(&newtime, &long_time);
 
 	// Convert to normal representation. 
-	swprintf_s(buf, _T("[%d/%d/%d %d:%d:%d] "), newtime.tm_mday, newtime.tm_mon + 1, newtime.tm_year + 1900, newtime.tm_hour, newtime.tm_min, newtime.tm_sec);
+	swprintf_s(buf, _T("[%d/%d/%d %d:%d:%d] "), newtime.tm_mday,
+		newtime.tm_mon + 1, newtime.tm_year + 1900, newtime.tm_hour,
+		newtime.tm_min, newtime.tm_sec);
 
 	// Write date and time
 	fwprintf(logfile, _T("%s"), buf);

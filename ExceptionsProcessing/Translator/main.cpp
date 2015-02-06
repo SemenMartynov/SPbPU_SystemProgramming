@@ -1,7 +1,7 @@
 /*  Task 9.
 	Convert structural exceptions to the C language exceptions,
 	using the translator;
-*/
+	*/
 
 // IMPORTANT: Don't forget to disable Enhanced Instructions!!!
 // Properties -> Configuration Properties -> C/C++ -> Code Generation ->
@@ -29,29 +29,51 @@ void writelog(_TCHAR* format, ...);
 
 void translator(unsigned int u, EXCEPTION_POINTERS* pExp);
 
+// My exception
+class translator_exception {
+public:
+	translator_exception(const wchar_t* str) {
+		wcsncpy_s(buf, sizeof(buf), str, sizeof(buf));
+	}
+	const wchar_t* what() { return buf; }
+private:
+	wchar_t buf[255];
+};
+
 // Defines the entry point for the console application.
 int _tmain(int argc, _TCHAR* argv[]) {
+	//Init log
+	initlog(argv[0]);
+
 	// Floating point exceptions are masked by default.
 	_clearfp();
 	_controlfp_s(NULL, 0, _EM_OVERFLOW | _EM_ZERODIVIDE);
 
 	try {
+		writelog(_T("Ready for translator ativation."));
 		_set_se_translator(translator);
-		RaiseException(EXCEPTION_FLT_DIVIDE_BY_ZERO, EXCEPTION_NONCONTINUABLE, 0, NULL);
+		writelog(_T("Ready for generate DIVIDE_BY_ZERO exception."));
+		RaiseException(EXCEPTION_FLT_DIVIDE_BY_ZERO,
+			EXCEPTION_NONCONTINUABLE, 0, NULL);
+		writelog(_T("DIVIDE_BY_ZERO exception is generated."));
 	}
-	catch (std::overflow_error e) {
-		printf("Error: %s", e.what());
+	catch (translator_exception &e) {
+		_tprintf(_T("CPP exception: %s"), e.what());
+		writelog(_T("CPP exception: %s"), e.what());
 	}
+
+	closelog();
 	exit(0);
 }
 
 void translator(unsigned int u, EXCEPTION_POINTERS* pExp) {
+	writelog(_T("Translator in action."));
 	if (u == EXCEPTION_FLT_DIVIDE_BY_ZERO)
-		throw std::overflow_error("EXCEPTION_FLT_DIVIDE_BY_ZERO");
+		throw translator_exception(_T("EXCEPTION_FLT_DIVIDE_BY_ZERO"));
 }
 
 void initlog(const _TCHAR* prog) {
-	_TCHAR logname[30];
+	_TCHAR logname[255];
 	wcscpy_s(logname, prog);
 
 	// replace extension
@@ -65,6 +87,8 @@ void initlog(const _TCHAR* prog) {
 		_wperror(_T("The following error occurred"));
 		exit(1);
 	}
+
+	writelog(_T("%s is starting."), prog);
 }
 
 void closelog() {
@@ -85,7 +109,9 @@ void writelog(_TCHAR* format, ...) {
 	_localtime64_s(&newtime, &long_time);
 
 	// Convert to normal representation. 
-	swprintf_s(buf, _T("[%d/%d/%d %d:%d:%d] "), newtime.tm_mday, newtime.tm_mon + 1, newtime.tm_year + 1900, newtime.tm_hour, newtime.tm_min, newtime.tm_sec);
+	swprintf_s(buf, _T("[%d/%d/%d %d:%d:%d] "), newtime.tm_mday,
+		newtime.tm_mon + 1, newtime.tm_year + 1900, newtime.tm_hour,
+		newtime.tm_min, newtime.tm_sec);
 
 	// Write date and time
 	fwprintf(logfile, _T("%s"), buf);

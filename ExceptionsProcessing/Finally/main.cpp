@@ -1,6 +1,6 @@
 /*  Task 10.
 	Use the final handler finally;
-*/
+	*/
 
 // IMPORTANT: Don't forget to disable Enhanced Instructions!!!
 // Properties -> Configuration Properties -> C/C++ -> Code Generation ->
@@ -16,30 +16,35 @@
 // log
 FILE* logfile;
 
-void usage(const _TCHAR *prog);
 void initlog(const _TCHAR* prog);
 void closelog();
 void writelog(_TCHAR* format, ...);
 
 // Defines the entry point for the console application.
 int _tmain(int argc, _TCHAR* argv[]) {
+	//Init log
+	initlog(argv[0]);
+
 	// Floating point exceptions are masked by default.
 	_clearfp();
 	_controlfp_s(NULL, 0, _EM_OVERFLOW | _EM_ZERODIVIDE);
 
 	__try {
 		// No exception
+		writelog(_T("Try block."));
 	}
 	__finally
 	{
-		printf("Thre is no exception, but the handler is called.\n");
+		writelog(_T("Thre is no exception, but the handler is called."));
+		_tprintf(_T("Thre is no exception, but the handler is called."));
 	}
 
+	closelog();
 	exit(0);
 }
 
 void initlog(const _TCHAR* prog) {
-	_TCHAR logname[30];
+	_TCHAR logname[255];
 	wcscpy_s(logname, prog);
 
 	// replace extension
@@ -53,6 +58,8 @@ void initlog(const _TCHAR* prog) {
 		_wperror(_T("The following error occurred"));
 		exit(1);
 	}
+
+	writelog(_T("%s is starting."), prog);
 }
 
 void closelog() {
@@ -73,7 +80,9 @@ void writelog(_TCHAR* format, ...) {
 	_localtime64_s(&newtime, &long_time);
 
 	// Convert to normal representation. 
-	swprintf_s(buf, _T("[%d/%d/%d %d:%d:%d] "), newtime.tm_mday, newtime.tm_mon + 1, newtime.tm_year + 1900, newtime.tm_hour, newtime.tm_min, newtime.tm_sec);
+	swprintf_s(buf, _T("[%d/%d/%d %d:%d:%d] "), newtime.tm_mday,
+		newtime.tm_mon + 1, newtime.tm_year + 1900, newtime.tm_hour,
+		newtime.tm_min, newtime.tm_sec);
 
 	// Write date and time
 	fwprintf(logfile, _T("%s"), buf);
