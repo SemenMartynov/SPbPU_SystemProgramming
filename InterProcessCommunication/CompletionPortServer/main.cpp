@@ -1,4 +1,4 @@
-#include <winsock2.h>
+п»ї#include <winsock2.h>
 #include <windows.h>
 #include <stdio.h>
 
@@ -36,15 +36,15 @@ void WorkingThread(HANDLE iocp)
 	while (1)
 	{
 		if (!GetQueuedCompletionStatus(
-			// хендл порта, к пулу которого следует подключиться
+			// С…РµРЅРґР» РїРѕСЂС‚Р°, Рє РїСѓР»Сѓ РєРѕС‚РѕСЂРѕРіРѕ СЃР»РµРґСѓРµС‚ РїРѕРґРєР»СЋС‡РёС‚СЊСЃСЏ
 			iocp,
-			// количество переданных байт
+			// РєРѕР»РёС‡РµСЃС‚РІРѕ РїРµСЂРµРґР°РЅРЅС‹С… Р±Р°Р№С‚
 			&Bytes,
-			// указатель на ключ завершения
+			// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РєР»СЋС‡ Р·Р°РІРµСЂС€РµРЅРёСЏ
 			(PULONG_PTR)&user,
-			// указатель на OVERLAPPED, ассоциированную с IO-транзакцией
+			// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° OVERLAPPED, Р°СЃСЃРѕС†РёРёСЂРѕРІР°РЅРЅСѓСЋ СЃ IO-С‚СЂР°РЅР·Р°РєС†РёРµР№
 			(LPOVERLAPPED *)&io,
-			// время, на которое поток может уснуть
+			// РІСЂРµРјСЏ, РЅР° РєРѕС‚РѕСЂРѕРµ РїРѕС‚РѕРє РјРѕР¶РµС‚ СѓСЃРЅСѓС‚СЊ
 			INFINITE))
 			//error
 			break;
@@ -97,25 +97,25 @@ int main(int argc, char * argv[])
 	bind(listensocket, (SOCKADDR *)&listenaddr, sizeof(listenaddr));
 	listen(listensocket, 5);
 
-	// создать новый объект порта завершения
+	// СЃРѕР·РґР°С‚СЊ РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚ РїРѕСЂС‚Р° Р·Р°РІРµСЂС€РµРЅРёСЏ
 	iocp = CreateIoCompletionPort(
-		INVALID_HANDLE_VALUE, // аргумент означает новый порт
-		0, 0, // всегда 0
-		0); // кол-во потоков для порта одновременно (по умолчанию кол-во CPU)
+		INVALID_HANDLE_VALUE, // Р°СЂРіСѓРјРµРЅС‚ РѕР·РЅР°С‡Р°РµС‚ РЅРѕРІС‹Р№ РїРѕСЂС‚
+		0, 0, // РІСЃРµРіРґР° 0
+		0); // РєРѕР»-РІРѕ РїРѕС‚РѕРєРѕРІ РґР»СЏ РїРѕСЂС‚Р° РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕ (РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РєРѕР»-РІРѕ CPU)
 	if (!iocp)
 	{
 		printf("Can't create IOCP: error %d", GetLastError());
 		return 0;
 	}
 
-	// Кол-во потоков в пуле
+	// РљРѕР»-РІРѕ РїРѕС‚РѕРєРѕРІ РІ РїСѓР»Рµ
 	for (i = 1; i <= 2; ++i)
 	{
 		HANDLE thr = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)&WorkingThread, (LPVOID)iocp, 0, 0);
 		CloseHandle(thr);
 	}
 
-	// Клиент
+	// РљР»РёРµРЅС‚
 	while (1)
 	{
 		SOCKET clientsocket;
@@ -129,7 +129,7 @@ int main(int argc, char * argv[])
 		memset(user, 0, sizeof(USER_DATA));
 		memset(io, 0, sizeof(USER_IO));
 
-		// возвращает нам сокет клиента, в который можно писать и читать
+		// РІРѕР·РІСЂР°С‰Р°РµС‚ РЅР°Рј СЃРѕРєРµС‚ РєР»РёРµРЅС‚Р°, РІ РєРѕС‚РѕСЂС‹Р№ РјРѕР¶РЅРѕ РїРёСЃР°С‚СЊ Рё С‡РёС‚Р°С‚СЊ
 		clientsocket = WSAAccept(listensocket, (SOCKADDR *)&clientaddr, &clientsize, 0, 0);
 		printf("Accepted new client %d.\n", clientsocket);
 
@@ -140,7 +140,7 @@ int main(int argc, char * argv[])
 		io->buf.len = 19;
 		io->optype = SEND_DONE;
 
-		// связываем дескрипторы сокета и порта
+		// СЃРІСЏР·С‹РІР°РµРј РґРµСЃРєСЂРёРїС‚РѕСЂС‹ СЃРѕРєРµС‚Р° Рё РїРѕСЂС‚Р°
 		CreateIoCompletionPort((HANDLE)clientsocket, iocp, (ULONG_PTR)user, 0);
 
 		//sending welcome message to the client

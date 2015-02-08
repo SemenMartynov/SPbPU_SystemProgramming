@@ -2,13 +2,13 @@
 #include <stdio.h>
 int main(int argc, char* argv[])
 {
-	//дескрипторы канала для передачи от сервера клиенту
+	//РґРµСЃРєСЂРёРїС‚РѕСЂС‹ РєР°РЅР°Р»Р° РґР»СЏ РїРµСЂРµРґР°С‡Рё РѕС‚ СЃРµСЂРІРµСЂР° РєР»РёРµРЅС‚Сѓ
 	HANDLE hReadPipeFromServToClient, hWritePipeFromServToClient;
-	//дескрипторы канала для передачи от сервера клиенту
+	//РґРµСЃРєСЂРёРїС‚РѕСЂС‹ РєР°РЅР°Р»Р° РґР»СЏ РїРµСЂРµРґР°С‡Рё РѕС‚ СЃРµСЂРІРµСЂР° РєР»РёРµРЅС‚Сѓ
 	HANDLE hReadPipeFromClientToServ, hWritePipeFromClientToServ;
 
-	//чтобы сделать дескрипторы наследуемыми
-	//создаем канал для передачи от сервера клиенту, сразу делаем дескрипторы наследуемыми
+	//С‡С‚РѕР±С‹ СЃРґРµР»Р°С‚СЊ РґРµСЃРєСЂРёРїС‚РѕСЂС‹ РЅР°СЃР»РµРґСѓРµРјС‹РјРё
+	//СЃРѕР·РґР°РµРј РєР°РЅР°Р» РґР»СЏ РїРµСЂРµРґР°С‡Рё РѕС‚ СЃРµСЂРІРµСЂР° РєР»РёРµРЅС‚Сѓ, СЃСЂР°Р·Сѓ РґРµР»Р°РµРј РґРµСЃРєСЂРёРїС‚РѕСЂС‹ РЅР°СЃР»РµРґСѓРµРјС‹РјРё
 	SECURITY_ATTRIBUTES PipeSA = { sizeof(SECURITY_ATTRIBUTES), NULL, TRUE };
 	if (CreatePipe(&hReadPipeFromServToClient, &hWritePipeFromServToClient, &PipeSA, 0) == 0)
 	{
@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
 		getchar();
 		return 1000;
 	}
-	//создаем канал для передачи от клиента серверу, сразу делаем дескрипторы наследуемыми
+	//СЃРѕР·РґР°РµРј РєР°РЅР°Р» РґР»СЏ РїРµСЂРµРґР°С‡Рё РѕС‚ РєР»РёРµРЅС‚Р° СЃРµСЂРІРµСЂСѓ, СЃСЂР°Р·Сѓ РґРµР»Р°РµРј РґРµСЃРєСЂРёРїС‚РѕСЂС‹ РЅР°СЃР»РµРґСѓРµРјС‹РјРё
 	if (CreatePipe(&hReadPipeFromClientToServ, &hWritePipeFromClientToServ, &PipeSA, 0) == 0)
 	{
 		printf("impossible to create anonymous pipe from client to serv\n");
@@ -24,39 +24,38 @@ int main(int argc, char* argv[])
 		return 1001;
 	}
 
-	PROCESS_INFORMATION processInfo_Client; // информация о процессе-клиенте
-	//структура, которая описывает внешний вид основного
-	//окна и содержит дескрипторы стандартных устройств нового процесса, используем для установки
-	STARTUPINFOA startupInfo_Client;
-	
-	//процесс-клиент будет иметь те же параметры запуска, что и сервер, за исключением
-	//дескрипторов ввода, вывода и ошибок
-	GetStartupInfoA(&startupInfo_Client);
+	PROCESS_INFORMATION processInfo_Client; // РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ РїСЂРѕС†РµСЃСЃРµ-РєР»РёРµРЅС‚Рµ
+	STARTUPINFO startupInfo_Client;
+	//СЃС‚СЂСѓРєС‚СѓСЂР°, РєРѕС‚РѕСЂР°СЏ РѕРїРёСЃС‹РІР°РµС‚ РІРЅРµС€РЅРёР№ РІРёРґ РѕСЃРЅРѕРІРЅРѕРіРѕ
+	//РѕРєРЅР° Рё СЃРѕРґРµСЂР¶РёС‚ РґРµСЃРєСЂРёРїС‚РѕСЂС‹ СЃС‚Р°РЅРґР°СЂС‚РЅС‹С… СѓСЃС‚СЂРѕР№СЃС‚РІ РЅРѕРІРѕРіРѕ РїСЂРѕС†РµСЃСЃР°, РёСЃРїРѕР»СЊР·СѓРµРј РґР»СЏ СѓСЃС‚Р°РЅРѕРІРєРё
+	//РїСЂРѕС†РµСЃСЃ-РєР»РёРµРЅС‚ Р±СѓРґРµС‚ РёРјРµС‚СЊ С‚Рµ Р¶Рµ РїР°СЂР°РјРµС‚СЂС‹ Р·Р°РїСѓСЃРєР°, С‡С‚Рѕ Рё СЃРµСЂРІРµСЂ, Р·Р° РёСЃРєР»СЋС‡РµРЅРёРµРј
+	//РґРµСЃРєСЂРёРїС‚РѕСЂРѕРІ РІРІРѕРґР°, РІС‹РІРѕРґР° Рё РѕС€РёР±РѕРє
+	GetStartupInfo(&startupInfo_Client);
 	startupInfo_Client.hStdInput = hReadPipeFromServToClient;
-	//устанавливаем поток ввода
+	//СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РїРѕС‚РѕРє РІРІРѕРґР°
 	startupInfo_Client.hStdOutput = hWritePipeFromClientToServ;
-	//установим поток вывода
+	//СѓСЃС‚Р°РЅРѕРІРёРј РїРѕС‚РѕРє РІС‹РІРѕРґР°
 	startupInfo_Client.hStdError = GetStdHandle(STD_ERROR_HANDLE);
-	//установим поток ошибок
-	startupInfo_Client.dwFlags = STARTF_USESTDHANDLES; //устанавливаем наследование
-	//создаем процесс клиента
-	CreateProcessA(NULL, "AnonymousPipeClient.exe", NULL,
+	//СѓСЃС‚Р°РЅРѕРІРёРј РїРѕС‚РѕРє РѕС€РёР±РѕРє
+	startupInfo_Client.dwFlags = STARTF_USESTDHANDLES; //СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РЅР°СЃР»РµРґРѕРІР°РЅРёРµ
+	//СЃРѕР·РґР°РµРј РїСЂРѕС†РµСЃСЃ РєР»РёРµРЅС‚Р°
+	CreateProcess(NULL, L"..\\..\\anonymousPipesSonProc\\Release\\anonymousPipesSonProc.exe", NULL,
 		NULL, TRUE, CREATE_NEW_CONSOLE, NULL, NULL,
 		&startupInfo_Client, &processInfo_Client);
-	//закрываем дескрипторы созданного процесса и его потока
-	CloseHandle(processInfo_Client.hThread);
+	CloseHandle(processInfo_Client.hThread); //Р·Р°РєСЂС‹РІР°РµРј РґРµСЃРєСЂРёРїС‚РѕСЂС‹ СЃРѕР·РґР°РЅРЅРѕРіРѕ РїСЂРѕС†РµСЃСЃР° Рё РµРіРѕ
+	//РїРѕС‚РѕРєР°
 	CloseHandle(processInfo_Client.hProcess);
-	//закрываем ненужные дескрипторы каналов, которые не использует сервер
+	//Р·Р°РєСЂС‹РІР°РµРј РЅРµРЅСѓР¶РЅС‹Рµ РґРµСЃРєСЂРёРїС‚РѕСЂС‹ РєР°РЅР°Р»РѕРІ, РєРѕС‚РѕСЂС‹Рµ РЅРµ РёСЃРїРѕР»СЊР·СѓРµС‚ СЃРµСЂРІРµСЂ
 	CloseHandle(hReadPipeFromServToClient);
 	CloseHandle(hWritePipeFromClientToServ);
 #define BUF_SIZE 100
-	//размер буфера для сообщений
+	//СЂР°Р·РјРµСЂ Р±СѓС„РµСЂР° РґР»СЏ СЃРѕРѕР±С‰РµРЅРёР№
 	BYTE buf[BUF_SIZE];
-	//буфер приема/передачи
-	DWORD readbytes, writebytes; //число прочитанных/переданных байт
+	//Р±СѓС„РµСЂ РїСЂРёРµРјР°/РїРµСЂРµРґР°С‡Рё
+	DWORD readbytes, writebytes; //С‡РёСЃР»Рѕ РїСЂРѕС‡РёС‚Р°РЅРЅС‹С…/РїРµСЂРµРґР°РЅРЅС‹С… Р±Р°Р№С‚
 	for (int i = 0; i < 10; i++)
 	{
-		//читаем данные из канала от клиента
+		//С‡РёС‚Р°РµРј РґР°РЅРЅС‹Рµ РёР· РєР°РЅР°Р»Р° РѕС‚ РєР»РёРµРЅС‚Р°
 		if (!ReadFile(hReadPipeFromClientToServ, buf, BUF_SIZE, &readbytes, NULL))
 		{
 			printf("impossible to use readfile\n GetLastError= %d\n", GetLastError());
@@ -70,9 +69,9 @@ int main(int argc, char* argv[])
 			getchar();
 			return 10001;
 		}
-		//пишем данные в канал клиенту
+		//РїРёС€РµРј РґР°РЅРЅС‹Рµ РІ РєР°РЅР°Р» РєР»РёРµРЅС‚Сѓ
 	}
-	//закрываем HANDLE каналов
+	//Р·Р°РєСЂС‹РІР°РµРј HANDLE РєР°РЅР°Р»РѕРІ
 	CloseHandle(hReadPipeFromClientToServ);
 	CloseHandle(hWritePipeFromServToClient);
 	printf("server ended work\n Press any key");

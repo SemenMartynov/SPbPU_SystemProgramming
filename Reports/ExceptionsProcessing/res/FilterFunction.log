@@ -1,0 +1,12 @@
+[6/2/2015 16:45:29] C:\Users\win7\Documents\Visual Studio 2013\Projects\ExceptionsProcessing\Debug\FilterFunction.exe is starting.
+[6/2/2015 16:45:29] Task: DIVIDE_BY_ZERO exception.
+[6/2/2015 16:45:29] Ready for generate DIVIDE_BY_ZERO exception.
+[6/2/2015 16:45:29] Caught exception is: EXCEPTION_FLT_DIVIDE_BY_ZERO
+[6/2/2015 16:45:29] Shutting down.
+
+[6/2/2015 16:45:34] C:\Users\win7\Documents\Visual Studio 2013\Projects\ExceptionsProcessing\Debug\FilterFunction.exe is starting.
+[6/2/2015 16:45:34] Task: FLT_OVERFLOW exception.
+[6/2/2015 16:45:34] Ready for generate FLT_OVERFLOW exception.
+[6/2/2015 16:45:34] Caught exception is: EXCEPTION_FLT_OVERFLOW
+[6/2/2015 16:45:34] Shutting down.
+

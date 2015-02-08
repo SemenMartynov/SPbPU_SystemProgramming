@@ -1,0 +1,9 @@
+[6/2/2015 19:58:19] C:\Users\win7\Documents\Visual Studio 2013\Projects\ExceptionsProcessing\Debug\AbnormalTermination.exe is starting.
+[6/2/2015 19:58:19] Call goto
+[6/2/2015 19:58:19] Abnormal termination in goto case.
+[6/2/2015 19:58:19] A point outside the first __try block.
+[6/2/2015 19:58:19] Call __leave
+[6/2/2015 19:58:19] Normal termination in __leave case.
+[6/2/2015 19:58:19] A point outside the second __try block.
+[6/2/2015 19:58:19] Shutting down.
+

@@ -1,0 +1,7 @@
+[6/2/2015 19:33:15] C:\Users\win7\Documents\Visual Studio 2013\Projects\ExceptionsProcessing\Debug\Translator.exe is starting.
+[6/2/2015 19:33:15] Ready for translator ativation.
+[6/2/2015 19:33:15] Ready for generate DIVIDE_BY_ZERO exception.
+[6/2/2015 19:33:15] Translator in action.
+[6/2/2015 19:33:15] CPP exception: EXCEPTION_FLT_DIVIDE_BY_ZERO
+[6/2/2015 19:33:15] Shutting down.
+

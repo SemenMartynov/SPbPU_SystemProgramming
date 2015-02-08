@@ -2,28 +2,28 @@
 #include <Windows.h>
 int main(int argc, char* argv[])
 {
-	//строка для передачи
+	//СЃС‚СЂРѕРєР° РґР»СЏ РїРµСЂРµРґР°С‡Рё
 	char strtosend[100];
-	//буфер приема
+	//Р±СѓС„РµСЂ РїСЂРёРµРјР°
 	char getbuf[100];
-	//число переданных и принятых байт
+	//С‡РёСЃР»Рѕ РїРµСЂРµРґР°РЅРЅС‹С… Рё РїСЂРёРЅСЏС‚С‹С… Р±Р°Р№С‚
 	DWORD bytessended, bytesreaded;
 	
 	for (int i = 0; i < 10; i++)
 	{
-		//формирование строки для передачи
+		//С„РѕСЂРјРёСЂРѕРІР°РЅРёРµ СЃС‚СЂРѕРєРё РґР»СЏ РїРµСЂРµРґР°С‡Рё
 		bytessended = sprintf_s(strtosend, "message num %d", i + 1);
 		strtosend[bytessended] = 0;
 		fprintf(stderr, "client sended: \"%s\"\n", strtosend);
 		if (!WriteFile(GetStdHandle(STD_OUTPUT_HANDLE), strtosend, bytessended + 1, &bytesreaded, NULL)
-			) //передача данных
+			) //РїРµСЂРµРґР°С‡Р° РґР°РЅРЅС‹С…
 		{
 			fprintf(stderr, "Error with writeFile\n Wait 5 sec GetLastError=%d\n", GetLastError());
 			Sleep(5000);
 			return 1000;
 		}
 		if (!ReadFile(GetStdHandle(STD_INPUT_HANDLE), getbuf, 100, &bytesreaded, NULL))
-			//прием ответа от сервера
+			//РїСЂРёРµРј РѕС‚РІРµС‚Р° РѕС‚ СЃРµСЂРІРµСЂР°
 		{
 			fprintf(stderr, "Error with readFile\n Wait 5 sec GetLastError=%d\n", GetLastError());
 			Sleep(5000);
@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 		}
 		fprintf(stderr, "Get msg from server: \"%s\"\n", getbuf);
 	}
-	fprintf(stderr, "client ended work\n");
-	getchar();
+	fprintf(stderr, "client ended work\n Wait 5 sec");
+	Sleep(5000);
 	return 0;
 }

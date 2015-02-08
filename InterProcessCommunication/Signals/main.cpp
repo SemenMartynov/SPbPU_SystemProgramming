@@ -1,4 +1,4 @@
-#include <windows.h>
+п»ї#include <windows.h>
 #include <stdio.h>
 #include <iostream>
 
@@ -11,7 +11,7 @@ BOOL CtrlHandler(DWORD fdwCtrlType)
 		return EXIT_FAILURE;
 	}
 
-	switch (fdwCtrlType) //тип сигнала
+	switch (fdwCtrlType) //С‚РёРї СЃРёРіРЅР°Р»Р°
 	{
 	// Handle the CTRL-C signal.
 	case CTRL_C_EVENT:

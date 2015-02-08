@@ -1,4 +1,4 @@
-#include <windows.h>
+п»ї#include <windows.h>
 #include <stdio.h>
 #include <conio.h>
 #define BUF_SIZE 256
@@ -21,26 +21,26 @@ void main()
 		printf("OpenMutex error: %d\n", GetLastError());
 	else printf("OpenMutex successfully opened the mutex.\n");
 	hMapFile = OpenFileMapping(
-		// доступ к чтению/записи
+		// РґРѕСЃС‚СѓРї Рє С‡С‚РµРЅРёСЋ/Р·Р°РїРёСЃРё
 		FILE_MAP_ALL_ACCESS,
-		// имя не наследуется
+		// РёРјСЏ РЅРµ РЅР°СЃР»РµРґСѓРµС‚СЃСЏ
 		FALSE,
-		// имя "проецируемого " объекта
+		// РёРјСЏ "РїСЂРѕРµС†РёСЂСѓРµРјРѕРіРѕ " РѕР±СЉРµРєС‚Р°
 		szName);
 	if (hMapFile == NULL)
 	{
-		printf("Невозможно открыть объект проекция файла (%d).\n", GetLastError());
+		printf("РќРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ РѕР±СЉРµРєС‚ РїСЂРѕРµРєС†РёСЏ С„Р°Р№Р»Р° (%d).\n", GetLastError());
 		return;
 	}
 	pBuf = (LPTSTR)MapViewOfFile(hMapFile,
-		// дескриптор "проецируемого" объекта
-		FILE_MAP_ALL_ACCESS, // разрешение чтения/записи
+		// РґРµСЃРєСЂРёРїС‚РѕСЂ "РїСЂРѕРµС†РёСЂСѓРµРјРѕРіРѕ" РѕР±СЉРµРєС‚Р°
+		FILE_MAP_ALL_ACCESS, // СЂР°Р·СЂРµС€РµРЅРёРµ С‡С‚РµРЅРёСЏ/Р·Р°РїРёСЃРё
 		0,
 		0,
 		BUF_SIZE);
 	if (pBuf == NULL)
 	{
-		printf("Представление проецированного файла (%d) невозможно .\n",
+		printf("РџСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РїСЂРѕРµС†РёСЂРѕРІР°РЅРЅРѕРіРѕ С„Р°Р№Р»Р° (%d) РЅРµРІРѕР·РјРѕР¶РЅРѕ .\n",
 			GetLastError());
 		return;
 	}

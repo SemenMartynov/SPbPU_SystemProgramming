@@ -1,4 +1,4 @@
-// http://navendus.tripod.com
+﻿// http://navendus.tripod.com
 
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <winsock2.h>

@@ -1,0 +1,16 @@
+[6/2/2015 15:32:58] C:\Users\win7\Documents\Visual Studio 2013\Projects\ExceptionsProcessing\Debug\WinAPI.exe is starting.
+[6/2/2015 15:32:58] Too few parameters.
+[6/2/2015 15:32:58] Shutting down.
+
+[6/2/2015 15:33:5] C:\Users\win7\Documents\Visual Studio 2013\Projects\ExceptionsProcessing\Debug\WinAPI.exe is starting.
+[6/2/2015 15:33:5] Task: DIVIDE_BY_ZERO exception.
+[6/2/2015 15:33:5] Ready for generate DIVIDE_BY_ZERO exception.
+[6/2/2015 15:33:5] Exception is caught.
+[6/2/2015 15:33:5] Shutting down.
+
+[6/2/2015 15:33:10] C:\Users\win7\Documents\Visual Studio 2013\Projects\ExceptionsProcessing\Debug\WinAPI.exe is starting.
+[6/2/2015 15:33:10] Task: FLT_OVERFLOW exception.
+[6/2/2015 15:33:10] Ready for generate FLT_OVERFLOW exception.
+[6/2/2015 15:33:10] Exception is caught.
+[6/2/2015 15:33:10] Shutting down.
+

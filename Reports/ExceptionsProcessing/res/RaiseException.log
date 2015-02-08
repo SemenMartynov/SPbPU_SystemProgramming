@@ -1,0 +1,14 @@
+[6/2/2015 17:7:22] C:\Users\win7\Documents\Visual Studio 2013\Projects\ExceptionsProcessing\Debug\RaiseException.exe is starting.
+[6/2/2015 17:7:22] Task: FLT_OVERFLOW exception.
+[6/2/2015 17:7:22] Ready for generate FLT_OVERFLOW exception.
+[6/2/2015 17:7:22] Fatal error!
+exeption code: 0xc0000091, data adress: 0xfefefefe, instruction adress: 0x75abc42d
+[6/2/2015 17:7:22] Shutting down.
+
+[6/2/2015 17:7:26] C:\Users\win7\Documents\Visual Studio 2013\Projects\ExceptionsProcessing\Debug\RaiseException.exe is starting.
+[6/2/2015 17:7:26] Task: DIVIDE_BY_ZERO exception.
+[6/2/2015 17:7:26] Ready for generate DIVIDE_BY_ZERO exception.
+[6/2/2015 17:7:26] Fatal error!
+exeption code: 0xc000008e, data adress: 0xfefefefe, instruction adress: 0x75abc42d
+[6/2/2015 17:7:26] Shutting down.
+

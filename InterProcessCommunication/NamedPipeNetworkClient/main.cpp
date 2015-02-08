@@ -1,4 +1,4 @@
-#include <windows.h> 
+п»ї#include <windows.h> 
 #include <stdio.h>
 #include <conio.h>
 #include <tchar.h>
@@ -10,53 +10,53 @@ int _tmain(int argc, TCHAR *argv[])
 {
 	_tprintf(TEXT("Client is started!\n\n"));
 
-	HANDLE hPipe = INVALID_HANDLE_VALUE; // Идентификатор канала
-	LPTSTR lpszPipename = TEXT("\\\\192.168.124.2\\pipe\\$$MyPipe$$"); // Имя создаваемого канала Pipe
-	TCHAR chBuf[BUFSIZE]; // Буфер для передачи данных через канал
-	DWORD readbytes, writebytes; // Число байт прочитанных и переданных
+	HANDLE hPipe = INVALID_HANDLE_VALUE; // РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РєР°РЅР°Р»Р°
+	LPTSTR lpszPipename = TEXT("\\\\192.168.124.2\\pipe\\$$MyPipe$$"); // РРјСЏ СЃРѕР·РґР°РІР°РµРјРѕРіРѕ РєР°РЅР°Р»Р° Pipe
+	TCHAR chBuf[BUFSIZE]; // Р‘СѓС„РµСЂ РґР»СЏ РїРµСЂРµРґР°С‡Рё РґР°РЅРЅС‹С… С‡РµСЂРµР· РєР°РЅР°Р»
+	DWORD readbytes, writebytes; // Р§РёСЃР»Рѕ Р±Р°Р№С‚ РїСЂРѕС‡РёС‚Р°РЅРЅС‹С… Рё РїРµСЂРµРґР°РЅРЅС‹С…
 
-	// Создание SECURITY_ATTRIBUTES и SECURITY_DESCRIPTOR объектов
+	// РЎРѕР·РґР°РЅРёРµ SECURITY_ATTRIBUTES Рё SECURITY_DESCRIPTOR РѕР±СЉРµРєС‚РѕРІ
 	SECURITY_ATTRIBUTES sa;
 	SECURITY_DESCRIPTOR sd;
-	// Инициализация SECURITY_DESCRIPTOR значениями по-умолчанию
+	// РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ SECURITY_DESCRIPTOR Р·РЅР°С‡РµРЅРёСЏРјРё РїРѕ-СѓРјРѕР»С‡Р°РЅРёСЋ
 	if (InitializeSecurityDescriptor(&sd, SECURITY_DESCRIPTOR_REVISION) == 0)
 	{
 		_tprintf(TEXT("InitializeSecurityDescriptor failed with error %d\n"), GetLastError());
 		_getch();
 		return -1;
 	}
-	// Установка поля DACL в SECURITY_DESCRIPTOR в NULL
+	// РЈСЃС‚Р°РЅРѕРІРєР° РїРѕР»СЏ DACL РІ SECURITY_DESCRIPTOR РІ NULL
 	if (SetSecurityDescriptorDacl(&sd, TRUE, NULL, FALSE) == 0)
 	{
 		_tprintf(TEXT("SetSecurityDescriptorDacl failed with error %d\n"), GetLastError());
 		_getch();
 		return -1;
 	}
-	// Установка SECURITY_DESCRIPTOR в структуре SECURITY_ATTRIBUTES
+	// РЈСЃС‚Р°РЅРѕРІРєР° SECURITY_DESCRIPTOR РІ СЃС‚СЂСѓРєС‚СѓСЂРµ SECURITY_ATTRIBUTES
 	sa.nLength = sizeof(SECURITY_ATTRIBUTES);
 	sa.lpSecurityDescriptor = &sd;
-	sa.bInheritHandle = FALSE; //запрещение наследования
+	sa.bInheritHandle = FALSE; //Р·Р°РїСЂРµС‰РµРЅРёРµ РЅР°СЃР»РµРґРѕРІР°РЅРёСЏ
 
 	_tprintf(TEXT("Try to use WaitNamedPipe...\n"));
-	// Пытаемся открыть именованный канал, если надо - ожидаем его освобождения
+	// РџС‹С‚Р°РµРјСЃСЏ РѕС‚РєСЂС‹С‚СЊ РёРјРµРЅРѕРІР°РЅРЅС‹Р№ РєР°РЅР°Р», РµСЃР»Рё РЅР°РґРѕ - РѕР¶РёРґР°РµРј РµРіРѕ РѕСЃРІРѕР±РѕР¶РґРµРЅРёСЏ
 	while (1)
 	{
-		// Создаем канал с процессом-сервером:
+		// РЎРѕР·РґР°РµРј РєР°РЅР°Р» СЃ РїСЂРѕС†РµСЃСЃРѕРј-СЃРµСЂРІРµСЂРѕРј:
 		hPipe = CreateFile(
-			lpszPipename, // имя канала,
-			GENERIC_READ // текущий клиент имеет доступ на чтение,
-			| GENERIC_WRITE, // текущий клиент имеет доступ на запись,
-			0, // тип доступа,
-			&sa, // атрибуты защиты,
-			OPEN_EXISTING, // открывается существующий файл,
-			0, // атрибуты и флаги для файла,
-			NULL); // доступа к файлу шаблона.
+			lpszPipename, // РёРјСЏ РєР°РЅР°Р»Р°,
+			GENERIC_READ // С‚РµРєСѓС‰РёР№ РєР»РёРµРЅС‚ РёРјРµРµС‚ РґРѕСЃС‚СѓРї РЅР° С‡С‚РµРЅРёРµ,
+			| GENERIC_WRITE, // С‚РµРєСѓС‰РёР№ РєР»РёРµРЅС‚ РёРјРµРµС‚ РґРѕСЃС‚СѓРї РЅР° Р·Р°РїРёСЃСЊ,
+			0, // С‚РёРї РґРѕСЃС‚СѓРїР°,
+			&sa, // Р°С‚СЂРёР±СѓС‚С‹ Р·Р°С‰РёС‚С‹,
+			OPEN_EXISTING, // РѕС‚РєСЂС‹РІР°РµС‚СЃСЏ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёР№ С„Р°Р№Р»,
+			0, // Р°С‚СЂРёР±СѓС‚С‹ Рё С„Р»Р°РіРё РґР»СЏ С„Р°Р№Р»Р°,
+			NULL); // РґРѕСЃС‚СѓРїР° Рє С„Р°Р№Р»Сѓ С€Р°Р±Р»РѕРЅР°.
 
-		// Продолжаем работу, если канал создать удалось 
+		// РџСЂРѕРґРѕР»Р¶Р°РµРј СЂР°Р±РѕС‚Сѓ, РµСЃР»Рё РєР°РЅР°Р» СЃРѕР·РґР°С‚СЊ СѓРґР°Р»РѕСЃСЊ 
 		if (hPipe != INVALID_HANDLE_VALUE)
 			break;
 
-		// Выход, если ошибка связана не с занятым каналом. 
+		// Р’С‹С…РѕРґ, РµСЃР»Рё РѕС€РёР±РєР° СЃРІСЏР·Р°РЅР° РЅРµ СЃ Р·Р°РЅСЏС‚С‹Рј РєР°РЅР°Р»РѕРј. 
 		if (GetLastError() != ERROR_PIPE_BUSY)
 		{
 			_tprintf(TEXT("Could not open pipe. GLE=%d\n"), GetLastError());
@@ -64,7 +64,7 @@ int _tmain(int argc, TCHAR *argv[])
 			return -1;
 		}
 
-		// Если все каналы заняты, ждём 20 секунд 
+		// Р•СЃР»Рё РІСЃРµ РєР°РЅР°Р»С‹ Р·Р°РЅСЏС‚С‹, Р¶РґС‘Рј 20 СЃРµРєСѓРЅРґ 
 		if (!WaitNamedPipe(lpszPipename, 20000))
 		{
 			_tprintf(TEXT("Could not open pipe: 20 second wait timed out."));
@@ -73,36 +73,36 @@ int _tmain(int argc, TCHAR *argv[])
 		}
 	}
 
-	// Выводим сообщение о создании канала
+	// Р’С‹РІРѕРґРёРј СЃРѕРѕР±С‰РµРЅРёРµ Рѕ СЃРѕР·РґР°РЅРёРё РєР°РЅР°Р»Р°
 	_tprintf(TEXT("Successfully connected!\n\nInput message...\n"));
-	// Цикл обмена данными с серверным процессом
+	// Р¦РёРєР» РѕР±РјРµРЅР° РґР°РЅРЅС‹РјРё СЃ СЃРµСЂРІРµСЂРЅС‹Рј РїСЂРѕС†РµСЃСЃРѕРј
 	while (1)
 	{
-		// Выводим приглашение для ввода команды
+		// Р’С‹РІРѕРґРёРј РїСЂРёРіР»Р°С€РµРЅРёРµ РґР»СЏ РІРІРѕРґР° РєРѕРјР°РЅРґС‹
 		_tprintf(TEXT("cmd>"));
-		// Вводим текстовую строку
+		// Р’РІРѕРґРёРј С‚РµРєСЃС‚РѕРІСѓСЋ СЃС‚СЂРѕРєСѓ
 		_fgetts(chBuf, BUFSIZE, stdin);
-		// Передаем введенную строку серверному процессу в качестве команды
+		// РџРµСЂРµРґР°РµРј РІРІРµРґРµРЅРЅСѓСЋ СЃС‚СЂРѕРєСѓ СЃРµСЂРІРµСЂРЅРѕРјСѓ РїСЂРѕС†РµСЃСЃСѓ РІ РєР°С‡РµСЃС‚РІРµ РєРѕРјР°РЅРґС‹
 		if (!WriteFile(hPipe, chBuf, (lstrlen(chBuf) + 1)*sizeof(TCHAR), &writebytes, NULL))
 		{
 			_tprintf(TEXT("connection refused\n"));
 			break;
 		}
-		// Получаем эту же команду обратно от сервера
+		// РџРѕР»СѓС‡Р°РµРј СЌС‚Сѓ Р¶Рµ РєРѕРјР°РЅРґСѓ РѕР±СЂР°С‚РЅРѕ РѕС‚ СЃРµСЂРІРµСЂР°
 		if (ReadFile(hPipe, chBuf, BUFSIZE*sizeof(TCHAR), &readbytes, NULL))
 			_tprintf(TEXT("Received from server: %s\n"), chBuf);
-		// Если произошла ошибка, выводим ее код и завершаем работу приложения
+		// Р•СЃР»Рё РїСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР°, РІС‹РІРѕРґРёРј РµРµ РєРѕРґ Рё Р·Р°РІРµСЂС€Р°РµРј СЂР°Р±РѕС‚Сѓ РїСЂРёР»РѕР¶РµРЅРёСЏ
 		else {
 			_tprintf(TEXT("ReadFile: Error %ld\n"), GetLastError());
 			_getch();
 			break;
 		}
-		// В ответ на команду "exit" завершаем цикл обмена данными с серверным процессом
+		// Р’ РѕС‚РІРµС‚ РЅР° РєРѕРјР°РЅРґСѓ "exit" Р·Р°РІРµСЂС€Р°РµРј С†РёРєР» РѕР±РјРµРЅР° РґР°РЅРЅС‹РјРё СЃ СЃРµСЂРІРµСЂРЅС‹Рј РїСЂРѕС†РµСЃСЃРѕРј
 		if (!_tcsncmp(chBuf, L"exit", 4))
 			break;
 	}
 
-	// Закрываем идентификатор канала
+	// Р—Р°РєСЂС‹РІР°РµРј РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РєР°РЅР°Р»Р°
 	CloseHandle(hPipe);
 
 	_tprintf(TEXT("Press ENTER to terminate connection and exit\n"));

@@ -29,6 +29,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinSockClient", "WinSockCli
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CompletionPortServer", "CompletionPortServer\CompletionPortServer.vcxproj", "{9AF67FFF-9118-44D4-814A-4F50CA0F9B65}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CompletionPortClient", "CompletionPortClient\CompletionPortClient.vcxproj", "{C4765CEE-8D8C-4F42-997E-C96C8D7DD385}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -87,6 +89,10 @@ Global
 		{9AF67FFF-9118-44D4-814A-4F50CA0F9B65}.Debug|Win32.Build.0 = Debug|Win32
 		{9AF67FFF-9118-44D4-814A-4F50CA0F9B65}.Release|Win32.ActiveCfg = Release|Win32
 		{9AF67FFF-9118-44D4-814A-4F50CA0F9B65}.Release|Win32.Build.0 = Release|Win32
+		{C4765CEE-8D8C-4F42-997E-C96C8D7DD385}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C4765CEE-8D8C-4F42-997E-C96C8D7DD385}.Debug|Win32.Build.0 = Debug|Win32
+		{C4765CEE-8D8C-4F42-997E-C96C8D7DD385}.Release|Win32.ActiveCfg = Release|Win32
+		{C4765CEE-8D8C-4F42-997E-C96C8D7DD385}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-//http://msdn.microsoft.com/ru-ru/windows/desktop/aa365785%28v=vs.85%29
+﻿//http://msdn.microsoft.com/ru-ru/windows/desktop/aa365785%28v=vs.85%29
 
 #include <windows.h>
 #include <tchar.h>

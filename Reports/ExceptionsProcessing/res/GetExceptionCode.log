@@ -1,0 +1,12 @@
+[6/2/2015 16:42:36] C:\Users\win7\Documents\Visual Studio 2013\Projects\ExceptionsProcessing\Debug\GetExceptionCode.exe is starting.
+[6/2/2015 16:42:36] Task: DIVIDE_BY_ZERO exception.
+[6/2/2015 16:42:36] Ready for generate DIVIDE_BY_ZERO exception.
+[6/2/2015 16:42:36] Caught exception is: EXCEPTION_FLT_DIVIDE_BY_ZERO
+[6/2/2015 16:42:36] Shutting down.
+
+[6/2/2015 16:42:39] C:\Users\win7\Documents\Visual Studio 2013\Projects\ExceptionsProcessing\Debug\GetExceptionCode.exe is starting.
+[6/2/2015 16:42:39] Task: FLT_OVERFLOW exception.
+[6/2/2015 16:42:39] Ready for generate FLT_OVERFLOW exception.
+[6/2/2015 16:42:39] Caught exception is: EXCEPTION_FLT_OVERFLOW
+[6/2/2015 16:42:39] Shutting down.
+

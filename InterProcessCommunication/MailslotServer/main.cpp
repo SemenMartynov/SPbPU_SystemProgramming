@@ -1,8 +1,7 @@
-//http://msdn.microsoft.com/ru-ru/windows/desktop/aa365802%28v=vs.85%29
+﻿//http://msdn.microsoft.com/ru-ru/windows/desktop/aa365802%28v=vs.85%29
 
 #include <windows.h>
 #include <stdio.h>
-#include <conio.h>
 
 LPTSTR SlotName = TEXT("\\\\.\\mailslot\\sample_mailslot");
 
@@ -55,6 +54,5 @@ int main()
 
 	CloseHandle(hFile);
 
-	_getch();
 	return TRUE;
 }
