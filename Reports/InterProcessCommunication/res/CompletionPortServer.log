@@ -1,0 +1,12 @@
+[14/2/2015 14:36:25] C:\Users\win7\Documents\Visual Studio 2013\Projects\InterProcessCommunication\Debug\CompletionPortServer.exe is starting.
+[14/2/2015 14:36:25] Windows Socket environment ready
+[14/2/2015 14:36:25] Io Completion Port created
+[14/2/2015 14:36:26] Ready for connection
+[14/2/2015 14:36:54] Socket 136 connected
+
+[14/2/2015 14:36:54] Get task from 136: 
+[14/2/2015 14:37:1] Get task from 136: Hi!
+[14/2/2015 14:37:6] Get task from 136: Salut!
+[14/2/2015 14:37:10] Get task from 136: 1
+[14/2/2015 14:37:12] Get task from 136: 2
+[14/2/2015 14:37:13] Get task from 136: 3

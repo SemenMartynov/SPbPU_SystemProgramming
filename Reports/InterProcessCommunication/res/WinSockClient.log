@@ -1,0 +1,8 @@
+[14/2/2015 11:32:41] WinSockClient.exe is starting.
+[14/2/2015 11:33:6] Windows Socket environment ready
+[14/2/2015 11:33:6] Client socket created
+[14/2/2015 11:33:6] Connect
+[14/2/2015 11:33:10] Received 1 from server
+[14/2/2015 11:33:14] Received Hello from server
+[14/2/2015 11:33:22] Shutting down.
+

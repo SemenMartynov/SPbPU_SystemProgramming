@@ -1,69 +1,74 @@
-﻿#include <windows.h>
+#include <windows.h>
 #include <stdio.h>
 #include <conio.h>
+#include "logger.h"
+
 #define BUF_SIZE 256
-TCHAR szName[] = TEXT("MyFileMappingObject");
-TCHAR szMsg[] = TEXT("Message from first process");
+TCHAR szName[] = _T("MyFileMappingObject");
+TCHAR szMsg[] = _T("Message from first process");
 HANDLE mutex;
-void main()
-{
+
+int _tmain(int argc, _TCHAR* argv[]) {
+	//Init log
+	initlog(argv[0]);
+
 	HANDLE hMapFile;
 	LPCTSTR pBuf;
 	mutex = CreateMutex(NULL, false, TEXT("SyncMutex"));
+	writelog(_T("Mutex created"));
 	// create a memory, wicth two proccess will be working
 	hMapFile = CreateFileMapping(
-		// использование файла подкачки
-		INVALID_HANDLE_VALUE,
-		// защита по умолчанию
-		NULL,
-		// доступ к чтению/записи
-		PAGE_READWRITE,
-		// макс. размер объекта
-		0,
-		// размер буфера
-		BUF_SIZE,
-		// имя отраженного в памяти объекта
-		szName);
+		INVALID_HANDLE_VALUE, // использование файла подкачки
+		NULL, // защита по умолчанию
+		PAGE_READWRITE, // доступ к чтению/записи
+		0, // макс. размер объекта
+		BUF_SIZE, // размер буфера
+		szName); // имя отраженного в памяти объекта
 
-	if (hMapFile == NULL || hMapFile == INVALID_HANDLE_VALUE)
-	{
-		printf("Не может создать отраженный в памяти объект (%d).\n",
-			GetLastError());
-		return;
+	if (hMapFile == NULL || hMapFile == INVALID_HANDLE_VALUE) {
+		double errorcode = GetLastError();
+		writelog(_T("CreateFileMapping failed, GLE=%d"), errorcode);
+		_tprintf(_T("CreateFileMapping failed, GLE=%d"), errorcode);
+		closelog();
+		exit(1);
 	}
+	writelog(_T("FileMappingObject created"));
+
 	pBuf = (LPTSTR)MapViewOfFile(
-		//дескриптор проецируемого в памяти объекта
-		hMapFile,
-		// разрешение чтения/записи(режим доступа)
-		FILE_MAP_ALL_ACCESS,
-		//Старшее слово смещения файла, где начинается отображение
-		0,
-		//Младшее слово смещения файла, где начинается отображение
-		0,
-		//Число отображаемых байтов файла	
-		BUF_SIZE);
-	
-	if (pBuf == NULL)
-	{
-		printf("Представление проецированного файла невозможно (%d).\n",
-			GetLastError());
-		return;
+		hMapFile, //дескриптор проецируемого в памяти объекта
+		FILE_MAP_ALL_ACCESS, // разрешение чтения/записи(режим доступа)
+		0, //Старшее слово смещения файла, где начинается отображение
+		0, //Младшее слово смещения файла, где начинается отображение
+		BUF_SIZE); //Число отображаемых байтов файла
+
+	if (pBuf == NULL) {
+		double errorcode = GetLastError();
+		writelog(_T("MapViewOfFile failed, GLE=%d"), errorcode);
+		_tprintf(_T("MapViewOfFile failed, GLE=%d"), errorcode);
+		closelog();
+		exit(1);
 	}
 
 	int i = 0;
-	while (true)
-	{
+	while (true) {
 		i = rand();
-		itoa(i, (char *)szMsg, 10);
+		_itow_s(i, szMsg, sizeof(szMsg), 10);
+		writelog(_T("Wait For Mutex"));
 		WaitForSingleObject(mutex, INFINITE);
+		writelog(_T("Get Mutex"));
 		CopyMemory((PVOID)pBuf, szMsg, sizeof(szMsg));
-		printf("write message: %s\n", (char *)pBuf);
-		Sleep(1000); //необходимо только для отладки - для удобства представления и анализа
-		//результатов
+		_tprintf(_T("Write message: %s\n"), pBuf);
+		writelog(_T("Write message: %s"), pBuf);
+		Sleep(1000); //необходимо только для отладки - для удобства
+		// представления и анализа результатов
 		ReleaseMutex(mutex);
+		writelog(_T("Release Mutex"));
 	}
 	// освобождение памяти и закрытие описателя handle
 	UnmapViewOfFile(pBuf);
 	CloseHandle(hMapFile);
 	CloseHandle(mutex);
+
+	closelog();
+	exit(0);
 }

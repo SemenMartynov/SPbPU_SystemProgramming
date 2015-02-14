@@ -1,0 +1,16 @@
+[14/2/2015 3:46:36] AnonymousPipeServer.exe is starting.
+[14/2/2015 3:46:36] Anonymous pipe from server to client created
+[14/2/2015 3:46:36] Anonymous pipe from client to server created
+[14/2/2015 3:46:36] New process created
+[14/2/2015 3:46:36] Get from client: "Message num 1"
+[14/2/2015 3:46:37] Get from client: "Message num 2"
+[14/2/2015 3:46:38] Get from client: "Message num 3"
+[14/2/2015 3:46:39] Get from client: "Message num 4"
+[14/2/2015 3:46:40] Get from client: "Message num 5"
+[14/2/2015 3:46:41] Get from client: "Message num 6"
+[14/2/2015 3:46:42] Get from client: "Message num 7"
+[14/2/2015 3:46:43] Get from client: "Message num 8"
+[14/2/2015 3:46:44] Get from client: "Message num 9"
+[14/2/2015 3:46:45] Get from client: "Message num 10"
+[14/2/2015 3:46:45] Shutting down.
+

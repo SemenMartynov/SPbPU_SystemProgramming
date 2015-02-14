@@ -1,8 +1,6 @@
-﻿// http://navendus.tripod.com
-
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <winsock2.h>
-#include <iostream>
+#include "logger.h"
 
 #pragma comment(lib, "Ws2_32.lib")
 
@@ -12,66 +10,82 @@ struct CLIENT_INFO
 	struct sockaddr_in clientAddr;
 };
 
-char szServerIPAddr[] = "127.0.0.1"; // server IP
+_TCHAR szServerIPAddr[] = _T("127.0.0.1"); // server IP
 int nServerPort = 5050;  // server port
 // clients to talk with the server
 
 bool InitWinSock2_0();
 BOOL WINAPI ClientThread(LPVOID lpData);
 
-int main()
-{
-	if (!InitWinSock2_0())
-	{
-		std::cout << "Unable to Initialize Windows Socket environment" << WSAGetLastError() << std::endl;
-		return -1;
+int _tmain(int argc, _TCHAR* argv[]) {
+	//Init log
+	initlog(argv[0]);
+
+	if (!InitWinSock2_0()) {
+		double errorcode = WSAGetLastError();
+		writelog(_T("Unable to Initialize Windows Socket environment, GLE=%d"), errorcode);
+		_tprintf(_T("Unable to Initialize Windows Socket environment, GLE=%d"), errorcode);
+		closelog();
+		exit(1);
 	}
-
+	writelog(_T("Windows Socket environment ready"));
+	
 	SOCKET hServerSocket;
-
 	hServerSocket = socket(
 		AF_INET,        // The address family. AF_INET specifies TCP/IP
 		SOCK_STREAM,    // Protocol type. SOCK_STREM specified TCP
 		0               // Protoco Name. Should be 0 for AF_INET address family
 		);
-	if (hServerSocket == INVALID_SOCKET)
-	{
-		std::cout << "Unable to create Server socket" << std::endl;
+
+	if (hServerSocket == INVALID_SOCKET) {
+		writelog(_T("Unable to create Server socket"));
+		_tprintf(_T("Unable to create Server socket"));
 		// Cleanup the environment initialized by WSAStartup()
 		WSACleanup();
-		return -1;
+		closelog();
+		exit(2);
 	}
+	writelog(_T("Server socket created"));
 
 	// Create the structure describing various Server parameters
 	struct sockaddr_in serverAddr;
 
 	serverAddr.sin_family = AF_INET;     // The address family. MUST be AF_INET
-	serverAddr.sin_addr.s_addr = inet_addr(szServerIPAddr);
+	size_t   convtd;
+	char *pMBBuffer = new char[20];
+	wcstombs_s(&convtd, pMBBuffer, 20, szServerIPAddr, 20);
+	//serverAddr.sin_addr.s_addr = inet_addr(pMBBuffer);
+	serverAddr.sin_addr.s_addr = INADDR_ANY;
+	delete[] pMBBuffer;
 	serverAddr.sin_port = htons(nServerPort);
 
 	// Bind the Server socket to the address & port
-	if (bind(hServerSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr)) == SOCKET_ERROR)
-	{
-		std::cout << "Unable to bind to " << szServerIPAddr << " port " << nServerPort << std::endl;
+	if (bind(hServerSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr)) == SOCKET_ERROR) {
+		writelog(_T("Unable to bind to %s on port %d"), szServerIPAddr, nServerPort);
+		_tprintf(_T("Unable to bind to %s on port %d"), szServerIPAddr, nServerPort);
 		// Free the socket and cleanup the environment initialized by WSAStartup()
 		closesocket(hServerSocket);
 		WSACleanup();
-		return -1;
+		closelog();
+		exit(3);
 	}
+	writelog(_T("Bind"));
 
 	// Put the Server socket in listen state so that it can wait for client connections
-	if (listen(hServerSocket, SOMAXCONN) == SOCKET_ERROR)
-	{
-		std::cout << "Unable to put server in listen state" << std::endl;
+	if (listen(hServerSocket, SOMAXCONN) == SOCKET_ERROR) {
+		writelog(_T("Unable to put server in listen state"));
+		_tprintf(_T("Unable to put server in listen state"));
 		// Free the socket and cleanup the environment initialized by WSAStartup()
 		closesocket(hServerSocket);
 		WSACleanup();
-		return -1;
+		closelog();
+		exit(4);
 	}
-
+	writelog(_T("Ready for connection"));
+	_tprintf(_T("Ready for connection\n"));
+	
 	// Start the infinite loop
-	while (true)
-	{
+	while (true) {
 		// As the socket is in listen mode there is a connection request pending.
 		// Calling accept( ) will succeed and return the socket for the request.
 		SOCKET hClientSocket;
@@ -79,12 +93,11 @@ int main()
 		int nSize = sizeof(clientAddr);
 
 		hClientSocket = accept(hServerSocket, (struct sockaddr *) &clientAddr, &nSize);
-		if (hClientSocket == INVALID_SOCKET)
-		{
-			std::cout << "accept( ) failed" << std::endl;
+		if (hClientSocket == INVALID_SOCKET) {
+			writelog(_T("accept() failed"));
+			_tprintf(_T("accept() failed\n"));
 		}
-		else
-		{
+		else {
 			HANDLE hClientThread;
 			struct CLIENT_INFO clientInfo;
 			DWORD dwThreadId;
@@ -92,18 +105,22 @@ int main()
 			clientInfo.clientAddr = clientAddr;
 			clientInfo.hClientSocket = hClientSocket;
 
-			std::cout << "Client connected from " << inet_ntoa(clientAddr.sin_addr) << std::endl;
+			wchar_t* sin_addr = new wchar_t[20];
+			size_t   convtd;
+			mbstowcs_s(&convtd, sin_addr, 20, inet_ntoa(clientAddr.sin_addr), 20);
+			writelog(_T("Client connected from %s"), sin_addr);
+			_tprintf(_T("Client connected from %s\n"), sin_addr);
+			delete[] sin_addr;
 
 			// Start the client thread
 			hClientThread = CreateThread(NULL, 0,
 				(LPTHREAD_START_ROUTINE)ClientThread,
 				(LPVOID)&clientInfo, 0, &dwThreadId);
-			if (hClientThread == NULL)
-			{
-				std::cout << "Unable to create client thread" << std::endl;
+			if (hClientThread == NULL) {
+				writelog(_T("Unable to create client thread"));
+				_tprintf(_T("Unable to create client thread\n"));
 			}
-			else
-			{
+			else {
 				CloseHandle(hClientThread);
 			}
 		}
@@ -111,11 +128,11 @@ int main()
 
 	closesocket(hServerSocket);
 	WSACleanup();
-	return 0;
+	closelog();
+	exit(0);
 }
 
-bool InitWinSock2_0()
-{
+bool InitWinSock2_0() {
 	WSADATA wsaData;
 	WORD wVersion = MAKEWORD(2, 0);
 
@@ -125,37 +142,36 @@ bool InitWinSock2_0()
 	return false;
 }
 
-BOOL WINAPI ClientThread(LPVOID lpData)
-{
+BOOL WINAPI ClientThread(LPVOID lpData) {
 	CLIENT_INFO *pClientInfo = (CLIENT_INFO *)lpData;
-	char szBuffer[1024];
+	_TCHAR szBuffer[1024];
 	int nLength;
 
-	while (1)
-	{
-		nLength = recv(pClientInfo->hClientSocket, szBuffer, sizeof(szBuffer), 0);
-		if (nLength > 0)
-		{
+	while (1) {
+		nLength = recv(pClientInfo->hClientSocket, (char *)szBuffer, sizeof(szBuffer), 0);
+		wchar_t* sin_addr = new wchar_t[20];
+		size_t   convtd;
+		mbstowcs_s(&convtd, sin_addr, 20, inet_ntoa(pClientInfo->clientAddr.sin_addr), 20);
+		if (nLength > 0) {
 			szBuffer[nLength] = '\0';
-			std::cout << "Received " << szBuffer << " from " << inet_ntoa(pClientInfo->clientAddr.sin_addr) << std::endl;
-
+			writelog(_T("Received %s from %s"), szBuffer, sin_addr);
+			_tprintf(_T("Received %s from %s\n"), szBuffer, sin_addr);
+			
 			// Convert the string to upper case and send it back, if its not QUIT
-			_strdup(szBuffer);
-			if (strcmp(szBuffer, "QUIT") == 0)
-			{
+			_wcsdup(szBuffer);
+			if (wcscmp(szBuffer, _T("QUIT")) == 0) {
 				closesocket(pClientInfo->hClientSocket);
 				return TRUE;
 			}
-			// send( ) may not be able to send the complete data in one go.
+			// send() may not be able to send the complete data in one go.
 			// So try sending the data in multiple requests
 			int nCntSend = 0;
-			char *pBuffer = szBuffer;
+			_TCHAR *pBuffer = szBuffer;
 
-			while ((nCntSend = send(pClientInfo->hClientSocket, pBuffer, nLength, 0) != nLength))
-			{
-				if (nCntSend == -1)
-				{
-					std::cout << "Error sending the data to " << inet_ntoa(pClientInfo->clientAddr.sin_addr) << std::endl;
+			while ((nCntSend = send(pClientInfo->hClientSocket, (char *)pBuffer, nLength, 0) != nLength)) {
+				if (nCntSend == -1) {
+					writelog(_T("Error sending the data to %s"), sin_addr);
+					_tprintf(_T("Error sending the data to %s\n"), sin_addr);
 					break;
 				}
 				if (nCntSend == nLength)
@@ -165,10 +181,11 @@ BOOL WINAPI ClientThread(LPVOID lpData)
 				nLength -= nCntSend;
 			}
 		}
-		else
-		{
-			std::cout << "Error reading the data from " << inet_ntoa(pClientInfo->clientAddr.sin_addr) << std::endl;
+		else {
+			writelog(_T("Error reading the data from %s"), sin_addr);
+			_tprintf(_T("Error reading the data from %s\n"), sin_addr);
 		}
+		delete[] sin_addr;
 	}
 
 	return TRUE;

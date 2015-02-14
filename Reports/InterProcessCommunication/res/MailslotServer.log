@@ -1,0 +1,10 @@
+[14/2/2015 7:3:38] C:\Users\win7\Documents\Visual Studio 2013\Projects\InterProcessCommunication\Debug\MailslotServer.exe is starting.
+[14/2/2015 7:3:38] Mailslot created
+[14/2/2015 7:3:38] Text to send: Message one for mailslot.
+[14/2/2015 7:3:38] Slot written to successfully
+[14/2/2015 7:3:38] Text to send: Message two for mailslot.
+[14/2/2015 7:3:38] Slot written to successfully
+[14/2/2015 7:3:43] Text to send: Message three for mailslot.
+[14/2/2015 7:3:43] Slot written to successfully
+[14/2/2015 7:3:43] Shutting down.
+

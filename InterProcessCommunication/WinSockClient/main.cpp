@@ -1,78 +1,87 @@
-﻿#define _WINSOCK_DEPRECATED_NO_WARNINGS
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <winsock2.h>
-#include <iostream>
+#include "logger.h"
 
 #pragma comment(lib, "Ws2_32.lib")
 
-char szServerIPAddr[20]; // server IP
+_TCHAR szServerIPAddr[20]; // server IP
 int nServerPort; // server port
 
 bool InitWinSock2_0();
 
-int main()
-{
-	std::cout << "Enter the server IP Address: ";
-	std::cin >> szServerIPAddr;
-	std::cout << "Enter the server port number: ";
-	std::cin >> nServerPort;
+int _tmain(int argc, _TCHAR* argv[]) {
+	//Init log
+	initlog(argv[0]);
 
-	if (!InitWinSock2_0())
-	{
-		std::cout << "Unable to Initialize Windows Socket environment" << WSAGetLastError() << std::endl;
-		return -1;
+	_tprintf(_T("Enter the server IP Address: "));
+	wscanf_s(_T("%19s"), szServerIPAddr, _countof(szServerIPAddr));
+	_tprintf(_T("Enter the server port number: "));
+	wscanf_s(_T("%i"), &nServerPort);
+	
+	if (!InitWinSock2_0()) {
+		double errorcode = WSAGetLastError();
+		writelog(_T("Unable to Initialize Windows Socket environment, GLE=%d"), errorcode);
+		_tprintf(_T("Unable to Initialize Windows Socket environment, GLE=%d"), errorcode);
+		closelog();
+		exit(1);
 	}
+	writelog(_T("Windows Socket environment ready"));
 
 	SOCKET hClientSocket;
-
 	hClientSocket = socket(
 		AF_INET,        // The address family. AF_INET specifies TCP/IP
 		SOCK_STREAM,    // Protocol type. SOCK_STREM specified TCP
-		0               // Protoco Name. Should be 0 for AF_INET address family
-		);
-	if (hClientSocket == INVALID_SOCKET)
-	{
-		std::cout << "Unable to create Server socket" << std::endl;
+		0);             // Protoco Name. Should be 0 for AF_INET address family
+		
+	if (hClientSocket == INVALID_SOCKET) {
+		writelog(_T("Unable to create Server socket"));
+		_tprintf(_T("Unable to create Server socket"));
 		// Cleanup the environment initialized by WSAStartup()
 		WSACleanup();
-		return -1;
+		closelog();
+		exit(2);
 	}
-
+	writelog(_T("Client socket created"));
 
 	// Create the structure describing various Server parameters
 	struct sockaddr_in serverAddr;
 
 	serverAddr.sin_family = AF_INET;     // The address family. MUST be AF_INET
-	serverAddr.sin_addr.s_addr = inet_addr(szServerIPAddr);
+	size_t   convtd;
+	char *pMBBuffer = new char[20];
+	wcstombs_s(&convtd, pMBBuffer, 20, szServerIPAddr, 20);
+	serverAddr.sin_addr.s_addr = inet_addr(pMBBuffer);
+	delete[] pMBBuffer;
 	serverAddr.sin_port = htons(nServerPort);
 
 	// Connect to the server
-	if (connect(hClientSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr)) < 0)
-	{
-		std::cout << "Unable to connect to " << szServerIPAddr << " on port " << nServerPort << std::endl;
+	if (connect(hClientSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr)) < 0) {
+		writelog(_T("Unable to connect to %s on port %d"), szServerIPAddr, nServerPort);
+		_tprintf(_T("Unable to connect to %s on port %d"), szServerIPAddr, nServerPort);
 		closesocket(hClientSocket);
 		WSACleanup();
-		return -1;
+		closelog();
+		exit(3);
 	}
+	writelog(_T("Connect"));
 
-	char szBuffer[1024] = "";
+	_TCHAR szBuffer[1024] = _T("");
 
-	while (strcmp(szBuffer, "QUIT") != 0)
-	{
-		std::cout << "Enter the string to send (QUIT) to stop: ";
-		std::cin >> szBuffer;
+	while (wcscmp(szBuffer, _T("QUIT")) != 0) {
+		_tprintf(_T("Enter the string to send (QUIT) to stop: "));
+		wscanf_s(_T("%1023s"), szBuffer, _countof(szBuffer));
 
-		int nLength = strlen(szBuffer);
+		int nLength = (wcslen(szBuffer) +1) * sizeof(_TCHAR);
 
 		// send( ) may not be able to send the complete data in one go.
 		// So try sending the data in multiple requests
 		int nCntSend = 0;
-		char *pBuffer = szBuffer;
+		_TCHAR *pBuffer = szBuffer;
 
-		while ((nCntSend = send(hClientSocket, pBuffer, nLength, 0) != nLength))
-		{
-			if (nCntSend == -1)
-			{
-				std::cout << "Error sending the data to server" << std::endl;
+		while ((nCntSend = send(hClientSocket, (char *)pBuffer, nLength, 0) != nLength)) {
+			if (nCntSend == -1) {
+				writelog(_T("Error sending the data to server"));
+				_tprintf(_T("Error sending the data to server\n"));
 				break;
 			}
 			if (nCntSend == nLength)
@@ -82,27 +91,26 @@ int main()
 			nLength -= nCntSend;
 		}
 
-		_strdup(szBuffer);
-		if (strcmp(szBuffer, "QUIT") == 0)
-		{
+		_wcsdup(szBuffer);
+		if (wcscmp(szBuffer, _T("QUIT")) == 0) {
 			break;
 		}
 
-		nLength = recv(hClientSocket, szBuffer, sizeof(szBuffer), 0);
-		if (nLength > 0)
-		{
+		nLength = recv(hClientSocket, (char *)szBuffer, sizeof(szBuffer), 0);
+		if (nLength > 0) {
 			szBuffer[nLength] = '\0';
-			std::cout << "Received " << szBuffer << " from server" << std::endl;
+			writelog(_T("Received %s from server"), szBuffer);
+			_tprintf(_T("Received %s from server\n"), szBuffer);
 		}
 	}
 
 	closesocket(hClientSocket);
 	WSACleanup();
-	return 0;
+	closelog();
+	exit(0);
 }
 
-bool InitWinSock2_0()
-{
+bool InitWinSock2_0() {
 	WSADATA wsaData;
 	WORD wVersion = MAKEWORD(2, 0);
 

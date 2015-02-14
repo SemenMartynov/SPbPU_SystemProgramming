@@ -1,0 +1,9 @@
+[14/2/2015 8:33:21] C:\Users\win7\Documents\Visual Studio 2013\Projects\InterProcessCommunication\Debug\SharedMemoryServer.exe is starting.
+[14/2/2015 8:33:21] Mutex created
+[14/2/2015 8:33:21] FileMappingObject created
+[14/2/2015 8:33:21] Wait For Mutex
+[14/2/2015 8:33:21] Get Mutex
+[14/2/2015 8:33:21] Write message: 41
+[14/2/2015 8:33:22] Release Mutex
+[14/2/2015 8:33:22] Wait For Mutex
+[14/2/2015 8:33:22] Get Mutex

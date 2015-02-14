@@ -1,0 +1,11 @@
+[14/2/2015 11:32:39] C:\Users\win7\Documents\Visual Studio 2013\Projects\InterProcessCommunication\Debug\WinSockServer.exe is starting.
+[14/2/2015 11:32:39] Windows Socket environment ready
+[14/2/2015 11:32:39] Server socket created
+[14/2/2015 11:32:39] Bind
+[14/2/2015 11:32:39] Ready for connection
+[14/2/2015 11:33:6] Client connected from 192.168.124.235
+[14/2/2015 11:33:10] Received 1 from 192.168.124.235
+[14/2/2015 11:33:14] Received Hello from 192.168.124.235
+[14/2/2015 11:33:22] Received QUIT from 192.168.124.235
+[14/2/2015 11:33:28] Shutting down.
+

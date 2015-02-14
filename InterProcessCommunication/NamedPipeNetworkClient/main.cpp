@@ -1,4 +1,4 @@
-﻿#include <windows.h> 
+#include <windows.h> 
 #include <stdio.h>
 #include <conio.h>
 #include <tchar.h>
@@ -11,7 +11,7 @@ int _tmain(int argc, TCHAR *argv[])
 	_tprintf(TEXT("Client is started!\n\n"));
 
 	HANDLE hPipe = INVALID_HANDLE_VALUE; // Идентификатор канала
-	LPTSTR lpszPipename = TEXT("\\\\192.168.124.2\\pipe\\$$MyPipe$$"); // Имя создаваемого канала Pipe
+	LPTSTR lpszPipename = TEXT("\\\\192.168.124.235\\pipe\\$$MyPipe$$"); // Имя создаваемого канала Pipe
 	TCHAR chBuf[BUFSIZE]; // Буфер для передачи данных через канал
 	DWORD readbytes, writebytes; // Число байт прочитанных и переданных
 
