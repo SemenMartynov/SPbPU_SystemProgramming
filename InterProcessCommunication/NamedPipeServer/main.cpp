@@ -112,8 +112,9 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam) {
 			if (!_tcsncmp(chBuf, L"exit", 4))
 				break;
 		} else {
-			writelog(_T("Thread %d: GReadFile: Error %ld"), GetCurrentThreadId(), GetLastError());
-			_tprintf(TEXT("ReadFile: Error %ld\n"), GetLastError());
+			double errorcode = GetLastError();
+			writelog(_T("Thread %d: GReadFile: Error %ld"), GetCurrentThreadId(), errorcode);
+			_tprintf(TEXT("ReadFile: Error %ld\n"), errorcode);
 			_getch();
 			break;
 		}

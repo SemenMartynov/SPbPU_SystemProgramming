@@ -62,8 +62,8 @@ int _tmain(int argc, _TCHAR* argv[]) {
 			break;
 
 		// Выход, если ошибка связана не с занятым каналом. 
-		if (GetLastError() != ERROR_PIPE_BUSY) {
-			double errorcode = GetLastError();
+		double errorcode = GetLastError();
+		if (errorcode != ERROR_PIPE_BUSY) {
 			writelog(_T("Could not open pipe, GLE = %d"), errorcode);
 			_tprintf(_T("Could not open pipe, GLE = %d\n"), errorcode);
 			closelog();
