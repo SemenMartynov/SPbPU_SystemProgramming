@@ -22,8 +22,8 @@ void initlog(const _TCHAR* prog) {
 	wcsncpy_s(extension, 5, _T(".log"), 4);
 	// Try to open log file for append
 	if (_wfopen_s(&logfile, logname, _T("a+"))) {
-		_tprintf(_T("Can't open log file %s\n"), logname);
 		_wperror(_T("The following error occurred"));
+		_tprintf(_T("Can't open log file %s\n"), logname);
 		exit(-1);
 	}
 	writelog(_T("%s is starting."), prog);
