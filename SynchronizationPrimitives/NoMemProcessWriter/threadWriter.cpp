@@ -1,9 +1,13 @@
-#include<windows.h>
-#include<stdio.h>
+#include <windows.h>
+#include <stdio.h>
+#include <tchar.h>
 
-#include"utils.h"
+#include "utils.h"
 
 DWORD WINAPI ThreadWriterHandler(LPVOID prm) {
+	int myid = (int)prm;
+
+	Logger log(_T("NoMemProcessWriter.ThreadWriter"), myid);
 	extern bool isDone;
 	extern struct Configuration config;
 
@@ -16,7 +20,6 @@ DWORD WINAPI ThreadWriterHandler(LPVOID prm) {
 	extern int reportCounter;  // Счётчиков отчётов
 	extern LPVOID lpFileMapForWriters;
 
-	int myid = (int)prm;
 	int msgnum = 0;
 	HANDLE writerHandlers[2];
 	writerHandlers[0] = exitEvent;
@@ -28,6 +31,7 @@ DWORD WINAPI ThreadWriterHandler(LPVOID prm) {
 	bool readyState = false;
 
 	while (isDone != true) {
+		log.quietlog(_T("Waining for multiple objects"));
 		DWORD dwEvent = WaitForMultipleObjects(2, writerHandlers, false,
 			INFINITE);
 		//   2 - следим за 2-я параметрами
@@ -36,9 +40,11 @@ DWORD WINAPI ThreadWriterHandler(LPVOID prm) {
 		//   INFINITE - ждать бесконечно
 		switch (dwEvent) {
 		case WAIT_OBJECT_0:	//сработало событие exit
-			printf("Writer %d finishing work\n", myid);
+			log.quietlog(_T("Get exitEvent"));
+			log.loudlog(_T("Writer %d finishing work"), myid);
 			return 0;
 		case WAIT_OBJECT_0 + 1: // Пришёл отчёт о выполнении
+			log.quietlog(_T("Get changeCountEvent"));
 			// Если отчитались все читатели
 			if (++reportCounter == config.numOfReaders) {
 				// Обнуление счётчика
@@ -47,34 +53,38 @@ DWORD WINAPI ThreadWriterHandler(LPVOID prm) {
 					// Теперь ожидаем отчётов о готовности
 					readyState = false;
 					// Больше ни кто не читает
+					log.quietlog(_T("Reset Event readerCanReadEvent"));
 					ResetEvent(readerCanReadEvent);
 					// Можно готовится
+					log.quietlog(_T("Set Event readerGetReadyEvent"));
 					SetEvent(readerGetReadyEvent);
 				}
 				else { // все готовы читать
 					// Запись сообщения
-					sprintf_s(((char *)lpFileMapForWriters), 1500,
-						"writer_id	%d, msg with num = %d", myid, ++msgnum);
-					printf("writer put msg: \"%s\" \n",	((char *)lpFileMapForWriters));
+					swprintf_s((_TCHAR *)lpFileMapForWriters, 1500,
+						_T("Writer_id	%d, msg with num = %d"), myid, ++msgnum);
+					log.loudlog(_T("Writer put msg: \"%s\""), (_TCHAR *)lpFileMapForWriters);
 					
 					// Теперь ожидаем отчётов о прочтении
 					readyState = true;
 					// Больше ни кто не готовится
+					log.quietlog(_T("Reset Event readerGetReadyEvent"));
 					ResetEvent(readerGetReadyEvent);
 					// Можно читать
+					log.quietlog(_T("Set Event readerCanReadEvent"));
 					SetEvent(readerCanReadEvent);
 				}
 			}
 			// Ждём следующего отчёта
+			log.quietlog(_T("Set Event canChangeCountEvent"));
 			SetEvent(canChangeCountEvent);
 
 			break;
 		default:
-			printf("error with func WaitForMultipleObjects in writerHandle\n");
-			printf("getlasterror= %d\n", GetLastError());
+			log.loudlog(_T("Error with func WaitForMultipleObjects in writerHandle, GLE = %d"), GetLastError());
 			ExitProcess(1000);
 		}
 	}
-	printf("Writer %d finishing work\n", myid);
+	log.loudlog(_T("Writer %d finishing work"), myid);
 	return 0;
 }

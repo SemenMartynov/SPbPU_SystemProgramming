@@ -1,19 +1,23 @@
-#include<windows.h>
-#include<stdio.h>
+#include <windows.h>
+#include <stdio.h>
+#include <tchar.h>
 
-#include"utils.h"
+#include "utils.h"
 
 DWORD WINAPI ThreadTimeManagerHandler(LPVOID prm) {
+	Logger log(_T("Event.ThreadTimeManager"));
+
 	extern bool isDone;
 
 	int ttl = (int)prm;
 	if (ttl < 0) {
 		//завершение по команде оператора
-		char buf[100];
+		_TCHAR buf[100];
 		while (1) {
-			fgets(buf, sizeof(buf), stdin);
-			if (buf[0] == 's') {
+			fgetws(buf, sizeof(buf), stdin);
+			if (buf[0] == _T('s')) {
 				isDone = true;
+				log.quietlog(_T("'s' signal received!"));
 				break;
 			}
 		}
@@ -22,9 +26,10 @@ DWORD WINAPI ThreadTimeManagerHandler(LPVOID prm) {
 		//завершение по таймеру
 		HANDLE h = CreateAndStartWaitableTimer(ttl);
 		WaitForSingleObject(h, INFINITE);
+		log.quietlog(_T("Timer signal received!"));
 		isDone = true;
 		CloseHandle(h);
 	}
-	printf("TimeManager finishing work\n");
+	log.loudlog(_T("TimeManager finishing work"));
 	return 0;
 }

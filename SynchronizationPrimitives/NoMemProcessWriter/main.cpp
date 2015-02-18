@@ -1,10 +1,12 @@
-#include<windows.h>
-#include<string.h>
-#include<stdio.h>
-#include<conio.h>
+#include <windows.h>
+#include <string.h>
+#include <stdio.h>
+#include <conio.h>
+#include <tchar.h>
 
-#include"thread.h"
-#include"utils.h"
+#include "thread.h"
+#include "utils.h"
+#include "Logger.h"
 
 //глобальные переменные
 struct Configuration config; //конфигурация программы
@@ -32,21 +34,19 @@ wchar_t shareFileName[] = L"$$MyVerySpecialShareFileName$$";
 HANDLE hFileMapping; //объект-отображение файла
 LPVOID lpFileMapForWriters; // указатели на отображаемую память
 
-int main(int argc, char* argv[]) {
-	if (argc < 2) {
-		//используем конфигурацию по-умолчанию
-		SetConfig(NULL, &config);
-	}
-	else {
-		char filename[30]; //имя файла конфигурации
-		strcpy_s(filename, argv[1]);
-		// Передаем имя читаемого файла и заполняемую стуктуру
-		SetConfig(filename, &config);
-	}
+int _tmain(int argc, _TCHAR* argv[]) {
+	Logger log(_T("NoMemProcessWriter"));
+
+	if (argc < 2)
+		// Используем конфигурацию по-умолчанию
+		SetDefaultConfig(&config, &log);
+	else
+		// Загрузка конфига из файла
+		SetConfig(argv[1], &config, &log);
 
 	//создаем необходимые потоки без их запуска
 	//потоки-читатели запускаются сразу (чтобы они успели дойти до функции ожидания)
-	CreateAllThreads(&config);
+	CreateAllThreads(&config, &log);
 
 	//Инициализируем ресурс (share memory): создаем объект "отображаемый файл"
 	// будет использован системный файл подкачки (на диске файл создаваться
@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
 		// 0, 1500 - старшая и младшая части значения максимального
 		//           размера объекта отображения файла
 		// shareFileName - имя объекта-отображения.
-		printf("impossible to create shareFile\n Last error %d\n",
+		log.loudlog(_T("Impossible to create shareFile, GLE = %d"),
 			GetLastError());
 		ExitProcess(10000);
 	}
@@ -108,7 +108,7 @@ int main(int argc, char* argv[]) {
 	UnmapViewOfFile(lpFileMapForWriters); //закрываем handle общего ресурса
 	CloseHandle(hFileMapping); //закрываем объект "отображаемый файл"
 
-	printf("all is done\n");
+	log.loudlog(_T("All is done!"));
 	_getch();
 	return 0;
 }

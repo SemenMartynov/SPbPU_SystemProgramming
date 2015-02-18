@@ -1,14 +1,16 @@
-#include<windows.h>
-#include<stdio.h>
+#include <windows.h>
+#include <stdio.h>
+#include <tchar.h>
 
-#include"thread.h"
-#include"utils.h"
+#include "thread.h"
+#include "utils.h"
+#include "Logger.h"
 
 //создание, установка и запуск таймера
 HANDLE CreateAndStartWaitableTimer(int sec) {
 	__int64 end_time;
 	LARGE_INTEGER end_time2;
-	HANDLE tm = CreateWaitableTimer(NULL, false, L"timer");
+	HANDLE tm = CreateWaitableTimer(NULL, false, _T("Timer!"));
 	end_time = -1 * sec * 10000000;
 	end_time2.LowPart = (DWORD)(end_time & 0xFFFFFFFF);
 	end_time2.HighPart = (LONG)(end_time >> 32);
@@ -17,114 +19,122 @@ HANDLE CreateAndStartWaitableTimer(int sec) {
 }
 
 //создание всех потоков
-void CreateAllThreads(struct Configuration * config) {
+void CreateAllThreads(struct Configuration* config, Logger* log) {
 	extern HANDLE *allhandlers;
-	printf(
-		"createConfig:\n NumOfreadrs = %d | ReadersDelay= %d | NumOfwriters= %d | WritersDelay = %d | sizeofqueue = %d | ttl = %d\n",
-		config->numOfReaders, config->readersDelay, config->numOfWriters,
-		config->writersDelay, config->sizeOfQueue, config->ttl);
-	allhandlers = new HANDLE[config->numOfReaders + config->numOfWriters + 1];
+
+	int total = config->numOfReaders + config->numOfWriters + 1;
+	log->quietlog(_T("Total num of threads is %d"), total);
+	allhandlers = new HANDLE[total];
 	int count = 0;
 
 	//создаем потоки-читатели
-	printf("create readers\n");
-	for (int i = 0; i != config->numOfReaders; i++, count++) {
-		printf("count= %d\n", count);
+	log->loudlog(_T("Create readers"));
+	for (int i = 0; i != config->numOfReaders; ++i, ++count) {
+		log->loudlog(_T("Count = %d"), count);
 		//создаем потоки-читатели, которые пока не стартуют
-		if ((allhandlers[count] = CreateThread(NULL, 0, ThreadReaderHandler, (LPVOID)i, CREATE_SUSPENDED, NULL)) == NULL)
-		{
-			printf("impossible to create thread-reader\n %d", GetLastError());
+		if ((allhandlers[count] = CreateThread(NULL, 0, ThreadReaderHandler, (LPVOID)i, CREATE_SUSPENDED, NULL)) == NULL) {
+			log->loudlog(_T("Impossible to create thread-reader, GLE = %d"), GetLastError());
 			exit(8000);
 		}
 	}
 
 	//создаем потоки-писатели
-	printf("create writers\n");
-	for (int i = 0; i != config->numOfWriters; i++, count++) {
-		printf("count= %d\n", count);
+	log->loudlog(_T("Create writers"));
+	for (int i = 0; i != config->numOfWriters; ++i, ++count) {
+		log->loudlog(_T("count = %d"), count);
 		//создаем потоки-писателии, которые пока не стартуют
 		if ((allhandlers[count] = CreateThread(NULL, 0, ThreadWriterHandler, (LPVOID)i, CREATE_SUSPENDED, NULL)) == NULL) {
-			printf("impossible to create thread-writer\n");
+			log->loudlog(_T("Impossible to create thread-writer, GLE = %d"), GetLastError());
 			exit(8001);
 		}
 	}
 
 	//создаем поток TimeManager
-	printf("create TimeManager\n");
-	printf("count= %d\n", count);
+	log->loudlog(_T("Create TimeManager"));
+	log->loudlog(_T("Count = %d"), count);
 	//создаем потоки-читатели, которые пока не стартуют
 	if ((allhandlers[count] = CreateThread(NULL, 0, ThreadTimeManagerHandler, (LPVOID)config->ttl, CREATE_SUSPENDED, NULL)) == NULL) {
-		printf("impossible to create thread-reader\n");
+		log->loudlog(_T("impossible to create thread-reader, GLE = %d"), GetLastError());
 		exit(8002);
 	}
-	printf("successfully created threads\n");
-	return;
+	log->loudlog(_T("Successfully created threads!"));
 }
 
 //функция установки конфигурации
-void SetConfig(char * filename, struct Configuration * config) {
-	if (filename) {
-		FILE *f;
-		int numOfReaders;
-		int numOfWriters;
-		int readersDelay;
-		int writersDelay;
-		int sizeOfQueue;
-		int ttl;
-		char tmp[20];
+void SetConfig(_TCHAR* path, struct Configuration* config, Logger* log) {
+	_TCHAR filename[255];
+	wcscpy_s(filename, path);
+	log->quietlog(_T("Using config from %s"), filename);
 
-		if (!fopen_s(&f, filename, "r")) {
-			printf("impossible open config file %s\n", filename);
-			exit(1000);
-		}
+	FILE *confsource;
+	int numOfReaders;
+	int numOfWriters;
+	int readersDelay;
+	int writersDelay;
+	int sizeOfQueue;
+	int ttl;
+	_TCHAR trash[30];
 
-		//начинаем читать конфигурацию
-		fscanf_s(f, "%s %d", tmp, sizeof(tmp), &numOfReaders); //число потоков-читателей
-		fscanf_s(f, "%s %d", tmp, sizeof(tmp), &readersDelay); //задержки потоков-читателей
-		fscanf_s(f, "%s %d", tmp, sizeof(tmp), &numOfWriters); //число потоков-писателей
-		fscanf_s(f, "%s %d", tmp, sizeof(tmp), &writersDelay); //задержки потоков-писателей
-		fscanf_s(f, "%s %d", tmp, sizeof(tmp), &sizeOfQueue); //размер очереди
-		fscanf_s(f, "%s %d", tmp, sizeof(tmp), &ttl); //время жизни
-
-		if (numOfReaders <= 0 || numOfWriters <= 0) {
-			printf("incorrect num of Readers or writers\n");
-			exit(500);
-		}
-		else if (readersDelay <= 0 || writersDelay <= 0) {
-			printf("incorrect delay of Readers or writers\n");
-			exit(501);
-		}
-		else if (sizeOfQueue <= 0) {
-			printf("incorrect size of queue\n");
-			exit(502);
-		}
-		else if (ttl == 0) {
-			printf("incorrect ttl\n");
-			exit(503);
-		}
-
-		config->numOfReaders = numOfReaders;
-		config->readersDelay = readersDelay;
-		config->numOfWriters = numOfWriters;
-		config->writersDelay = writersDelay;
-		config->sizeOfQueue = sizeOfQueue;
-		config->ttl = ttl;
+	if (_wfopen_s(&confsource, filename, _T("r"))) {
+		_wperror(_T("The following error occurred"));
+		log->loudlog(_T("impossible open config file %s\n"), filename);
+		exit(1000);
 	}
-	else {
-		//Вид конфигурационного файла:
-		//     NumOfReaders= 10
-		//     ReadersDelay= 100
-		//     NumOfWriters= 10
-		//     WritersDelay= 200
-		//     SizeOfQueue= 10
-		//     ttl= 3
 
-		config->numOfReaders = 10;
-		config->readersDelay = 100;
-		config->numOfWriters = 10;
-		config->writersDelay = 200;
-		config->sizeOfQueue = 10;
-		config->ttl = 3;
+	//начинаем читать конфигурацию
+	fscanf_s(confsource, "%s %d", trash, _countof(trash), &numOfReaders); //число потоков-читателей
+	fscanf_s(confsource, "%s %d", trash, _countof(trash), &readersDelay); //задержки потоков-читателей
+	fscanf_s(confsource, "%s %d", trash, _countof(trash), &numOfWriters); //число потоков-писателей
+	fscanf_s(confsource, "%s %d", trash, _countof(trash), &writersDelay); //задержки потоков-писателей
+	fscanf_s(confsource, "%s %d", trash, _countof(trash), &sizeOfQueue); //размер очереди
+	fscanf_s(confsource, "%s %d", trash, _countof(trash), &ttl); //время жизни
+
+	if (numOfReaders <= 0 || numOfWriters <= 0) {
+		log->loudlog(_T("Incorrect num of Readers or writers"));
+		exit(500);
 	}
-	return;
+	else if (readersDelay <= 0 || writersDelay <= 0) {
+		log->loudlog(_T("Incorrect delay of Readers or writers"));
+		exit(501);
+	}
+	else if (sizeOfQueue <= 0) {
+		log->loudlog(_T("Incorrect size of queue"));
+		exit(502);
+	}
+	else if (ttl == 0) {
+		log->loudlog(_T("Incorrect ttl"));
+		exit(503);
+	}
+	fclose(confsource);
+
+	config->numOfReaders = numOfReaders;
+	config->readersDelay = readersDelay;
+	config->numOfWriters = numOfWriters;
+	config->writersDelay = writersDelay;
+	config->sizeOfQueue = sizeOfQueue;
+	config->ttl = ttl;
+
+	log->quietlog(_T("Config:\n\tNumOfReaders = %d\n\tReadersDelay = %d\n\tNumOfWriters = %d\n\tWritersDelay = %d\n\tSizeOfQueue = %d\n\tttl = %d"),
+		config->numOfReaders, config->readersDelay, config->numOfWriters, config->writersDelay, config->sizeOfQueue, config->ttl);
+}
+
+void SetDefaultConfig(struct Configuration* config, Logger* log) {
+	log->quietlog(_T("Using default config"));
+	//Вид конфигурационного файла:
+	//     NumOfReaders= 10
+	//     ReadersDelay= 100
+	//     NumOfWriters= 10
+	//     WritersDelay= 200
+	//     SizeOfQueue= 10
+	//     ttl= 3
+
+	config->numOfReaders = 10;
+	config->readersDelay = 100;
+	config->numOfWriters = 10;
+	config->writersDelay = 200;
+	config->sizeOfQueue = 10;
+	config->ttl = 3;
+
+	log->quietlog(_T("Config:\n\tNumOfReaders = %d\n\tReadersDelay = %d\n\tNumOfWriters = %d\n\tWritersDelay = %d\n\tSizeOfQueue = %d\n\tttl = %d"),
+		config->numOfReaders, config->readersDelay, config->numOfWriters, config->writersDelay, config->sizeOfQueue, config->ttl);
 }

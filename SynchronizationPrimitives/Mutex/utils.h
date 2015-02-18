@@ -1,5 +1,6 @@
-#ifndef UTILS_H_
-#define UTILS_H_
+#pragma once
+
+#include "Logger.h"
 
 // Структура с конфигурацией
 struct Configuration {
@@ -13,7 +14,7 @@ struct Configuration {
 
 //Структура описывающая FIFO очередь
 struct FIFOQueue {
-	char **data; //массив сообщений
+	_TCHAR **data; //массив сообщений
 	int writeindex; //индекс записи
 	int readindex; //индекс чтения
 	int size; //размер очереди
@@ -24,9 +25,12 @@ struct FIFOQueue {
 HANDLE CreateAndStartWaitableTimer(int sec);
 
 //создание всех потоков
-void CreateAllThreads(struct Configuration * config);
+void CreateAllThreads(struct Configuration* config, Logger* log);
 
 //функция установки конфигурации
-void SetConfig(char * filename, struct Configuration * config);
+void SetConfig(_TCHAR* path, struct Configuration* config, Logger* log);
 
-#endif /* UTILS_H_ */
+//функция установки конфигурации по умолчанию
+void SetDefaultConfig(struct Configuration* config, Logger* log);
+
+

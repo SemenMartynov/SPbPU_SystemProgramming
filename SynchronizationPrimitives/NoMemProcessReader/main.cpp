@@ -1,18 +1,24 @@
-#include<windows.h>
-#include<stdio.h>
+#include <windows.h>
+#include <stdio.h>
+#include <tchar.h>
 #include <conio.h>
 
-int main(int argc, char* argv[]) {
+#include "Logger.h"
+
+int _tmain(int argc, _TCHAR* argv[]) {
 	//проверяем число аргументов
 	if (argc != 3) {
-		printf("error with start reader process. Need 2 arguments, but %d presented.\n", argc);
+		Logger log(_T("ProcessReader"));
+		log.loudlog(_T("Error with start reader process. Need 2 arguments, but %d presented."), argc);
 		_getch();
 		ExitProcess(1000);
 	}
 	//получаем из командной строки наш номер
-	int myid = atoi(argv[1]);
-	int pause = atoi(argv[2]);
-	printf("reader with id= %d is started\n", myid);
+	int myid = _wtoi(argv[1]);
+	int pause = _wtoi(argv[2]);
+
+	Logger log(_T("ProcessReader"), myid);
+	log.loudlog(_T("Reader with id= %d is started"), myid);
 
 	// Состояние готовности:
 	// true - ждём сообщение для чтения
@@ -45,7 +51,7 @@ int main(int argc, char* argv[]) {
 	if (readerCanReadEvent == NULL || readerGetReadyEvent == NULL || canChangeCountEvent == NULL
 		|| changeCountEvent == NULL || exitEvent == NULL
 		|| hFileMapping == NULL) {
-		printf("impossible to open objects, run server first\n getlasterror=%d",
+		log.loudlog(_T("Impossible to open objects, run server first\n getlasterror=%d"),
 			GetLastError());
 		_getch();
 		return 1001;
@@ -73,6 +79,7 @@ int main(int argc, char* argv[]) {
 	while (1) { //основной цикл
 		// Ожидаем набор событий в зависимости от состояния
 		if (readyState) {
+			log.quietlog(_T("Waining for multiple objects"));
 			DWORD dwEvent = WaitForMultipleObjects(2, readerHandlers, false,
 				INFINITE);
 			//   2 - следим за 2-я параметрами
@@ -81,29 +88,33 @@ int main(int argc, char* argv[]) {
 			//   INFINITE - ждать бесконечно
 			switch (dwEvent) {
 			case WAIT_OBJECT_0: //сработало событие exit
-				printf("Reader %d finishing work\n", myid);
+				log.quietlog(_T("Get exitEvent"));
+				log.loudlog(_T("Reader %d finishing work"), myid);
 				goto exit;
 
 			case WAIT_OBJECT_0 + 1: // сработало событие на возможность чтения
+				log.quietlog(_T("Get readerCanReadEvent"));
 				//читаем сообщение
-				printf("Reader %d read msg \"%s\"\n", myid, (char *)lpFileMapForReaders);
+				log.loudlog(_T("Reader %d read msg \"%s\""), myid, (_TCHAR *)lpFileMapForReaders);
 
 				// Отправляем отчёт
+				log.quietlog(_T("Waining for canChangeCountEvent"));
 				WaitForSingleObject(canChangeCountEvent, INFINITE);
+				log.quietlog(_T("Set Event changeCountEvent"));
 				SetEvent(changeCountEvent);
 
 				// Завершаем работу
 				readyState = false;
 				break;
 			default:
-				printf("error with func WaitForMultipleObjects in readerHandle\n");
-				printf("getlasterror= %d\n", GetLastError());
+				log.loudlog(_T("Error with func WaitForMultipleObjects in readerHandle, GLE = %d"), GetLastError());
 				getchar();
 				ExitProcess(1001);
 				break;
 			}
 		}
 		else {
+			log.quietlog(_T("Waining for multiple objects"));
 			DWORD dwEvent = WaitForMultipleObjects(2, readyHandlers, false,
 				INFINITE);
 			//   2 - следим за 2-я параметрами
@@ -112,20 +123,23 @@ int main(int argc, char* argv[]) {
 			//   INFINITE - ждать бесконечно
 			switch (dwEvent) {
 			case WAIT_OBJECT_0: //сработало событие exit
-				printf("Reader %d finishing work\n", myid);
+				log.quietlog(_T("Get exitEvent"));
+				log.loudlog(_T("Reader %d finishing work"), myid);
 				goto exit;
 
 			case WAIT_OBJECT_0 + 1: // сработало событие перехода в режим готовности
+				log.quietlog(_T("Get readerGetReadyEvent"));
 				// Отправляем отчёт
+				log.quietlog(_T("Waining for canChangeCountEvent"));
 				WaitForSingleObject(canChangeCountEvent, INFINITE);
+				log.quietlog(_T("Set Event changeCountEvent"));
 				SetEvent(changeCountEvent);
 
 				// Завершаем работу
 				readyState = true;
 				break;
 			default:
-				printf("error with func WaitForMultipleObjects in readerHandle\n");
-				printf("getlasterror= %d\n", GetLastError());
+				log.loudlog(_T("Error with func WaitForMultipleObjects in readerHandle, GLE = %d"), GetLastError());
 				getchar();
 				ExitProcess(1001);
 				break;
@@ -144,7 +158,7 @@ exit:
 	UnmapViewOfFile(lpFileMapForReaders); //закрываем общий ресурс
 	CloseHandle(hFileMapping); //закрываем объект "отображаемый файл"
 
-	printf("all is done\n");
+	log.loudlog(_T("All is done"));
 	_getch();
 	return 0;
 }
