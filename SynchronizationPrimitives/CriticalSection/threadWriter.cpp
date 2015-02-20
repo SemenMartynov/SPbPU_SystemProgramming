@@ -14,32 +14,32 @@ DWORD WINAPI ThreadWriterHandler(LPVOID prm) {
 	extern CRITICAL_SECTION crs;
 
 	_TCHAR tmp[50];
-	int msgnum = 0; //номер передаваемого сообщения
+	int msgnum = 0; //РЅРѕРјРµСЂ РїРµСЂРµРґР°РІР°РµРјРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ
 	while (isDone != true) {
-		//Захват синхронизирующего объекта
+		//Р—Р°С…РІР°С‚ СЃРёРЅС…СЂРѕРЅРёР·РёСЂСѓСЋС‰РµРіРѕ РѕР±СЉРµРєС‚Р°
 		log.quietlog(_T("Waining for Critical Section"));
 		EnterCriticalSection(&crs);
 		log.quietlog(_T("Get Critical Section"));
 
-		//если в очереди есть место
+		//РµСЃР»Рё РІ РѕС‡РµСЂРµРґРё РµСЃС‚СЊ РјРµСЃС‚Рѕ
 		if (queue.readindex != queue.writeindex || !queue.full == 1) {
-			//заносим в очередь данные
+			//Р·Р°РЅРѕСЃРёРј РІ РѕС‡РµСЂРµРґСЊ РґР°РЅРЅС‹Рµ
 			swprintf_s(tmp, _T("writer_id = %d numMsg= %3d"), myid, msgnum);
 			queue.data[queue.writeindex] = _wcsdup(tmp);
 			msgnum++;
 
-			//печатаем принятые данные
+			//РїРµС‡Р°С‚Р°РµРј РїСЂРёРЅСЏС‚С‹Рµ РґР°РЅРЅС‹Рµ
 			log.loudlog(_T("Writer %d put data: \"%s\" in position %d"), myid,
 				queue.data[queue.writeindex], queue.writeindex);
 			queue.writeindex = (queue.writeindex + 1) % queue.size;
-			//если очередь заполнилась
+			//РµСЃР»Рё РѕС‡РµСЂРµРґСЊ Р·Р°РїРѕР»РЅРёР»Р°СЃСЊ
 			queue.full = queue.writeindex == queue.readindex ? 1 : 0;
 		}
-		//освобождение объекта синхронизации
+		//РѕСЃРІРѕР±РѕР¶РґРµРЅРёРµ РѕР±СЉРµРєС‚Р° СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё
 		log.quietlog(_T("Leave Critical Section"));
 		LeaveCriticalSection(&crs);
 
-		//задержка
+		//Р·Р°РґРµСЂР¶РєР°
 		Sleep(config.writersDelay);
 	}
 	log.loudlog(_T("Writer %d finishing work"), myid);

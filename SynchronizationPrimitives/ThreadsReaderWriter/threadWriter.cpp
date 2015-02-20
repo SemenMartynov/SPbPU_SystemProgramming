@@ -27,26 +27,26 @@ DWORD WINAPI ThreadWriterHandler(LPVOID prm) {
 		log.quietlog(_T("Waining for multiple objects"));
 		DWORD dwEvent = WaitForMultipleObjects(2, writerhandlers, false,
 			INFINITE);
-		//   2 - следим за 2-я параметрами
-		//   writerhandlers - из массива writerhandlers
-		//   false - ждём, когда освободится хотя бы один
-		//   INFINITE - ждать бесконечно
+		//   2 - СЃР»РµРґРёРј Р·Р° 2-СЏ РїР°СЂР°РјРµС‚СЂР°РјРё
+		//   writerhandlers - РёР· РјР°СЃСЃРёРІР° writerhandlers
+		//   false - Р¶РґС‘Рј, РєРѕРіРґР° РѕСЃРІРѕР±РѕРґРёС‚СЃСЏ С…РѕС‚СЏ Р±С‹ РѕРґРёРЅ
+		//   INFINITE - Р¶РґР°С‚СЊ Р±РµСЃРєРѕРЅРµС‡РЅРѕ
 		switch (dwEvent) {
-		case WAIT_OBJECT_0:	//сработало событие exit
+		case WAIT_OBJECT_0:	//СЃСЂР°Р±РѕС‚Р°Р»Рѕ СЃРѕР±С‹С‚РёРµ exit
 			log.quietlog(_T("Get exitEvent"));
 			log.loudlog(_T("Writer %d finishing work"), myid);
 			return 0;
-		case WAIT_OBJECT_0 + 1: // сработало событие на возможность записи
+		case WAIT_OBJECT_0 + 1: // СЃСЂР°Р±РѕС‚Р°Р»Рѕ СЃРѕР±С‹С‚РёРµ РЅР° РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ Р·Р°РїРёСЃРё
 			log.quietlog(_T("Get canWriteEvent"));
-			//увеличиваем номер сообщения
+			//СѓРІРµР»РёС‡РёРІР°РµРј РЅРѕРјРµСЂ СЃРѕРѕР±С‰РµРЅРёСЏ
 			msgnum++;
-			//число потоков которые должны прочитать сообщение
+			//С‡РёСЃР»Рѕ РїРѕС‚РѕРєРѕРІ РєРѕС‚РѕСЂС‹Рµ РґРѕР»Р¶РЅС‹ РїСЂРѕС‡РёС‚Р°С‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ
 			countread = config.numOfReaders;
-			// Запись сообщения
+			// Р—Р°РїРёСЃСЊ СЃРѕРѕР±С‰РµРЅРёСЏ
 			swprintf_s((_TCHAR *)lpFileMapForWriters, 1500,
 				_T("writer_id %d, msg with num = %d"), myid, msgnum);
 			log.loudlog(_T("writer put msg: \"%s\""), lpFileMapForWriters);
-			//разрешаем читателям прочитать сообщение и опять ставим событие в занятое
+			//СЂР°Р·СЂРµС€Р°РµРј С‡РёС‚Р°С‚РµР»СЏРј РїСЂРѕС‡РёС‚Р°С‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ Рё РѕРїСЏС‚СЊ СЃС‚Р°РІРёРј СЃРѕР±С‹С‚РёРµ РІ Р·Р°РЅСЏС‚РѕРµ
 			log.quietlog(_T("Set Event canReadEvent"));
 			SetEvent(canReadEvent);
 			break;

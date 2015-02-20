@@ -16,41 +16,41 @@ DWORD WINAPI ThreadWriterHandler(LPVOID prm) {
 	extern CONDITION_VARIABLE condwrite;
 
 	_TCHAR tmp[50];
-	int msgnum = 0; //номер передаваемого сообщения
+	int msgnum = 0; //РЅРѕРјРµСЂ РїРµСЂРµРґР°РІР°РµРјРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ
 	while (isDone != true) {
-		//Захват синхронизирующего объекта
+		//Р—Р°С…РІР°С‚ СЃРёРЅС…СЂРѕРЅРёР·РёСЂСѓСЋС‰РµРіРѕ РѕР±СЉРµРєС‚Р°
 		log.quietlog(_T("Waining for Critical Section"));
 		EnterCriticalSection(&crs);
 		log.quietlog(_T("Get Critical Section"));
 
 		log.quietlog(_T("Waining for empty space in the queue"));
 		while (!(queue.readindex != queue.writeindex || !queue.full == 1))
-			//спим пока в очереди не освободится место
+			//СЃРїРёРј РїРѕРєР° РІ РѕС‡РµСЂРµРґРё РЅРµ РѕСЃРІРѕР±РѕРґРёС‚СЃСЏ РјРµСЃС‚Рѕ
 			SleepConditionVariableCS(&condwrite, &crs, INFINITE);
 		log.quietlog(_T("Get space in the queue"));
 
-		//заносим в очередь данные
+		//Р·Р°РЅРѕСЃРёРј РІ РѕС‡РµСЂРµРґСЊ РґР°РЅРЅС‹Рµ
 		swprintf_s(tmp, _T("writer_id = %d numMsg= %3d"), myid, msgnum);
 		queue.data[queue.writeindex] = _wcsdup(tmp);
 		msgnum++;
 
-		//печатаем принятые данные
+		//РїРµС‡Р°С‚Р°РµРј РїСЂРёРЅСЏС‚С‹Рµ РґР°РЅРЅС‹Рµ
 		log.loudlog(_T("Writer %d put data: \"%s\" in position %d"), myid,
 			queue.data[queue.writeindex], queue.writeindex);
 		queue.writeindex = (queue.writeindex + 1) % queue.size;
-		//если очередь заполнилась
+		//РµСЃР»Рё РѕС‡РµСЂРµРґСЊ Р·Р°РїРѕР»РЅРёР»Р°СЃСЊ
 		queue.full = queue.writeindex == queue.readindex ? 1 : 0;
 
 		if (queue.full == 1)
 			log.loudlog(_T("Queue is full"));
-		//шлем сигнал потокам-читателям
+		//С€Р»РµРј СЃРёРіРЅР°Р» РїРѕС‚РѕРєР°Рј-С‡РёС‚Р°С‚РµР»СЏРј
 		log.quietlog(_T("Wake Condition Variable"));
 		WakeConditionVariable(&condread);
-		// освобождение синхронизируемого объекта
+		// РѕСЃРІРѕР±РѕР¶РґРµРЅРёРµ СЃРёРЅС…СЂРѕРЅРёР·РёСЂСѓРµРјРѕРіРѕ РѕР±СЉРµРєС‚Р°
 		log.quietlog(_T("Leave Critical Section"));
 		LeaveCriticalSection(&crs);
 
-		//задержка
+		//Р·Р°РґРµСЂР¶РєР°
 		Sleep(config.writersDelay);
 	}
 	log.loudlog(_T("Writer %d finishing work"), myid);

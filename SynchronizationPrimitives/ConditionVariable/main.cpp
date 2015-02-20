@@ -8,64 +8,64 @@
 #include "utils.h"
 #include "Logger.h"
 
-//глобальные переменные:
-struct FIFOQueue queue; //структура очереди
-struct Configuration config; //конфигурация программы
-bool isDone = false; //Признак завершения
-HANDLE *allhandlers; //массив всех создаваемых потоков
+//РіР»РѕР±Р°Р»СЊРЅС‹Рµ РїРµСЂРµРјРµРЅРЅС‹Рµ:
+struct FIFOQueue queue; //СЃС‚СЂСѓРєС‚СѓСЂР° РѕС‡РµСЂРµРґРё
+struct Configuration config; //РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ РїСЂРѕРіСЂР°РјРјС‹
+bool isDone = false; //РџСЂРёР·РЅР°Рє Р·Р°РІРµСЂС€РµРЅРёСЏ
+HANDLE *allhandlers; //РјР°СЃСЃРёРІ РІСЃРµС… СЃРѕР·РґР°РІР°РµРјС‹С… РїРѕС‚РѕРєРѕРІ
 
-//критическая секция общая и для писателей и для читателей
+//РєСЂРёС‚РёС‡РµСЃРєР°СЏ СЃРµРєС†РёСЏ РѕР±С‰Р°СЏ Рё РґР»СЏ РїРёСЃР°С‚РµР»РµР№ Рё РґР»СЏ С‡РёС‚Р°С‚РµР»РµР№
 CRITICAL_SECTION crs;
-//условная переменная для потоков-писателей
+//СѓСЃР»РѕРІРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ РїРѕС‚РѕРєРѕРІ-РїРёСЃР°С‚РµР»РµР№
 CONDITION_VARIABLE condread;
-//условная переменная для потоков-читателей
+//СѓСЃР»РѕРІРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ РїРѕС‚РѕРєРѕРІ-С‡РёС‚Р°С‚РµР»РµР№
 CONDITION_VARIABLE condwrite;
 
 int _tmain(int argc, _TCHAR* argv[]) {
 	Logger log(_T("ConditionVariable"));
 
 	if (argc < 2)
-		// Используем конфигурацию по-умолчанию
+		// РСЃРїРѕР»СЊР·СѓРµРј РєРѕРЅС„РёРіСѓСЂР°С†РёСЋ РїРѕ-СѓРјРѕР»С‡Р°РЅРёСЋ
 		SetDefaultConfig(&config, &log);
 	else
-		// Загрузка конфига из файла
+		// Р—Р°РіСЂСѓР·РєР° РєРѕРЅС„РёРіР° РёР· С„Р°Р№Р»Р°
 		SetConfig(argv[1], &config, &log);
 
-	//создаем необходимые потоки без их запуска
+	//СЃРѕР·РґР°РµРј РЅРµРѕР±С…РѕРґРёРјС‹Рµ РїРѕС‚РѕРєРё Р±РµР· РёС… Р·Р°РїСѓСЃРєР°
 	CreateAllThreads(&config, &log);
 
-	//Инициализируем очередь
+	//РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РѕС‡РµСЂРµРґСЊ
 	queue.full = 0;
 	queue.readindex = 0;
 	queue.writeindex = 0;
 	queue.size = config.sizeOfQueue;
 	queue.data = new _TCHAR*[config.sizeOfQueue];
-	//инициализируем средство синхронизации
+	//РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј СЃСЂРµРґСЃС‚РІРѕ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё
 	InitializeCriticalSection(&crs);
 	InitializeConditionVariable(&condread);
 	InitializeConditionVariable(&condwrite);
 
-	//запускаем потоки на исполнение
+	//Р·Р°РїСѓСЃРєР°РµРј РїРѕС‚РѕРєРё РЅР° РёСЃРїРѕР»РЅРµРЅРёРµ
 	for (int i = 0; i < config.numOfReaders + config.numOfWriters + 1; i++)
 		ResumeThread(allhandlers[i]);
 
-	//ожидаем завершения всех потоков
+	//РѕР¶РёРґР°РµРј Р·Р°РІРµСЂС€РµРЅРёСЏ РІСЃРµС… РїРѕС‚РѕРєРѕРІ
 	WaitForMultipleObjects(config.numOfReaders + config.numOfWriters + 1,
 		allhandlers, TRUE, 5000);
 
-	//закрываем handle потоков
+	//Р·Р°РєСЂС‹РІР°РµРј handle РїРѕС‚РѕРєРѕРІ
 	for (int i = 0; i < config.numOfReaders + config.numOfWriters + 1; i++)
 		CloseHandle(allhandlers[i]);
-	//удаляем объект синхронизации
+	//СѓРґР°Р»СЏРµРј РѕР±СЉРµРєС‚ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё
 	DeleteCriticalSection(&crs);
 
-	// Очистка памяти
+	// РћС‡РёСЃС‚РєР° РїР°РјСЏС‚Рё
 	for (size_t i = 0; i != config.sizeOfQueue; ++i)
 		if (queue.data[i])
-			free(queue.data[i]); // _wcsdup использует calloc
+			free(queue.data[i]); // _wcsdup РёСЃРїРѕР»СЊР·СѓРµС‚ calloc
 	delete[] queue.data;
 
-	// Завершение работы
+	// Р—Р°РІРµСЂС€РµРЅРёРµ СЂР°Р±РѕС‚С‹
 	log.loudlog(_T("All is done!"));
 	_getch();
 	return 0;

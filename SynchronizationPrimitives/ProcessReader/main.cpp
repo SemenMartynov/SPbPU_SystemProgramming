@@ -6,41 +6,41 @@
 #include "Logger.h"
 
 int _tmain(int argc, _TCHAR* argv[]) {
-	//проверяем число аргументов
+	//РїСЂРѕРІРµСЂСЏРµРј С‡РёСЃР»Рѕ Р°СЂРіСѓРјРµРЅС‚РѕРІ
 	if (argc != 2) {
 		Logger log(_T("ProcessReader"));
 		log.loudlog(_T("Error with start reader process. Need 2 arguments."));
 		_getch();
 		ExitProcess(1000);
 	}
-	//получаем из командной строки наш номер
+	//РїРѕР»СѓС‡Р°РµРј РёР· РєРѕРјР°РЅРґРЅРѕР№ СЃС‚СЂРѕРєРё РЅР°С€ РЅРѕРјРµСЂ
 	int myid = _wtoi(argv[1]);
 
 	Logger log(_T("ProcessReader"), myid);
 	log.loudlog(_T("Reader with id= %d is started"), myid);
 
-	//Инициализируем средства синхронизации
-	// (атрибуты защиты, наследование описателя, имя):
-	//писатель записал сообщение (ручной сброс);
+	//РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј СЃСЂРµРґСЃС‚РІР° СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё
+	// (Р°С‚СЂРёР±СѓС‚С‹ Р·Р°С‰РёС‚С‹, РЅР°СЃР»РµРґРѕРІР°РЅРёРµ РѕРїРёСЃР°С‚РµР»СЏ, РёРјСЏ):
+	//РїРёСЃР°С‚РµР»СЊ Р·Р°РїРёСЃР°Р» СЃРѕРѕР±С‰РµРЅРёРµ (СЂСѓС‡РЅРѕР№ СЃР±СЂРѕСЃ);
 	HANDLE canReadEvent = OpenEvent(EVENT_ALL_ACCESS, false,
 		L"$$My_canReadEvent$$");
-	//все читатели готовы к приему следующего (автосброс);
+	//РІСЃРµ С‡РёС‚Р°С‚РµР»Рё РіРѕС‚РѕРІС‹ Рє РїСЂРёРµРјСѓ СЃР»РµРґСѓСЋС‰РµРіРѕ (Р°РІС‚РѕСЃР±СЂРѕСЃ);
 	HANDLE canWriteEvent = OpenEvent(EVENT_ALL_ACCESS, false,
 		L"$$My_canWriteEvent$$");
-	//все читатели прочитали сообщение (ручной сброс);
+	//РІСЃРµ С‡РёС‚Р°С‚РµР»Рё РїСЂРѕС‡РёС‚Р°Р»Рё СЃРѕРѕР±С‰РµРЅРёРµ (СЂСѓС‡РЅРѕР№ СЃР±СЂРѕСЃ);
 	HANDLE allReadEvent = OpenEvent(EVENT_ALL_ACCESS, false,
 		L"$$My_allReadEvent$$");
-	//разрешение работы со счетчиком (автосброс);
+	//СЂР°Р·СЂРµС€РµРЅРёРµ СЂР°Р±РѕС‚С‹ СЃРѕ СЃС‡РµС‚С‡РёРєРѕРј (Р°РІС‚РѕСЃР±СЂРѕСЃ);
 	HANDLE changeCountEvent = OpenEvent(EVENT_ALL_ACCESS, false,
 		L"$$My_changeCountEvent$$");
-	//завершение программы (ручной сброс);
+	//Р·Р°РІРµСЂС€РµРЅРёРµ РїСЂРѕРіСЂР°РјРјС‹ (СЂСѓС‡РЅРѕР№ СЃР±СЂРѕСЃ);
 	HANDLE exitEvent = OpenEvent(EVENT_ALL_ACCESS, false, L"$$My_exitEvent$$");
 
-	//Общий ресурс (атрибуты защиты, наследование описателя, имя):
+	//РћР±С‰РёР№ СЂРµСЃСѓСЂСЃ (Р°С‚СЂРёР±СѓС‚С‹ Р·Р°С‰РёС‚С‹, РЅР°СЃР»РµРґРѕРІР°РЅРёРµ РѕРїРёСЃР°С‚РµР»СЏ, РёРјСЏ):
 	HANDLE hFileMapping = OpenFileMapping(FILE_MAP_ALL_ACCESS, false,
 		L"$$MyVerySpecialShareFileName$$");
 
-	//если объекты не созданы, то не сможем работать
+	//РµСЃР»Рё РѕР±СЉРµРєС‚С‹ РЅРµ СЃРѕР·РґР°РЅС‹, С‚Рѕ РЅРµ СЃРјРѕР¶РµРј СЂР°Р±РѕС‚Р°С‚СЊ
 	if (canReadEvent == NULL || canWriteEvent == NULL || allReadEvent == NULL
 		|| changeCountEvent == NULL || exitEvent == NULL
 		|| hFileMapping == NULL) {
@@ -50,29 +50,29 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		return 1001;
 	}
 
-	//отображаем файл на адресное пространство нашего процесса для потоков-читателей
+	//РѕС‚РѕР±СЂР°Р¶Р°РµРј С„Р°Р№Р» РЅР° Р°РґСЂРµСЃРЅРѕРµ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ РЅР°С€РµРіРѕ РїСЂРѕС†РµСЃСЃР° РґР»СЏ РїРѕС‚РѕРєРѕРІ-С‡РёС‚Р°С‚РµР»РµР№
 	LPVOID lpFileMapForReaders = MapViewOfFile(hFileMapping,
 		FILE_MAP_ALL_ACCESS, 0, 0, 0);
-	//  hFileMapping - дескриптор объекта-отображения файла
-	//  FILE_MAP_ALL_ACCESS - доступа к файлу
-	//  0, 0 - старшая и младшая части смещения начала отображаемого участка в файле
-	//         (0 - начало отображаемого участка совпадает с началом файла)
-	//  0 - размер отображаемого участка файла в байтах (0 - весь файл)
+	//  hFileMapping - РґРµСЃРєСЂРёРїС‚РѕСЂ РѕР±СЉРµРєС‚Р°-РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ С„Р°Р№Р»Р°
+	//  FILE_MAP_ALL_ACCESS - РґРѕСЃС‚СѓРїР° Рє С„Р°Р№Р»Сѓ
+	//  0, 0 - СЃС‚Р°СЂС€Р°СЏ Рё РјР»Р°РґС€Р°СЏ С‡Р°СЃС‚Рё СЃРјРµС‰РµРЅРёСЏ РЅР°С‡Р°Р»Р° РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРіРѕ СѓС‡Р°СЃС‚РєР° РІ С„Р°Р№Р»Рµ
+	//         (0 - РЅР°С‡Р°Р»Рѕ РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРіРѕ СѓС‡Р°СЃС‚РєР° СЃРѕРІРїР°РґР°РµС‚ СЃ РЅР°С‡Р°Р»РѕРј С„Р°Р№Р»Р°)
+	//  0 - СЂР°Р·РјРµСЂ РѕС‚РѕР±СЂР°Р¶Р°РµРјРѕРіРѕ СѓС‡Р°СЃС‚РєР° С„Р°Р№Р»Р° РІ Р±Р°Р№С‚Р°С… (0 - РІРµСЃСЊ С„Р°Р№Р»)
 
 	HANDLE readerhandlers[2];
 	readerhandlers[0] = exitEvent;
 	readerhandlers[1] = canReadEvent;
 
-	while (1) { //основной цикл
-		//ждем, пока все прочитают
+	while (1) { //РѕСЃРЅРѕРІРЅРѕР№ С†РёРєР»
+		//Р¶РґРµРј, РїРѕРєР° РІСЃРµ РїСЂРѕС‡РёС‚Р°СЋС‚
 		log.quietlog(_T("Waining for allReadEvent"));
 		WaitForSingleObject(allReadEvent, INFINITE);
-		//узнаем, сколько потоков-читателей прошло данную границу
+		//СѓР·РЅР°РµРј, СЃРєРѕР»СЊРєРѕ РїРѕС‚РѕРєРѕРІ-С‡РёС‚Р°С‚РµР»РµР№ РїСЂРѕС€Р»Рѕ РґР°РЅРЅСѓСЋ РіСЂР°РЅРёС†Сѓ
 		log.quietlog(_T("Waining for changeCountEvent"));
 		WaitForSingleObject(changeCountEvent, INFINITE);
 		(*(((int *)lpFileMapForReaders) + 1))--;
 		log.loudlog(_T("Readready= %d\n"), (*(((int *)lpFileMapForReaders) + 1)));
-		//если все прошли, то "закрываем за собой дверь" и разрешаем писать
+		//РµСЃР»Рё РІСЃРµ РїСЂРѕС€Р»Рё, С‚Рѕ "Р·Р°РєСЂС‹РІР°РµРј Р·Р° СЃРѕР±РѕР№ РґРІРµСЂСЊ" Рё СЂР°Р·СЂРµС€Р°РµРј РїРёСЃР°С‚СЊ
 		if ((*(((int *)lpFileMapForReaders) + 1)) == 0) {
 			log.quietlog(_T("Reset Event allReadEvent"));
 			ResetEvent(allReadEvent);
@@ -80,35 +80,35 @@ int _tmain(int argc, _TCHAR* argv[]) {
 			SetEvent(canWriteEvent);
 		}
 
-		//разрешаем изменять счетчик
+		//СЂР°Р·СЂРµС€Р°РµРј РёР·РјРµРЅСЏС‚СЊ СЃС‡РµС‚С‡РёРє
 		log.quietlog(_T("Set Event changeCountEvent"));
 		SetEvent(changeCountEvent);
 
 		log.quietlog(_T("Waining for multiple objects"));
 		DWORD dwEvent = WaitForMultipleObjects(2, readerhandlers, false,
 			INFINITE);
-		//   2 - следим за 2-я параметрами
-		//   readerhandlers - из массива readerhandlers
-		//   false - ждём, когда освободится хотя бы один
-		//   INFINITE - ждать бесконечно
+		//   2 - СЃР»РµРґРёРј Р·Р° 2-СЏ РїР°СЂР°РјРµС‚СЂР°РјРё
+		//   readerhandlers - РёР· РјР°СЃСЃРёРІР° readerhandlers
+		//   false - Р¶РґС‘Рј, РєРѕРіРґР° РѕСЃРІРѕР±РѕРґРёС‚СЃСЏ С…РѕС‚СЏ Р±С‹ РѕРґРёРЅ
+		//   INFINITE - Р¶РґР°С‚СЊ Р±РµСЃРєРѕРЅРµС‡РЅРѕ
 		switch (dwEvent) {
-		case WAIT_OBJECT_0: //сработало событие exit
+		case WAIT_OBJECT_0: //СЃСЂР°Р±РѕС‚Р°Р»Рѕ СЃРѕР±С‹С‚РёРµ exit
 			log.quietlog(_T("Get exitEvent"));
 			log.loudlog(_T("Reader %d finishing work"), myid);
 			goto exit;
-		case WAIT_OBJECT_0 + 1: // сработало событие на возможность чтения
+		case WAIT_OBJECT_0 + 1: // СЃСЂР°Р±РѕС‚Р°Р»Рѕ СЃРѕР±С‹С‚РёРµ РЅР° РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ С‡С‚РµРЅРёСЏ
 			log.quietlog(_T("Get canReadEvent"));
-			//читаем сообщение
+			//С‡РёС‚Р°РµРј СЃРѕРѕР±С‰РµРЅРёРµ
 			log.loudlog(_T("Reader %d read msg \"%s\""), myid,
 				((_TCHAR *)lpFileMapForReaders) + sizeof(int) * 2);
 
-			//необходимо уменьшить счетчик количества читателей, которые прочитать еще не успели
+			//РЅРµРѕР±С…РѕРґРёРјРѕ СѓРјРµРЅСЊС€РёС‚СЊ СЃС‡РµС‚С‡РёРє РєРѕР»РёС‡РµСЃС‚РІР° С‡РёС‚Р°С‚РµР»РµР№, РєРѕС‚РѕСЂС‹Рµ РїСЂРѕС‡РёС‚Р°С‚СЊ РµС‰Рµ РЅРµ СѓСЃРїРµР»Рё
 			log.quietlog(_T("Waining for changeCountEvent"));
 			WaitForSingleObject(changeCountEvent, INFINITE);
 			(*((int *)lpFileMapForReaders))--;
 			log.loudlog(_T("Readcount= %d"), (*(((int *)lpFileMapForReaders))));
 
-			// если мы последние читали, то запрещаем читать и открываем границу
+			// РµСЃР»Рё РјС‹ РїРѕСЃР»РµРґРЅРёРµ С‡РёС‚Р°Р»Рё, С‚Рѕ Р·Р°РїСЂРµС‰Р°РµРј С‡РёС‚Р°С‚СЊ Рё РѕС‚РєСЂС‹РІР°РµРј РіСЂР°РЅРёС†Сѓ
 			if ((*((int *)lpFileMapForReaders)) == 0) {
 				log.quietlog(_T("Reset Event canReadEvent"));
 				ResetEvent(canReadEvent);
@@ -116,7 +116,7 @@ int _tmain(int argc, _TCHAR* argv[]) {
 				SetEvent(allReadEvent);
 			}
 
-			//разрешаем изменять счетчик
+			//СЂР°Р·СЂРµС€Р°РµРј РёР·РјРµРЅСЏС‚СЊ СЃС‡РµС‚С‡РёРє
 			log.quietlog(_T("Set Event changeCountEvent"));
 			SetEvent(changeCountEvent);
 			break;
@@ -128,15 +128,15 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		}
 	}
 exit:
-	//закрываем HANDLE объектов синхронизации
+	//Р·Р°РєСЂС‹РІР°РµРј HANDLE РѕР±СЉРµРєС‚РѕРІ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё
 	CloseHandle(canReadEvent);
 	CloseHandle(canWriteEvent);
 	CloseHandle(allReadEvent);
 	CloseHandle(changeCountEvent);
 	CloseHandle(exitEvent);
 
-	UnmapViewOfFile(lpFileMapForReaders); //закрываем общий ресурс
-	CloseHandle(hFileMapping); //закрываем объект "отображаемый файл"
+	UnmapViewOfFile(lpFileMapForReaders); //Р·Р°РєСЂС‹РІР°РµРј РѕР±С‰РёР№ СЂРµСЃСѓСЂСЃ
+	CloseHandle(hFileMapping); //Р·Р°РєСЂС‹РІР°РµРј РѕР±СЉРµРєС‚ "РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹Р№ С„Р°Р№Р»"
 
 	log.loudlog(_T("All is done"));
 	_getch();

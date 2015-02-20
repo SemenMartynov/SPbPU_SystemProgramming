@@ -26,14 +26,14 @@ DWORD WINAPI ThreadReaderHandler(LPVOID prm) {
 	readerhandlers[1] = canReadEvent;
 
 	while (isDone != true) {
-		//ждем, пока все прочитают
+		//Р¶РґРµРј, РїРѕРєР° РІСЃРµ РїСЂРѕС‡РёС‚Р°СЋС‚
 		log.quietlog(_T("Waining for allReadEvent"));
 		WaitForSingleObject(allReadEvent, INFINITE);
-		//узнаем, сколько потоков-читателей прошло данную границу
+		//СѓР·РЅР°РµРј, СЃРєРѕР»СЊРєРѕ РїРѕС‚РѕРєРѕРІ-С‡РёС‚Р°С‚РµР»РµР№ РїСЂРѕС€Р»Рѕ РґР°РЅРЅСѓСЋ РіСЂР°РЅРёС†Сѓ
 		log.quietlog(_T("Waining for changeCountEvent"));
 		WaitForSingleObject(changeCountEvent, INFINITE);
 		countready++;
-		//если все прошли, то "закрываем за собой дверь" и разрешаем писать
+		//РµСЃР»Рё РІСЃРµ РїСЂРѕС€Р»Рё, С‚Рѕ "Р·Р°РєСЂС‹РІР°РµРј Р·Р° СЃРѕР±РѕР№ РґРІРµСЂСЊ" Рё СЂР°Р·СЂРµС€Р°РµРј РїРёСЃР°С‚СЊ
 		if (countready == config.numOfReaders) {
 			countready = 0;
 			log.quietlog(_T("Reset Event allReadEvent"));
@@ -42,34 +42,34 @@ DWORD WINAPI ThreadReaderHandler(LPVOID prm) {
 			SetEvent(canWriteEvent);
 		}
 
-		//разрешаем изменять счетчик
+		//СЂР°Р·СЂРµС€Р°РµРј РёР·РјРµРЅСЏС‚СЊ СЃС‡РµС‚С‡РёРє
 		log.quietlog(_T("Set Event changeCountEvent"));
 		SetEvent(changeCountEvent);
 
 		log.quietlog(_T("Waining for multiple objects"));
 		DWORD dwEvent = WaitForMultipleObjects(2, readerhandlers, false,
 			INFINITE);
-		//   2 - следим за 2-я параметрами
-		//   readerhandlers - из массива readerhandlers
-		//   false - ждём, когда освободится хотя бы один
-		//   INFINITE - ждать бесконечно
+		//   2 - СЃР»РµРґРёРј Р·Р° 2-СЏ РїР°СЂР°РјРµС‚СЂР°РјРё
+		//   readerhandlers - РёР· РјР°СЃСЃРёРІР° readerhandlers
+		//   false - Р¶РґС‘Рј, РєРѕРіРґР° РѕСЃРІРѕР±РѕРґРёС‚СЃСЏ С…РѕС‚СЏ Р±С‹ РѕРґРёРЅ
+		//   INFINITE - Р¶РґР°С‚СЊ Р±РµСЃРєРѕРЅРµС‡РЅРѕ
 		switch (dwEvent) {
-		case WAIT_OBJECT_0: //сработало событие exit
+		case WAIT_OBJECT_0: //СЃСЂР°Р±РѕС‚Р°Р»Рѕ СЃРѕР±С‹С‚РёРµ exit
 			log.quietlog(_T("Get exitEvent"));
 			log.loudlog(_T("Reader %d finishing work"), myid);
 			return 0;
-		case WAIT_OBJECT_0 + 1: // сработало событие на возможность чтения
+		case WAIT_OBJECT_0 + 1: // СЃСЂР°Р±РѕС‚Р°Р»Рѕ СЃРѕР±С‹С‚РёРµ РЅР° РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ С‡С‚РµРЅРёСЏ
 			log.quietlog(_T("Get canReadEvent"));
-			//читаем сообщение
+			//С‡РёС‚Р°РµРј СЃРѕРѕР±С‰РµРЅРёРµ
 			log.loudlog(_T("Reader %d read msg \"%s\""), myid,
 				(_TCHAR *)lpFileMapForReaders);
 
-			//необходимо уменьшить счетчик количества читателей, которые прочитать еще не успели
+			//РЅРµРѕР±С…РѕРґРёРјРѕ СѓРјРµРЅСЊС€РёС‚СЊ СЃС‡РµС‚С‡РёРє РєРѕР»РёС‡РµСЃС‚РІР° С‡РёС‚Р°С‚РµР»РµР№, РєРѕС‚РѕСЂС‹Рµ РїСЂРѕС‡РёС‚Р°С‚СЊ РµС‰Рµ РЅРµ СѓСЃРїРµР»Рё
 			log.quietlog(_T("Waining for changeCountEvent"));
 			WaitForSingleObject(changeCountEvent, INFINITE);
 			countread--;
 
-			// если мы последние читали, то запрещаем читать и открываем границу
+			// РµСЃР»Рё РјС‹ РїРѕСЃР»РµРґРЅРёРµ С‡РёС‚Р°Р»Рё, С‚Рѕ Р·Р°РїСЂРµС‰Р°РµРј С‡РёС‚Р°С‚СЊ Рё РѕС‚РєСЂС‹РІР°РµРј РіСЂР°РЅРёС†Сѓ
 			if (countread == 0) {
 				log.quietlog(_T("Reset Event canReadEvent"));
 				ResetEvent(canReadEvent);
@@ -77,7 +77,7 @@ DWORD WINAPI ThreadReaderHandler(LPVOID prm) {
 				SetEvent(allReadEvent);
 			}
 
-			//разрешаем изменять счетчик
+			//СЂР°Р·СЂРµС€Р°РµРј РёР·РјРµРЅСЏС‚СЊ СЃС‡РµС‚С‡РёРє
 			log.quietlog(_T("Set Event changeCountEvent"));
 			SetEvent(changeCountEvent);
 			break;

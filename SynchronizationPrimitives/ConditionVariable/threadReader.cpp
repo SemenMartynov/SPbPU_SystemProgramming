@@ -15,34 +15,34 @@ DWORD WINAPI ThreadReaderHandler(LPVOID prm) {
 	extern CONDITION_VARIABLE condwrite;
 
 	while (isDone != true) {
-		//Захват объекта синхронизации
+		//Р—Р°С…РІР°С‚ РѕР±СЉРµРєС‚Р° СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё
 		log.quietlog(_T("Waining for Critical Section"));
 		EnterCriticalSection(&crs);
 		log.quietlog(_T("Get Critical Section"));
 
 		log.quietlog(_T("Waining for empty space in the queue"));
 		while (!(queue.readindex != queue.writeindex || queue.full == 1))
-			//спим пока в очереди не появятся данные
+			//СЃРїРёРј РїРѕРєР° РІ РѕС‡РµСЂРµРґРё РЅРµ РїРѕСЏРІСЏС‚СЃСЏ РґР°РЅРЅС‹Рµ
 			SleepConditionVariableCS(&condread, &crs, INFINITE);
 		log.quietlog(_T("Get space in the queue"));
 
-		//взяли данные, значит очередь не пуста
+		//РІР·СЏР»Рё РґР°РЅРЅС‹Рµ, Р·РЅР°С‡РёС‚ РѕС‡РµСЂРµРґСЊ РЅРµ РїСѓСЃС‚Р°
 		queue.full = 0;
-		//печатаем принятые данные
+		//РїРµС‡Р°С‚Р°РµРј РїСЂРёРЅСЏС‚С‹Рµ РґР°РЅРЅС‹Рµ
 		log.loudlog(_T("Reader %d get data: \"%s\" from position %d"), myid,
 			queue.data[queue.readindex], queue.readindex);
-		free(queue.data[queue.readindex]); //очищаем очередь от данных
+		free(queue.data[queue.readindex]); //РѕС‡РёС‰Р°РµРј РѕС‡РµСЂРµРґСЊ РѕС‚ РґР°РЅРЅС‹С…
 		queue.data[queue.readindex] = NULL;
 		queue.readindex = (queue.readindex + 1) % queue.size;
 
-		//шлем сигнал потокам-читателям
+		//С€Р»РµРј СЃРёРіРЅР°Р» РїРѕС‚РѕРєР°Рј-С‡РёС‚Р°С‚РµР»СЏРј
 		log.quietlog(_T("Wake Condition Variable"));
 		WakeConditionVariable(&condwrite);
-		// освобождение синхронизируемого объекта
+		// РѕСЃРІРѕР±РѕР¶РґРµРЅРёРµ СЃРёРЅС…СЂРѕРЅРёР·РёСЂСѓРµРјРѕРіРѕ РѕР±СЉРµРєС‚Р°
 		log.quietlog(_T("Leave Critical Section"));
 		LeaveCriticalSection(&crs);
 
-		//задержка
+		//Р·Р°РґРµСЂР¶РєР°
 		Sleep(config.readersDelay);
 	}
 	log.loudlog(_T("Reader %d finishing work"), myid);

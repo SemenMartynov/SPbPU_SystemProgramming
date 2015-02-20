@@ -11,7 +11,7 @@ DWORD WINAPI ThreadTimeManagerHandler(LPVOID prm) {
 
 	int ttl = (int)prm;
 	if (ttl < 0) {
-		//çàâåðøåíèå ïî êîìàíäå îïåðàòîðà
+		//Ð·Ð°Ð²ÐµÑ€ÑˆÐµÐ½Ð¸Ðµ Ð¿Ð¾ ÐºÐ¾Ð¼Ð°Ð½Ð´Ðµ Ð¾Ð¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ð°
 		_TCHAR buf[100];
 		while (1) {
 			fgetws(buf, sizeof(buf), stdin);
@@ -23,7 +23,7 @@ DWORD WINAPI ThreadTimeManagerHandler(LPVOID prm) {
 		}
 	}
 	else {
-		//çàâåðøåíèå ïî òàéìåðó
+		//Ð·Ð°Ð²ÐµÑ€ÑˆÐµÐ½Ð¸Ðµ Ð¿Ð¾ Ñ‚Ð°Ð¹Ð¼ÐµÑ€Ñƒ
 		HANDLE h = CreateAndStartWaitableTimer(ttl);
 		WaitForSingleObject(h, INFINITE);
 		log.quietlog(_T("Timer signal received!"));

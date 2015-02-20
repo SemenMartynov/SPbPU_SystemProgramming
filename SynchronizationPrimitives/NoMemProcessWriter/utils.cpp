@@ -6,7 +6,7 @@
 #include "utils.h"
 #include "Logger.h"
 
-//создание, установка и запуск таймера
+//СЃРѕР·РґР°РЅРёРµ, СѓСЃС‚Р°РЅРѕРІРєР° Рё Р·Р°РїСѓСЃРє С‚Р°Р№РјРµСЂР°
 HANDLE CreateAndStartWaitableTimer(int sec) {
 	__int64 end_time;
 	LARGE_INTEGER end_time2;
@@ -18,7 +18,7 @@ HANDLE CreateAndStartWaitableTimer(int sec) {
 	return tm;
 }
 
-//создание всех потоков
+//СЃРѕР·РґР°РЅРёРµ РІСЃРµС… РїРѕС‚РѕРєРѕРІ
 void CreateAllThreads(struct Configuration* config, Logger* log) {
 	extern HANDLE *allhandlers;
 	
@@ -27,7 +27,7 @@ void CreateAllThreads(struct Configuration* config, Logger* log) {
 	allhandlers = new HANDLE[total];
 	int count = 0;
 
-	//создаем потоки-читатели
+	//СЃРѕР·РґР°РµРј РїРѕС‚РѕРєРё-С‡РёС‚Р°С‚РµР»Рё
 	log->loudlog(_T("Create readers"));
 
 	STARTUPINFO si;
@@ -49,11 +49,11 @@ void CreateAllThreads(struct Configuration* config, Logger* log) {
 		allhandlers[count] = pi.hThread;
 	}
 
-	//создаем потоки-писатели
+	//СЃРѕР·РґР°РµРј РїРѕС‚РѕРєРё-РїРёСЃР°С‚РµР»Рё
 	log->loudlog(_T("Create writers"));
 	for (int i = 0; i != config->numOfWriters; i++, count++) {
 		log->loudlog(_T("count = %d"), count);
-		//создаем потоки-читатели, которые пока не стартуют
+		//СЃРѕР·РґР°РµРј РїРѕС‚РѕРєРё-С‡РёС‚Р°С‚РµР»Рё, РєРѕС‚РѕСЂС‹Рµ РїРѕРєР° РЅРµ СЃС‚Р°СЂС‚СѓСЋС‚
 		if ((allhandlers[count] = CreateThread(NULL, 0, ThreadWriterHandler,
 			(LPVOID)i, CREATE_SUSPENDED, NULL)) == NULL) {
 			log->loudlog(_T("Impossible to create thread-writer, GLE = %d"), GetLastError());
@@ -61,10 +61,10 @@ void CreateAllThreads(struct Configuration* config, Logger* log) {
 		}
 	}
 
-	//создаем поток TimeManager
+	//СЃРѕР·РґР°РµРј РїРѕС‚РѕРє TimeManager
 	log->loudlog(_T("Create TimeManager"));
 	log->loudlog(_T("Count = %d"), count);
-	//создаем потоки-читатели, которые пока не стартуют
+	//СЃРѕР·РґР°РµРј РїРѕС‚РѕРєРё-С‡РёС‚Р°С‚РµР»Рё, РєРѕС‚РѕСЂС‹Рµ РїРѕРєР° РЅРµ СЃС‚Р°СЂС‚СѓСЋС‚
 	if ((allhandlers[count] = CreateThread(NULL, 0, ThreadTimeManagerHandler,
 		(LPVOID)config->ttl, CREATE_SUSPENDED, NULL)) == NULL) {
 		log->loudlog(_T("impossible to create thread-reader, GLE = %d"), GetLastError());
@@ -74,7 +74,7 @@ void CreateAllThreads(struct Configuration* config, Logger* log) {
 	return;
 }
 
-//функция установки конфигурации
+//С„СѓРЅРєС†РёСЏ СѓСЃС‚Р°РЅРѕРІРєРё РєРѕРЅС„РёРіСѓСЂР°С†РёРё
 void SetConfig(_TCHAR* path, struct Configuration* config, Logger* log) {
 	_TCHAR filename[255];
 	wcscpy_s(filename, path);
@@ -95,13 +95,13 @@ void SetConfig(_TCHAR* path, struct Configuration* config, Logger* log) {
 		exit(1000);
 	}
 
-	//начинаем читать конфигурацию
-	fscanf_s(confsource, "%s %d", trash, _countof(trash), &numOfReaders); //число потоков-читателей
-	fscanf_s(confsource, "%s %d", trash, _countof(trash), &readersDelay); //задержки потоков-читателей
-	fscanf_s(confsource, "%s %d", trash, _countof(trash), &numOfWriters); //число потоков-писателей
-	fscanf_s(confsource, "%s %d", trash, _countof(trash), &writersDelay); //задержки потоков-писателей
-	fscanf_s(confsource, "%s %d", trash, _countof(trash), &sizeOfQueue); //размер очереди
-	fscanf_s(confsource, "%s %d", trash, _countof(trash), &ttl); //время жизни
+	//РЅР°С‡РёРЅР°РµРј С‡РёС‚Р°С‚СЊ РєРѕРЅС„РёРіСѓСЂР°С†РёСЋ
+	fscanf_s(confsource, "%s %d", trash, _countof(trash), &numOfReaders); //С‡РёСЃР»Рѕ РїРѕС‚РѕРєРѕРІ-С‡РёС‚Р°С‚РµР»РµР№
+	fscanf_s(confsource, "%s %d", trash, _countof(trash), &readersDelay); //Р·Р°РґРµСЂР¶РєРё РїРѕС‚РѕРєРѕРІ-С‡РёС‚Р°С‚РµР»РµР№
+	fscanf_s(confsource, "%s %d", trash, _countof(trash), &numOfWriters); //С‡РёСЃР»Рѕ РїРѕС‚РѕРєРѕРІ-РїРёСЃР°С‚РµР»РµР№
+	fscanf_s(confsource, "%s %d", trash, _countof(trash), &writersDelay); //Р·Р°РґРµСЂР¶РєРё РїРѕС‚РѕРєРѕРІ-РїРёСЃР°С‚РµР»РµР№
+	fscanf_s(confsource, "%s %d", trash, _countof(trash), &sizeOfQueue); //СЂР°Р·РјРµСЂ РѕС‡РµСЂРµРґРё
+	fscanf_s(confsource, "%s %d", trash, _countof(trash), &ttl); //РІСЂРµРјСЏ Р¶РёР·РЅРё
 
 	if (numOfReaders <= 0 || numOfWriters <= 0) {
 		log->loudlog(_T("Incorrect num of Readers or writers"));
@@ -134,7 +134,7 @@ void SetConfig(_TCHAR* path, struct Configuration* config, Logger* log) {
 
 void SetDefaultConfig(struct Configuration* config, Logger* log) {
 	log->quietlog(_T("Using default config"));
-	//Вид конфигурационного файла:
+	//Р’РёРґ РєРѕРЅС„РёРіСѓСЂР°С†РёРѕРЅРЅРѕРіРѕ С„Р°Р№Р»Р°:
 	//     NumOfReaders= 10
 	//     ReadersDelay= 100
 	//     NumOfWriters= 10

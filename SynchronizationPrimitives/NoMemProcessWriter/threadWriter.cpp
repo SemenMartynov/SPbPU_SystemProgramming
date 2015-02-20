@@ -17,7 +17,7 @@ DWORD WINAPI ThreadWriterHandler(LPVOID prm) {
 	extern HANDLE changeCountEvent;
 	extern HANDLE exitEvent;
 
-	extern int reportCounter;  // Счётчиков отчётов
+	extern int reportCounter;  // РЎС‡С‘С‚С‡РёРєРѕРІ РѕС‚С‡С‘С‚РѕРІ
 	extern LPVOID lpFileMapForWriters;
 
 	int msgnum = 0;
@@ -25,57 +25,57 @@ DWORD WINAPI ThreadWriterHandler(LPVOID prm) {
 	writerHandlers[0] = exitEvent;
 	writerHandlers[1] = changeCountEvent;
 
-	// Состояние готовности:
-	// true - сообщение записано, ждём отчётов о прочтении
-	// false - переводим всех читателей в состояние готовности
+	// РЎРѕСЃС‚РѕСЏРЅРёРµ РіРѕС‚РѕРІРЅРѕСЃС‚Рё:
+	// true - СЃРѕРѕР±С‰РµРЅРёРµ Р·Р°РїРёСЃР°РЅРѕ, Р¶РґС‘Рј РѕС‚С‡С‘С‚РѕРІ Рѕ РїСЂРѕС‡С‚РµРЅРёРё
+	// false - РїРµСЂРµРІРѕРґРёРј РІСЃРµС… С‡РёС‚Р°С‚РµР»РµР№ РІ СЃРѕСЃС‚РѕСЏРЅРёРµ РіРѕС‚РѕРІРЅРѕСЃС‚Рё
 	bool readyState = false;
 
 	while (isDone != true) {
 		log.quietlog(_T("Waining for multiple objects"));
 		DWORD dwEvent = WaitForMultipleObjects(2, writerHandlers, false,
 			INFINITE);
-		//   2 - следим за 2-я параметрами
-		//   writerHandlers - из массива writerHandlers
-		//   false - ждём, когда освободится хотя бы один
-		//   INFINITE - ждать бесконечно
+		//   2 - СЃР»РµРґРёРј Р·Р° 2-СЏ РїР°СЂР°РјРµС‚СЂР°РјРё
+		//   writerHandlers - РёР· РјР°СЃСЃРёРІР° writerHandlers
+		//   false - Р¶РґС‘Рј, РєРѕРіРґР° РѕСЃРІРѕР±РѕРґРёС‚СЃСЏ С…РѕС‚СЏ Р±С‹ РѕРґРёРЅ
+		//   INFINITE - Р¶РґР°С‚СЊ Р±РµСЃРєРѕРЅРµС‡РЅРѕ
 		switch (dwEvent) {
-		case WAIT_OBJECT_0:	//сработало событие exit
+		case WAIT_OBJECT_0:	//СЃСЂР°Р±РѕС‚Р°Р»Рѕ СЃРѕР±С‹С‚РёРµ exit
 			log.quietlog(_T("Get exitEvent"));
 			log.loudlog(_T("Writer %d finishing work"), myid);
 			return 0;
-		case WAIT_OBJECT_0 + 1: // Пришёл отчёт о выполнении
+		case WAIT_OBJECT_0 + 1: // РџСЂРёС€С‘Р» РѕС‚С‡С‘С‚ Рѕ РІС‹РїРѕР»РЅРµРЅРёРё
 			log.quietlog(_T("Get changeCountEvent"));
-			// Если отчитались все читатели
+			// Р•СЃР»Рё РѕС‚С‡РёС‚Р°Р»РёСЃСЊ РІСЃРµ С‡РёС‚Р°С‚РµР»Рё
 			if (++reportCounter == config.numOfReaders) {
-				// Обнуление счётчика
+				// РћР±РЅСѓР»РµРЅРёРµ СЃС‡С‘С‚С‡РёРєР°
 				reportCounter = 0;
-				if (readyState) { // все всё прочитали
-					// Теперь ожидаем отчётов о готовности
+				if (readyState) { // РІСЃРµ РІСЃС‘ РїСЂРѕС‡РёС‚Р°Р»Рё
+					// РўРµРїРµСЂСЊ РѕР¶РёРґР°РµРј РѕС‚С‡С‘С‚РѕРІ Рѕ РіРѕС‚РѕРІРЅРѕСЃС‚Рё
 					readyState = false;
-					// Больше ни кто не читает
+					// Р‘РѕР»СЊС€Рµ РЅРё РєС‚Рѕ РЅРµ С‡РёС‚Р°РµС‚
 					log.quietlog(_T("Reset Event readerCanReadEvent"));
 					ResetEvent(readerCanReadEvent);
-					// Можно готовится
+					// РњРѕР¶РЅРѕ РіРѕС‚РѕРІРёС‚СЃСЏ
 					log.quietlog(_T("Set Event readerGetReadyEvent"));
 					SetEvent(readerGetReadyEvent);
 				}
-				else { // все готовы читать
-					// Запись сообщения
+				else { // РІСЃРµ РіРѕС‚РѕРІС‹ С‡РёС‚Р°С‚СЊ
+					// Р—Р°РїРёСЃСЊ СЃРѕРѕР±С‰РµРЅРёСЏ
 					swprintf_s((_TCHAR *)lpFileMapForWriters, 1500,
 						_T("Writer_id	%d, msg with num = %d"), myid, ++msgnum);
 					log.loudlog(_T("Writer put msg: \"%s\""), (_TCHAR *)lpFileMapForWriters);
 					
-					// Теперь ожидаем отчётов о прочтении
+					// РўРµРїРµСЂСЊ РѕР¶РёРґР°РµРј РѕС‚С‡С‘С‚РѕРІ Рѕ РїСЂРѕС‡С‚РµРЅРёРё
 					readyState = true;
-					// Больше ни кто не готовится
+					// Р‘РѕР»СЊС€Рµ РЅРё РєС‚Рѕ РЅРµ РіРѕС‚РѕРІРёС‚СЃСЏ
 					log.quietlog(_T("Reset Event readerGetReadyEvent"));
 					ResetEvent(readerGetReadyEvent);
-					// Можно читать
+					// РњРѕР¶РЅРѕ С‡РёС‚Р°С‚СЊ
 					log.quietlog(_T("Set Event readerCanReadEvent"));
 					SetEvent(readerCanReadEvent);
 				}
 			}
-			// Ждём следующего отчёта
+			// Р–РґС‘Рј СЃР»РµРґСѓСЋС‰РµРіРѕ РѕС‚С‡С‘С‚Р°
 			log.quietlog(_T("Set Event canChangeCountEvent"));
 			SetEvent(canChangeCountEvent);
 
