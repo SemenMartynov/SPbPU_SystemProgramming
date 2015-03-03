@@ -61,7 +61,7 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	delete[] queue.data;
 
 	// Завершение работы
-	log.loudlog(_T("All is done!"));
+	log.loudlog(_T("All tasks are done!"));
 	_getch();
 	return 0;
 }

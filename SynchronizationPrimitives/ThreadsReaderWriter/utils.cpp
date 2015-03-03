@@ -52,7 +52,7 @@ void CreateAllThreads(struct Configuration* config, Logger* log) {
 	//создаем поток TimeManager
 	log->loudlog(_T("Create TimeManager"));
 	log->loudlog(_T("Count = %d"), count);
-	//создаем потоки-читатели, которые пока не стартуют
+	//создаем поток TimeManager, который пока не стартуют
 	if ((allhandlers[count] = CreateThread(NULL, 0, ThreadTimeManagerHandler, (LPVOID)config->ttl, CREATE_SUSPENDED, NULL)) == NULL) {
 		log->loudlog(_T("impossible to create thread-reader, GLE = %d"), GetLastError());
 		exit(8002);
@@ -109,7 +109,7 @@ void SetConfig(_TCHAR* path, struct Configuration* config, Logger* log) {
 
 	config->numOfReaders = numOfReaders;
 	config->readersDelay = readersDelay;
-	config->numOfWriters = numOfWriters;
+	config->numOfWriters = 1;
 	config->writersDelay = writersDelay;
 	config->sizeOfQueue = sizeOfQueue;
 	config->ttl = ttl;
@@ -130,7 +130,7 @@ void SetDefaultConfig(struct Configuration* config, Logger* log) {
 
 	config->numOfReaders = 10;
 	config->readersDelay = 100;
-	config->numOfWriters = 10;
+	config->numOfWriters = 1;
 	config->writersDelay = 200;
 	config->sizeOfQueue = 10;
 	config->ttl = 3;

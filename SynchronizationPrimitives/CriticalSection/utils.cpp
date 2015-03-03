@@ -42,7 +42,7 @@ void CreateAllThreads(struct Configuration* config, Logger* log) {
 	log->loudlog(_T("Create writers"));
 	for (int i = 0; i != config->numOfWriters; ++i, ++count) {
 		log->loudlog(_T("count = %d"), count);
-		//создаем потоки-писателии, которые пока не стартуют
+		//создаем поток TimeManager, который пока не стартуют
 		if ((allhandlers[count] = CreateThread(NULL, 0, ThreadWriterHandler, (LPVOID)i, CREATE_SUSPENDED, NULL)) == NULL) {
 			log->loudlog(_T("Impossible to create thread-writer, GLE = %d"), GetLastError());
 			exit(8001);

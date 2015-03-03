@@ -158,7 +158,7 @@ exit:
 	UnmapViewOfFile(lpFileMapForReaders); //закрываем общий ресурс
 	CloseHandle(hFileMapping); //закрываем объект "отображаемый файл"
 
-	log.loudlog(_T("All is done"));
+	log.loudlog(_T("All tasks are done!"));
 	_getch();
 	return 0;
 }
