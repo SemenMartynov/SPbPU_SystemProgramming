@@ -1,0 +1,62 @@
+[25/3/2015 19:9:5] OptimalReaderWriter.ThreadReader is starting.
+[25/3/2015 19:9:5] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:9:5] Get SRW Lock
+[25/3/2015 19:9:5] Reader 1 read msg "writer_id 0, msg with num = 0"
+[25/3/2015 19:9:5] Release SRW Lock
+[25/3/2015 19:9:5] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:9:5] Get SRW Lock
+[25/3/2015 19:9:5] Reader 1 read msg "writer_id 0, msg with num = 1"
+[25/3/2015 19:9:5] Release SRW Lock
+[25/3/2015 19:9:5] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:9:5] Get SRW Lock
+[25/3/2015 19:9:5] Reader 1 read msg "writer_id 0, msg with num = 2"
+[25/3/2015 19:9:5] Release SRW Lock
+[25/3/2015 19:9:5] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:9:5] Get SRW Lock
+[25/3/2015 19:9:5] Reader 1 read msg "writer_id 0, msg with num = 3"
+[25/3/2015 19:9:5] Release SRW Lock
+[25/3/2015 19:9:5] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:9:5] Get SRW Lock
+[25/3/2015 19:9:5] Reader 1 read msg "writer_id 0, msg with num = 4"
+[25/3/2015 19:9:5] Release SRW Lock
+[25/3/2015 19:9:5] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:9:6] Get SRW Lock
+[25/3/2015 19:9:6] Reader 1 read msg "writer_id 0, msg with num = 5"
+[25/3/2015 19:9:6] Release SRW Lock
+[25/3/2015 19:9:6] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:9:6] Get SRW Lock
+[25/3/2015 19:9:6] Reader 1 read msg "writer_id 0, msg with num = 6"
+[25/3/2015 19:9:6] Release SRW Lock
+[25/3/2015 19:9:6] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:9:6] Get SRW Lock
+[25/3/2015 19:9:6] Reader 1 read msg "writer_id 0, msg with num = 7"
+[25/3/2015 19:9:6] Release SRW Lock
+[25/3/2015 19:9:6] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:9:6] Get SRW Lock
+[25/3/2015 19:9:6] Reader 1 read msg "writer_id 0, msg with num = 8"
+[25/3/2015 19:9:6] Release SRW Lock
+[25/3/2015 19:9:6] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:9:6] Get SRW Lock
+[25/3/2015 19:9:6] Reader 1 read msg "writer_id 0, msg with num = 9"
+[25/3/2015 19:9:6] Release SRW Lock
+[25/3/2015 19:9:6] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:9:7] Get SRW Lock
+[25/3/2015 19:9:7] Reader 1 read msg "writer_id 0, msg with num = 10"
+[25/3/2015 19:9:7] Release SRW Lock
+[25/3/2015 19:9:7] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:9:7] Get SRW Lock
+[25/3/2015 19:9:7] Reader 1 read msg "writer_id 0, msg with num = 11"
+[25/3/2015 19:9:7] Release SRW Lock
+[25/3/2015 19:9:7] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:9:7] Get SRW Lock
+[25/3/2015 19:9:7] Reader 1 read msg "writer_id 0, msg with num = 12"
+[25/3/2015 19:9:7] Release SRW Lock
+[25/3/2015 19:9:7] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:9:7] Get SRW Lock
+[25/3/2015 19:9:7] Reader 1 read msg "writer_id 0, msg with num = 13"
+[25/3/2015 19:9:7] Release SRW Lock
+[25/3/2015 19:9:7] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:9:7] Get SRW Lock
+[25/3/2015 19:9:7] Reader 1 read msg "writer_id 0, msg with num = 14"
+[25/3/2015 19:9:7] Release SRW Lock
+[25/3/2015 19:9:7] Waining for Slim Reader/Writer (SRW) Lock

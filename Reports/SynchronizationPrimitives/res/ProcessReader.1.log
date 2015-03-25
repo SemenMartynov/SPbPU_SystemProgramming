@@ -1,0 +1,112 @@
+[25/3/2015 18:59:9] ProcessReader is starting.
+[25/3/2015 18:59:9] Reader with id= 1 is started
+[25/3/2015 18:59:9] Waining for allReadEvent
+[25/3/2015 18:59:9] Waining for changeCountEvent
+[25/3/2015 18:59:9] Readready= 4
+
+[25/3/2015 18:59:9] Set Event changeCountEvent
+[25/3/2015 18:59:9] Waining for multiple objects
+[25/3/2015 18:59:9] Get canReadEvent
+[25/3/2015 18:59:9] Reader 1 read msg "Writer_id	0, msg with num = 1"
+[25/3/2015 18:59:9] Waining for changeCountEvent
+[25/3/2015 18:59:9] Readcount= 6
+[25/3/2015 18:59:9] Set Event changeCountEvent
+[25/3/2015 18:59:9] Waining for allReadEvent
+[25/3/2015 18:59:9] Waining for changeCountEvent
+[25/3/2015 18:59:9] Readready= 9
+
+[25/3/2015 18:59:9] Set Event changeCountEvent
+[25/3/2015 18:59:9] Waining for multiple objects
+[25/3/2015 18:59:9] Get canReadEvent
+[25/3/2015 18:59:9] Reader 1 read msg "Writer_id	0, msg with num = 2"
+[25/3/2015 18:59:9] Waining for changeCountEvent
+[25/3/2015 18:59:9] Readcount= 5
+[25/3/2015 18:59:9] Set Event changeCountEvent
+[25/3/2015 18:59:9] Waining for allReadEvent
+[25/3/2015 18:59:9] Waining for changeCountEvent
+[25/3/2015 18:59:9] Readready= 6
+
+[25/3/2015 18:59:9] Set Event changeCountEvent
+[25/3/2015 18:59:9] Waining for multiple objects
+[25/3/2015 18:59:9] Get canReadEvent
+[25/3/2015 18:59:9] Reader 1 read msg "Writer_id	0, msg with num = 3"
+[25/3/2015 18:59:9] Waining for changeCountEvent
+[25/3/2015 18:59:9] Readcount= 6
+[25/3/2015 18:59:9] Set Event changeCountEvent
+[25/3/2015 18:59:9] Waining for allReadEvent
+[25/3/2015 18:59:9] Waining for changeCountEvent
+[25/3/2015 18:59:9] Readready= 4
+
+[25/3/2015 18:59:9] Set Event changeCountEvent
+[25/3/2015 18:59:9] Waining for multiple objects
+[25/3/2015 18:59:9] Get canReadEvent
+[25/3/2015 18:59:9] Reader 1 read msg "Writer_id	0, msg with num = 4"
+[25/3/2015 18:59:9] Waining for changeCountEvent
+[25/3/2015 18:59:9] Readcount= 3
+[25/3/2015 18:59:9] Set Event changeCountEvent
+[25/3/2015 18:59:9] Waining for allReadEvent
+[25/3/2015 18:59:9] Waining for changeCountEvent
+[25/3/2015 18:59:9] Readready= 6
+
+[25/3/2015 18:59:9] Set Event changeCountEvent
+[25/3/2015 18:59:9] Waining for multiple objects
+[25/3/2015 18:59:9] Get canReadEvent
+[25/3/2015 18:59:9] Reader 1 read msg "Writer_id	0, msg with num = 5"
+[25/3/2015 18:59:9] Waining for changeCountEvent
+[25/3/2015 18:59:9] Readcount= 7
+[25/3/2015 18:59:9] Set Event changeCountEvent
+[25/3/2015 18:59:9] Waining for allReadEvent
+[25/3/2015 18:59:9] Waining for changeCountEvent
+[25/3/2015 18:59:9] Readready= 7
+
+[25/3/2015 18:59:9] Set Event changeCountEvent
+[25/3/2015 18:59:9] Waining for multiple objects
+[25/3/2015 18:59:9] Get canReadEvent
+[25/3/2015 18:59:9] Reader 1 read msg "Writer_id	0, msg with num = 6"
+[25/3/2015 18:59:9] Waining for changeCountEvent
+[25/3/2015 18:59:9] Readcount= 3
+[25/3/2015 18:59:9] Set Event changeCountEvent
+[25/3/2015 18:59:9] Waining for allReadEvent
+[25/3/2015 18:59:9] Waining for changeCountEvent
+[25/3/2015 18:59:9] Readready= 9
+
+[25/3/2015 18:59:9] Set Event changeCountEvent
+[25/3/2015 18:59:9] Waining for multiple objects
+[25/3/2015 18:59:9] Get canReadEvent
+[25/3/2015 18:59:9] Reader 1 read msg "Writer_id	0, msg with num = 7"
+[25/3/2015 18:59:9] Waining for changeCountEvent
+[25/3/2015 18:59:9] Readcount= 8
+[25/3/2015 18:59:9] Set Event changeCountEvent
+[25/3/2015 18:59:9] Waining for allReadEvent
+[25/3/2015 18:59:9] Waining for changeCountEvent
+[25/3/2015 18:59:10] Readready= 6
+
+[25/3/2015 18:59:10] Set Event changeCountEvent
+[25/3/2015 18:59:10] Waining for multiple objects
+[25/3/2015 18:59:10] Get canReadEvent
+[25/3/2015 18:59:10] Reader 1 read msg "Writer_id	0, msg with num = 8"
+[25/3/2015 18:59:10] Waining for changeCountEvent
+[25/3/2015 18:59:10] Readcount= 5
+[25/3/2015 18:59:10] Set Event changeCountEvent
+[25/3/2015 18:59:10] Waining for allReadEvent
+[25/3/2015 18:59:10] Waining for changeCountEvent
+[25/3/2015 18:59:10] Readready= 4
+
+[25/3/2015 18:59:10] Set Event changeCountEvent
+[25/3/2015 18:59:10] Waining for multiple objects
+[25/3/2015 18:59:10] Get canReadEvent
+[25/3/2015 18:59:10] Reader 1 read msg "Writer_id	0, msg with num = 9"
+[25/3/2015 18:59:10] Waining for changeCountEvent
+[25/3/2015 18:59:10] Readcount= 3
+[25/3/2015 18:59:10] Set Event changeCountEvent
+[25/3/2015 18:59:10] Waining for allReadEvent
+[25/3/2015 18:59:10] Waining for changeCountEvent
+[25/3/2015 18:59:10] Readready= 4
+
+[25/3/2015 18:59:10] Set Event changeCountEvent
+[25/3/2015 18:59:10] Waining for multiple objects
+[25/3/2015 18:59:10] Get exitEvent
+[25/3/2015 18:59:10] Reader 1 finishing work
+[25/3/2015 18:59:10] All tasks are done!
+[25/3/2015 18:59:18] Shutting down.
+

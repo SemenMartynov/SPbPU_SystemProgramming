@@ -1,0 +1,272 @@
+[25/3/2015 19:49:32] ReaderWriterServer is starting.
+[25/3/2015 19:49:32] Server is started.
+[25/3/2015 19:49:32] Time Manager creation!
+[25/3/2015 19:49:32] Writers creation!
+[25/3/2015 19:49:32] Waiting for connect...
+[25/3/2015 19:49:32] Try to create named pipe on \\.\pipe\$$MyPipe$$[25/3/2015 19:49:32] Writer thread 3968 started![25/3/2015 19:49:32] Writer thread 3948 started!
+[25/3/2015 19:49:32] Named pipe created successfully!
+[25/3/2015 19:49:32] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:32] Writer: Get SRW Lock
+[25/3/2015 19:49:32] Server 3948: send msg: 1
+[25/3/2015 19:49:32] Writer: Release SRW Lock
+[25/3/2015 19:49:32] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:32] Writer: Get SRW Lock
+[25/3/2015 19:49:32] Server 3948: send msg: 2
+[25/3/2015 19:49:32] Writer: Release SRW Lock
+[25/3/2015 19:49:33] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:33] Writer: Get SRW Lock
+[25/3/2015 19:49:33] Server 3948: send msg: 3
+[25/3/2015 19:49:33] Writer: Release SRW Lock
+[25/3/2015 19:49:33] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:33] Writer: Get SRW Lock
+[25/3/2015 19:49:33] Server 3948: send msg: 4
+[25/3/2015 19:49:33] Writer: Release SRW Lock
+[25/3/2015 19:49:33] Client connected!
+[25/3/2015 19:49:33] Try to create named pipe on \\.\pipe\$$MyPipe$$[25/3/2015 19:49:33] Thread 1568 started!
+[25/3/2015 19:49:33] Named pipe created successfully!
+[25/3/2015 19:49:33] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:33] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:33] Writer: Get SRW Lock
+[25/3/2015 19:49:33] Server 3948: send msg: 5
+[25/3/2015 19:49:33] Writer: Release SRW Lock
+[25/3/2015 19:49:33] Get SRW Lock
+[25/3/2015 19:49:33] Client 1568: get msg: 5
+[25/3/2015 19:49:33] Release SRW Lock
+[25/3/2015 19:49:33] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:33] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:33] Writer: Get SRW Lock
+[25/3/2015 19:49:33] Server 3948: send msg: 6
+[25/3/2015 19:49:33] Writer: Release SRW Lock
+[25/3/2015 19:49:33] Get SRW Lock
+[25/3/2015 19:49:33] Client 1568: get msg: 6
+[25/3/2015 19:49:33] Release SRW Lock
+[25/3/2015 19:49:33] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:33] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:33] Writer: Get SRW Lock
+[25/3/2015 19:49:33] Server 3948: send msg: 7
+[25/3/2015 19:49:33] Writer: Release SRW Lock
+[25/3/2015 19:49:33] Get SRW Lock
+[25/3/2015 19:49:33] Client 1568: get msg: 7
+[25/3/2015 19:49:33] Release SRW Lock
+[25/3/2015 19:49:33] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:34] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:34] Writer: Get SRW Lock
+[25/3/2015 19:49:34] Server 3948: send msg: 8
+[25/3/2015 19:49:34] Writer: Release SRW Lock
+[25/3/2015 19:49:34] Get SRW Lock
+[25/3/2015 19:49:34] Client 1568: get msg: 8
+[25/3/2015 19:49:34] Release SRW Lock
+[25/3/2015 19:49:34] Client connected!
+[25/3/2015 19:49:34] Try to create named pipe on \\.\pipe\$$MyPipe$$[25/3/2015 19:49:34] Thread 364 started!
+[25/3/2015 19:49:34] Named pipe created successfully!
+[25/3/2015 19:49:34] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:34] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:34] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:34] Writer: Get SRW Lock
+[25/3/2015 19:49:34] Server 3948: send msg: 9
+[25/3/2015 19:49:34] Writer: Release SRW Lock
+[25/3/2015 19:49:34] Get SRW Lock
+[25/3/2015 19:49:34] Get SRW Lock
+[25/3/2015 19:49:34] Client 364: get msg: 9
+[25/3/2015 19:49:34] Release SRW Lock
+[25/3/2015 19:49:34] Client 1568: get msg: 9
+[25/3/2015 19:49:34] Release SRW Lock
+[25/3/2015 19:49:34] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:34] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:34] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:34] Writer: Get SRW Lock
+[25/3/2015 19:49:34] Server 3948: send msg: 10
+[25/3/2015 19:49:34] Writer: Release SRW Lock
+[25/3/2015 19:49:34] [25/3/2015 19:49:34] Get SRW LockGet SRW Lock
+[25/3/2015 19:49:34] Client 1568: get msg: 10
+[25/3/2015 19:49:34] Release SRW Lock
+[25/3/2015 19:49:34] Client 364: get msg: 10
+[25/3/2015 19:49:34] Release SRW Lock
+[25/3/2015 19:49:34] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:34] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:34] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:34] Writer: Get SRW Lock
+[25/3/2015 19:49:34] Server 3948: send msg: 11
+[25/3/2015 19:49:34] Writer: Release SRW Lock
+[25/3/2015 19:49:34] Get SRW Lock
+[25/3/2015 19:49:34] Get SRW Lock
+[25/3/2015 19:49:34] Client 364: get msg: 11
+[25/3/2015 19:49:34] Release SRW Lock
+[25/3/2015 19:49:34] Client 1568: get msg: 11
+[25/3/2015 19:49:34] Release SRW Lock
+[25/3/2015 19:49:34] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:34] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:34] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:34] Writer: Get SRW Lock
+[25/3/2015 19:49:34] Server 3948: send msg: 12
+[25/3/2015 19:49:34] Writer: Release SRW Lock
+[25/3/2015 19:49:34] Get SRW Lock[25/3/2015 19:49:34] 
+Get SRW Lock
+[25/3/2015 19:49:34] Client 364: get msg: 12
+[25/3/2015 19:49:34] Release SRW Lock[25/3/2015 19:49:34] 
+Client 1568: get msg: 12
+[25/3/2015 19:49:34] Release SRW Lock
+[25/3/2015 19:49:34] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:34] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:35] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:35] Writer: Get SRW Lock
+[25/3/2015 19:49:35] Server 3948: send msg: 13
+[25/3/2015 19:49:35] Writer: Release SRW Lock
+[25/3/2015 19:49:35] Get SRW Lock
+[25/3/2015 19:49:35] Get SRW Lock
+[25/3/2015 19:49:35] Client 1568: get msg: 13
+[25/3/2015 19:49:35] Release SRW Lock
+[25/3/2015 19:49:35] Client 364: get msg: 13
+[25/3/2015 19:49:35] Release SRW Lock
+[25/3/2015 19:49:35] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:35] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:35] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:35] Writer: Get SRW Lock
+[25/3/2015 19:49:35] Server 3948: send msg: 14
+[25/3/2015 19:49:35] Writer: Release SRW Lock
+[25/3/2015 19:49:35] Get SRW Lock
+[25/3/2015 19:49:35] Client 364: get msg: 14
+[25/3/2015 19:49:35] Release SRW Lock
+[25/3/2015 19:49:35] Get SRW Lock
+[25/3/2015 19:49:35] Client 1568: get msg: 14
+[25/3/2015 19:49:35] Release SRW Lock
+[25/3/2015 19:49:35] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:35] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:35] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:35] Writer: Get SRW Lock
+[25/3/2015 19:49:35] Server 3948: send msg: 15
+[25/3/2015 19:49:35] Writer: Release SRW Lock
+[25/3/2015 19:49:35] Get SRW Lock
+[25/3/2015 19:49:35] Client 1568: get msg: 15
+[25/3/2015 19:49:35] Release SRW Lock
+[25/3/2015 19:49:35] Get SRW Lock
+[25/3/2015 19:49:35] Client 364: get msg: 15
+[25/3/2015 19:49:35] Release SRW Lock
+[25/3/2015 19:49:35] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:35] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:35] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:35] Writer: Get SRW Lock
+[25/3/2015 19:49:35] Server 3948: send msg: 16
+[25/3/2015 19:49:35] Writer: Release SRW Lock
+[25/3/2015 19:49:35] Get SRW Lock
+[25/3/2015 19:49:35] Client 364: get msg: 16
+[25/3/2015 19:49:35] Release SRW Lock
+[25/3/2015 19:49:35] Get SRW Lock
+[25/3/2015 19:49:35] Client 1568: get msg: 16
+[25/3/2015 19:49:35] Release SRW Lock
+[25/3/2015 19:49:35] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:35] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:35] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:35] Writer: Get SRW Lock
+[25/3/2015 19:49:35] Server 3948: send msg: 17
+[25/3/2015 19:49:35] Writer: Release SRW Lock
+[25/3/2015 19:49:35] Get SRW Lock
+[25/3/2015 19:49:35] Get SRW Lock
+[25/3/2015 19:49:35] Client 1568: get msg: 17
+[25/3/2015 19:49:35] Release SRW Lock
+[25/3/2015 19:49:35] Client 364: get msg: 17
+[25/3/2015 19:49:35] Release SRW Lock
+[25/3/2015 19:49:36] Waining for Slim Reader/Writer (SRW) Lock[25/3/2015 19:49:36] 
+Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:36] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:36] Writer: Get SRW Lock
+[25/3/2015 19:49:36] Server 3948: send msg: 18
+[25/3/2015 19:49:36] Writer: Release SRW Lock
+[25/3/2015 19:49:36] Get SRW Lock
+[25/3/2015 19:49:36] [25/3/2015 19:49:36] Get SRW LockClient 1568: get msg: 18
+[25/3/2015 19:49:36] Release SRW Lock
+[25/3/2015 19:49:36] Client 364: get msg: 18
+[25/3/2015 19:49:36] Release SRW Lock
+[25/3/2015 19:49:36] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:36] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:36] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:36] Writer: Get SRW Lock
+[25/3/2015 19:49:36] Server 3948: send msg: 19
+[25/3/2015 19:49:36] Writer: Release SRW Lock
+[25/3/2015 19:49:36] Get SRW Lock
+[25/3/2015 19:49:36] Client 1568: get msg: 19
+[25/3/2015 19:49:36] Release SRW Lock
+[25/3/2015 19:49:36] Get SRW Lock
+[25/3/2015 19:49:36] Client 364: get msg: 19
+[25/3/2015 19:49:36] Release SRW Lock
+[25/3/2015 19:49:36] [25/3/2015 19:49:36] Waining for Slim Reader/Writer (SRW) LockWaining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:36] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:36] Writer: Get SRW Lock
+[25/3/2015 19:49:36] Server 3948: send msg: 20
+[25/3/2015 19:49:36] Writer: Release SRW Lock
+[25/3/2015 19:49:36] Get SRW Lock
+[25/3/2015 19:49:36] Get SRW Lock[25/3/2015 19:49:36] 
+Client 1568: get msg: 20
+[25/3/2015 19:49:36] Release SRW Lock
+[25/3/2015 19:49:36] Client 364: get msg: 20
+[25/3/2015 19:49:36] Release SRW Lock
+[25/3/2015 19:49:36] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:36] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:36] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:36] Writer: Get SRW Lock
+[25/3/2015 19:49:36] Server 3948: send msg: 21
+[25/3/2015 19:49:36] Writer: Release SRW Lock
+[25/3/2015 19:49:36] Get SRW Lock
+[25/3/2015 19:49:36] Client 364: get msg: 21
+[25/3/2015 19:49:36] Release SRW Lock
+[25/3/2015 19:49:36] Get SRW Lock
+[25/3/2015 19:49:36] Client 1568: get msg: 21
+[25/3/2015 19:49:36] Release SRW Lock
+[25/3/2015 19:49:36] Waining for Slim Reader/Writer (SRW) Lock[25/3/2015 19:49:36] 
+Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:37] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:37] Writer: Get SRW Lock
+[25/3/2015 19:49:37] Server 3948: send msg: 22
+[25/3/2015 19:49:37] Writer: Release SRW Lock
+[25/3/2015 19:49:37] Get SRW Lock
+[25/3/2015 19:49:37] Client 1568: get msg: 22
+[25/3/2015 19:49:37] Release SRW Lock
+[25/3/2015 19:49:37] Get SRW Lock
+[25/3/2015 19:49:37] Client 364: get msg: 22
+[25/3/2015 19:49:37] Release SRW Lock
+[25/3/2015 19:49:37] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:37] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:37] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:37] Writer: Get SRW Lock
+[25/3/2015 19:49:37] Server 3968: send msg: 23
+[25/3/2015 19:49:37] Writer: Release SRW Lock
+[25/3/2015 19:49:37] Get SRW Lock
+[25/3/2015 19:49:37] [25/3/2015 19:49:37] Get SRW LockClient 1568: get msg: 23
+[25/3/2015 19:49:37] Release SRW Lock
+[25/3/2015 19:49:37] Client 364: get msg: 23
+[25/3/2015 19:49:37] Release SRW Lock
+[25/3/2015 19:49:37] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:37] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:37] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:37] Writer: Get SRW Lock
+[25/3/2015 19:49:37] Server 3968: send msg: 24
+[25/3/2015 19:49:37] Writer: Release SRW Lock
+[25/3/2015 19:49:37] Get SRW Lock
+[25/3/2015 19:49:37] Get SRW Lock
+[25/3/2015 19:49:37] Client 364: get msg: 24
+[25/3/2015 19:49:37] Release SRW Lock
+[25/3/2015 19:49:37] Client 1568: get msg: 24
+[25/3/2015 19:49:37] Release SRW Lock
+[25/3/2015 19:49:37] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:37] Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:37] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:37] Writer: Get SRW Lock
+[25/3/2015 19:49:37] Server 3968: send msg: 25
+[25/3/2015 19:49:37] Writer: Release SRW Lock
+[25/3/2015 19:49:37] Get SRW Lock
+[25/3/2015 19:49:37] [25/3/2015 19:49:37] Get SRW LockClient 1568: get msg: 25
+[25/3/2015 19:49:37] Release SRW Lock
+[25/3/2015 19:49:37] Client 364: get msg: 25
+[25/3/2015 19:49:37] Release SRW Lock
+[25/3/2015 19:49:37] Timer signal received, set Event exitEvent
+[25/3/2015 19:49:37] TimeManager finishing work
+[25/3/2015 19:49:37] Thread 364: InstanceThread exitting.
+[25/3/2015 19:49:37] Thread 1568: InstanceThread exitting.
+[25/3/2015 19:49:37] Thread 3968: Writer Thread exitting.
+[25/3/2015 19:49:37] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 19:49:37] Writer: Get SRW Lock
+[25/3/2015 19:49:37] Server 3948: send msg: 26
+[25/3/2015 19:49:37] Writer: Release SRW Lock
+[25/3/2015 19:49:38] Thread 3948: Writer Thread exitting.
+[25/3/2015 19:56:7] Shutting down.
+

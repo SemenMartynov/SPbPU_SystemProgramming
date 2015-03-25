@@ -1,0 +1,103 @@
+[25/3/2015 18:41:56] Semaphore.ThreadReader is starting.
+[25/3/2015 18:41:56] Waining for Semaphore
+[25/3/2015 18:41:56] Get Semaphore
+[25/3/2015 18:41:56] Reader 1 get data: "writer_id = 8 numMsg=   0" from position 5
+[25/3/2015 18:41:56] Release Semaphore
+[25/3/2015 18:41:56] Waining for Semaphore
+[25/3/2015 18:41:56] Get Semaphore
+[25/3/2015 18:41:56] Release Semaphore
+[25/3/2015 18:41:56] Waining for Semaphore
+[25/3/2015 18:41:56] Get Semaphore
+[25/3/2015 18:41:56] Reader 1 get data: "writer_id = 4 numMsg=   1" from position 6
+[25/3/2015 18:41:56] Release Semaphore
+[25/3/2015 18:41:56] Waining for Semaphore
+[25/3/2015 18:41:56] Get Semaphore
+[25/3/2015 18:41:56] Release Semaphore
+[25/3/2015 18:41:56] Waining for Semaphore
+[25/3/2015 18:41:56] Get Semaphore
+[25/3/2015 18:41:56] Reader 1 get data: "writer_id = 7 numMsg=   2" from position 4
+[25/3/2015 18:41:56] Release Semaphore
+[25/3/2015 18:41:57] Waining for Semaphore
+[25/3/2015 18:41:57] Get Semaphore
+[25/3/2015 18:41:57] Release Semaphore
+[25/3/2015 18:41:57] Waining for Semaphore
+[25/3/2015 18:41:57] Get Semaphore
+[25/3/2015 18:41:57] Reader 1 get data: "writer_id = 8 numMsg=   3" from position 5
+[25/3/2015 18:41:57] Release Semaphore
+[25/3/2015 18:41:57] Waining for Semaphore
+[25/3/2015 18:41:57] Get Semaphore
+[25/3/2015 18:41:57] Release Semaphore
+[25/3/2015 18:41:57] Waining for Semaphore
+[25/3/2015 18:41:57] Get Semaphore
+[25/3/2015 18:41:57] Reader 1 get data: "writer_id = 2 numMsg=   4" from position 6
+[25/3/2015 18:41:57] Release Semaphore
+[25/3/2015 18:41:57] Waining for Semaphore
+[25/3/2015 18:41:57] Get Semaphore
+[25/3/2015 18:41:57] Release Semaphore
+[25/3/2015 18:41:57] Waining for Semaphore
+[25/3/2015 18:41:57] Get Semaphore
+[25/3/2015 18:41:57] Reader 1 get data: "writer_id = 5 numMsg=   5" from position 9
+[25/3/2015 18:41:57] Release Semaphore
+[25/3/2015 18:41:57] Waining for Semaphore
+[25/3/2015 18:41:57] Get Semaphore
+[25/3/2015 18:41:57] Release Semaphore
+[25/3/2015 18:41:57] Waining for Semaphore
+[25/3/2015 18:41:57] Get Semaphore
+[25/3/2015 18:41:57] Release Semaphore
+[25/3/2015 18:41:57] Waining for Semaphore
+[25/3/2015 18:41:57] Get Semaphore
+[25/3/2015 18:41:57] Reader 1 get data: "writer_id = 3 numMsg=   7" from position 3
+[25/3/2015 18:41:57] Release Semaphore
+[25/3/2015 18:41:58] Waining for Semaphore
+[25/3/2015 18:41:58] Get Semaphore
+[25/3/2015 18:41:58] Release Semaphore
+[25/3/2015 18:41:58] Waining for Semaphore
+[25/3/2015 18:41:58] Get Semaphore
+[25/3/2015 18:41:58] Reader 1 get data: "writer_id = 7 numMsg=   8" from position 4
+[25/3/2015 18:41:58] Release Semaphore
+[25/3/2015 18:41:58] Waining for Semaphore
+[25/3/2015 18:41:58] Get Semaphore
+[25/3/2015 18:41:58] Release Semaphore
+[25/3/2015 18:41:58] Waining for Semaphore
+[25/3/2015 18:41:58] Get Semaphore
+[25/3/2015 18:41:58] Reader 1 get data: "writer_id = 2 numMsg=   9" from position 7
+[25/3/2015 18:41:58] Release Semaphore
+[25/3/2015 18:41:58] Waining for Semaphore
+[25/3/2015 18:41:58] Get Semaphore
+[25/3/2015 18:41:58] Release Semaphore
+[25/3/2015 18:41:58] Waining for Semaphore
+[25/3/2015 18:41:58] Get Semaphore
+[25/3/2015 18:41:58] Reader 1 get data: "writer_id = 9 numMsg=  10" from position 6
+[25/3/2015 18:41:58] Release Semaphore
+[25/3/2015 18:41:58] Waining for Semaphore
+[25/3/2015 18:41:58] Get Semaphore
+[25/3/2015 18:41:58] Release Semaphore
+[25/3/2015 18:41:58] Waining for Semaphore
+[25/3/2015 18:41:58] Get Semaphore
+[25/3/2015 18:41:58] Reader 1 get data: "writer_id = 4 numMsg=  11" from position 9
+[25/3/2015 18:41:58] Release Semaphore
+[25/3/2015 18:41:58] Waining for Semaphore
+[25/3/2015 18:41:58] Get Semaphore
+[25/3/2015 18:41:58] Reader 1 get data: "writer_id = 0 numMsg=  12" from position 1
+[25/3/2015 18:41:58] Release Semaphore
+[25/3/2015 18:41:58] Waining for Semaphore
+[25/3/2015 18:41:58] Get Semaphore
+[25/3/2015 18:41:58] Reader 1 get data: "writer_id = 9 numMsg=  12" from position 7
+[25/3/2015 18:41:58] Release Semaphore
+[25/3/2015 18:41:59] Waining for Semaphore
+[25/3/2015 18:41:59] Get Semaphore
+[25/3/2015 18:41:59] Reader 1 get data: "writer_id = 6 numMsg=  13" from position 3
+[25/3/2015 18:41:59] Release Semaphore
+[25/3/2015 18:41:59] Waining for Semaphore
+[25/3/2015 18:41:59] Get Semaphore
+[25/3/2015 18:41:59] Release Semaphore
+[25/3/2015 18:41:59] Waining for Semaphore
+[25/3/2015 18:41:59] Get Semaphore
+[25/3/2015 18:41:59] Reader 1 get data: "writer_id = 3 numMsg=  14" from position 3
+[25/3/2015 18:41:59] Release Semaphore
+[25/3/2015 18:41:59] Waining for Semaphore
+[25/3/2015 18:41:59] Get Semaphore
+[25/3/2015 18:41:59] Release Semaphore
+[25/3/2015 18:41:59] Reader 1 finishing work
+[25/3/2015 18:41:59] Shutting down.
+

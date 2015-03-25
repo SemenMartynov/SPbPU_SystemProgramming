@@ -1,0 +1,64 @@
+[25/3/2015 18:41:56] Semaphore.ThreadWriter is starting.
+[25/3/2015 18:41:56] Waining for Semaphore
+[25/3/2015 18:41:56] Get Semaphore
+[25/3/2015 18:41:56] Writer 1 put data: "writer_id = 1 numMsg=   0" in position 0
+[25/3/2015 18:41:56] Release Semaphore
+[25/3/2015 18:41:56] Waining for Semaphore
+[25/3/2015 18:41:56] Get Semaphore
+[25/3/2015 18:41:56] Writer 1 put data: "writer_id = 1 numMsg=   1" in position 0
+[25/3/2015 18:41:56] Release Semaphore
+[25/3/2015 18:41:56] Waining for Semaphore
+[25/3/2015 18:41:56] Get Semaphore
+[25/3/2015 18:41:56] Writer 1 put data: "writer_id = 1 numMsg=   2" in position 0
+[25/3/2015 18:41:56] Release Semaphore
+[25/3/2015 18:41:57] Waining for Semaphore
+[25/3/2015 18:41:57] Get Semaphore
+[25/3/2015 18:41:57] Writer 1 put data: "writer_id = 1 numMsg=   3" in position 0
+[25/3/2015 18:41:57] Release Semaphore
+[25/3/2015 18:41:57] Waining for Semaphore
+[25/3/2015 18:41:57] Get Semaphore
+[25/3/2015 18:41:57] Writer 1 put data: "writer_id = 1 numMsg=   4" in position 1
+[25/3/2015 18:41:57] Release Semaphore
+[25/3/2015 18:41:57] Waining for Semaphore
+[25/3/2015 18:41:57] Get Semaphore
+[25/3/2015 18:41:57] Writer 1 put data: "writer_id = 1 numMsg=   5" in position 1
+[25/3/2015 18:41:57] Release Semaphore
+[25/3/2015 18:41:57] Waining for Semaphore
+[25/3/2015 18:41:57] Get Semaphore
+[25/3/2015 18:41:57] Writer 1 put data: "writer_id = 1 numMsg=   6" in position 1
+[25/3/2015 18:41:57] Release Semaphore
+[25/3/2015 18:41:57] Waining for Semaphore
+[25/3/2015 18:41:57] Get Semaphore
+[25/3/2015 18:41:57] Writer 1 put data: "writer_id = 1 numMsg=   7" in position 1
+[25/3/2015 18:41:57] Release Semaphore
+[25/3/2015 18:41:58] Waining for Semaphore
+[25/3/2015 18:41:58] Get Semaphore
+[25/3/2015 18:41:58] Writer 1 put data: "writer_id = 1 numMsg=   8" in position 1
+[25/3/2015 18:41:58] Release Semaphore
+[25/3/2015 18:41:58] Waining for Semaphore
+[25/3/2015 18:41:58] Get Semaphore
+[25/3/2015 18:41:58] Writer 1 put data: "writer_id = 1 numMsg=   9" in position 0
+[25/3/2015 18:41:58] Release Semaphore
+[25/3/2015 18:41:58] Waining for Semaphore
+[25/3/2015 18:41:58] Get Semaphore
+[25/3/2015 18:41:58] Writer 1 put data: "writer_id = 1 numMsg=  10" in position 1
+[25/3/2015 18:41:58] Release Semaphore
+[25/3/2015 18:41:58] Waining for Semaphore
+[25/3/2015 18:41:58] Get Semaphore
+[25/3/2015 18:41:58] Writer 1 put data: "writer_id = 1 numMsg=  11" in position 0
+[25/3/2015 18:41:58] Release Semaphore
+[25/3/2015 18:41:58] Waining for Semaphore
+[25/3/2015 18:41:58] Get Semaphore
+[25/3/2015 18:41:58] Writer 1 put data: "writer_id = 1 numMsg=  12" in position 0
+[25/3/2015 18:41:58] Release Semaphore
+[25/3/2015 18:41:58] Waining for Semaphore
+[25/3/2015 18:41:58] Get Semaphore
+[25/3/2015 18:41:58] Writer 1 put data: "writer_id = 1 numMsg=  13" in position 1
+[25/3/2015 18:41:58] Release Semaphore
+[25/3/2015 18:41:59] Waining for Semaphore
+[25/3/2015 18:41:59] Get Semaphore
+[25/3/2015 18:41:59] Writer 1 put data: "writer_id = 1 numMsg=  14" in position 1
+[25/3/2015 18:41:59] Release Semaphore
+[25/3/2015 18:41:59] Writer 1 finishing work
+[25/3/2015 18:41:59] Shutting down.
+
