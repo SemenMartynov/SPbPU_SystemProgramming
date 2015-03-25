@@ -1,5 +1,5 @@
-#include <windows.h> 
-#include <stdio.h> 
+#include <windows.h>
+#include <stdio.h>
 #include <conio.h>
 #include <tchar.h>
 #include <strsafe.h>
@@ -17,6 +17,7 @@ Logger log(_T("ReaderWriterServer"), -1);
 // инструмент синхронизации:
 SRWLOCK lock;
 CONDITION_VARIABLE condread;
+CRITICAL_SECTION crs; // Объявление критической секции
 int message; // сообщение
 bool isDone = false; //флаг завершения
 
@@ -27,7 +28,7 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	DWORD  dwThreadId = 0; // Номер обслуживающего потока
 	HANDLE hPipe = INVALID_HANDLE_VALUE; // Идентификатор канала
 	HANDLE hThread = NULL; // Идентификатор обслуживающего потока
-	HANDLE service[2]; // Идентификатор потока писателя и таймера
+	HANDLE service[3]; // Идентификатор потока писателя и таймера
 	LPTSTR lpszPipename = _T("\\\\.\\pipe\\$$MyPipe$$"); // Имя создаваемого канала
 
 	// начальное сообщение
@@ -45,8 +46,8 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		NULL,				// опции создания
 		NULL);				// номер потока
 
-	// Создание потока-писателя
-	log.loudlog(_T("Writer creation!"));
+	// Создание потоков-писателей
+	log.loudlog(_T("Writers creation!"));
 	service[1] = CreateThread(
 		NULL,              // дескриптор защиты 
 		0,                 // начальный размер стека
@@ -54,6 +55,17 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		NULL,		       // параметр потока
 		NULL,              // опции создания
 		NULL);		       // номер потока
+
+	service[2] = CreateThread(
+		NULL,              // дескриптор защиты 
+		0,                 // начальный размер стека
+		ThreadWriter,	   // функция потока
+		NULL,		       // параметр потока
+		NULL,              // опции создания
+		NULL);		       // номер потока
+
+	//инициализируем средство синхронизации
+	InitializeCriticalSection(&crs);
 
 	// Ожидаем соединения со стороны клиента
 	log.loudlog(_T("Waiting for connect..."));
@@ -106,10 +118,13 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	}
 
 	//ожидаем завершения всех потоков
-	WaitForMultipleObjects(2, service, TRUE, INFINITE);
+	WaitForMultipleObjects(3, service, TRUE, INFINITE);
+	
+	//удаляем объект синхронизации
+	DeleteCriticalSection(&crs);
 
 	//закрываем handle потоков
-	for (int i = 0; i != 2; ++i)
+	for (int i = 0; i != 3; ++i)
 		CloseHandle(service[i]);
 
 	// Завершение работы
@@ -127,9 +142,6 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam) {
 	DWORD writebytes; // Число байт прочитанных и переданных
 
 	while (isDone != true) {
-		//задержка
-		Sleep(100);
-
 		// Захват объекта синхронизации (совместный доступ!)
 		log.quietlog(_T("Waining for Slim Reader/Writer (SRW) Lock"));
 		AcquireSRWLockShared(&lock);
@@ -140,7 +152,7 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam) {
 		swprintf_s(chBuf, BUFSIZE, L"%i", message);
 		if (WriteFile(hPipe, chBuf, (lstrlen(chBuf) + 1)*sizeof(_TCHAR), &writebytes, NULL)) {
 			// Выводим сообщение на консоль
-			log.loudlog(_T("Server %d: send msg: %s"), GetCurrentThreadId(), chBuf);
+			log.quietlog(_T("Client %d: get msg: %s"), GetCurrentThreadId(), chBuf);
 		}
 		else {
 			log.loudlog(_T("Thread %d: WriteFile: Error %ld"), GetCurrentThreadId(), GetLastError());
@@ -150,7 +162,11 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam) {
 		//освобождение объекта синхронизации
 		log.quietlog(_T("Release SRW Lock"));
 		ReleaseSRWLockShared(&lock);
+
+		//задержка
+		Sleep(100);
 	}
+
 	// завершаем работу приложения
 	StringCchCopy(chBuf, BUFSIZE, L"exit");
 	WriteFile(hPipe, chBuf, (lstrlen(chBuf) + 1)*sizeof(_TCHAR), &writebytes, NULL);
@@ -170,9 +186,7 @@ DWORD WINAPI ThreadWriter(LPVOID lpvParam) {
 	log.loudlog(_T("Writer thread %d started!"), GetCurrentThreadId());
 
 	while (isDone != true) {
-		//задержка
-		Sleep(200);
-
+		EnterCriticalSection(&crs);
 		// Захват объекта синхронизации (монопольный доступ!)
 		log.quietlog(_T("Writer: Waining for Slim Reader/Writer (SRW) Lock"));
 		AcquireSRWLockExclusive(&lock);
@@ -180,11 +194,16 @@ DWORD WINAPI ThreadWriter(LPVOID lpvParam) {
 
 		// меняем значение сообщения
 		++message;
+		log.loudlog(_T("Server %d: send msg: %d"), GetCurrentThreadId(), message);
 
 		//освобождение объекта синхронизации
 		log.quietlog(_T("Writer: Release SRW Lock"));
 		WakeAllConditionVariable(&condread);
 		ReleaseSRWLockExclusive(&lock);
+
+		//задержка
+		Sleep(200);
+		LeaveCriticalSection(&crs);
 	}
 
 	log.quietlog(_T("Thread %d: Writer Thread exitting."), GetCurrentThreadId());

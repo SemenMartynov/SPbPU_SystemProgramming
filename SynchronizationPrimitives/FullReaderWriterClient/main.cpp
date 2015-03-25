@@ -8,7 +8,7 @@ _TCHAR szServerIPAddr[20];			// server IP
 int nServerPort;					// server port
 
 bool InitWinSock2_0();
-BOOL WINAPI aReader(LPVOID lpData); // Чтение
+BOOL WINAPI aReader(LPVOID lpData); // Р§С‚РµРЅРёРµ
 
 //Init log
 Logger mylog(_T("FullReaderWriterClient"), GetCurrentProcessId());
@@ -84,7 +84,7 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		nLength -= nCntSend;
 	}
 
-	// Запуск читающего треда
+	// Р—Р°РїСѓСЃРє С‡РёС‚Р°СЋС‰РµРіРѕ С‚СЂРµРґР°
 	HANDLE haReader = CreateThread(NULL, 0,
 		(LPTHREAD_START_ROUTINE)aReader,
 		(LPVOID)&hClientSocket, 0, 0);

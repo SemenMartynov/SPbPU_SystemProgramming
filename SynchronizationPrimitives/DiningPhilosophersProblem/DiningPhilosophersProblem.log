@@ -1749,3 +1749,244 @@ Philosopher 3 status HUNGRY[25/3/2015 12:46:7] Philosopher 0 status THINKING
 [25/3/2015 12:46:9] Philosopher 3 status HUNGRY
 [25/3/2015 12:46:9] Philosopher 3 status EATING[25/3/2015 12:46:9] Shutting down.
 
+[25/3/2015 13:42:23] DiningPhilosophersProblem is starting.
+[25/3/2015 13:42:23] Create threads
+[25/3/2015 13:42:23] Count = 0
+[25/3/2015 13:42:23] Count = 1
+[25/3/2015 13:42:23] Count = 2
+[25/3/2015 13:42:23] Count = 3
+[25/3/2015 13:42:23] Count = 4
+[25/3/2015 13:42:23] Waining for Critical Section
+[25/3/2015 13:42:23] [25/3/2015 13:42:23] Get Critical Section
+Waining for Critical Section[25/3/2015 13:42:23] 
+Philosopher 3 status HUNGRY[25/3/2015 13:42:23] Get Critical Section
+[25/3/2015 13:42:23] Philosopher 4 status HUNGRY[25/3/2015 13:42:23] Waining for Critical Section[25/3/2015 13:42:23] 
+Waining for Critical Section[25/3/2015 13:42:23] 
+Get Critical Section
+[25/3/2015 13:42:23] [25/3/2015 13:42:23] Get Critical SectionPhilosopher 2 status HUNGRY
+[25/3/2015 13:42:23] Philosopher 1 status HUNGRY[25/3/2015 13:42:23] Waining for Critical Section
+[25/3/2015 13:42:23] Get Critical Section
+[25/3/2015 13:42:23] Philosopher 0 status HUNGRY
+[25/3/2015 13:42:23] Leave Critical Section
+
+[25/3/2015 13:42:23] Leave Critical Section
+
+[25/3/2015 13:42:23] Leave Critical Section
+
+[25/3/2015 13:42:23] Philosopher 1 status EATING
+[25/3/2015 13:42:23] Leave Critical Section
+
+[25/3/2015 13:42:23] Leave Critical Section
+[25/3/2015 13:42:23] Waining for Critical Section
+[25/3/2015 13:42:23] Get Critical Section
+[25/3/2015 13:42:23] Philosopher 2 status HUNGRY[25/3/2015 13:42:23] [25/3/2015 13:42:23] Waining for Critical SectionWaining for Critical Section
+
+[25/3/2015 13:42:23] [25/3/2015 13:42:23] Get Critical SectionGet Critical Section
+
+[25/3/2015 13:42:23] [25/3/2015 13:42:23] Philosopher 3 status HUNGRYPhilosopher 1 status THINKING[25/3/2015 13:42:23] Waining for Critical Section
+[25/3/2015 13:42:23] Get Critical Section
+[25/3/2015 13:42:23] Philosopher 0 status HUNGRY[25/3/2015 13:42:23] Waining for Critical Section
+[25/3/2015 13:42:23] Get Critical Section
+[25/3/2015 13:42:23] Philosopher 4 status HUNGRY
+[25/3/2015 13:42:23] Leave Critical Section
+
+[25/3/2015 13:42:23] Leave Critical Section
+
+[25/3/2015 13:42:23] Leave Critical Section
+
+[25/3/2015 13:42:23] Philosopher 0 status EATING
+[25/3/2015 13:42:23] Leave Critical Section
+
+[25/3/2015 13:42:23] Philosopher 3 status EATING
+[25/3/2015 13:42:23] Leave Critical Section
+[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] Get Critical Section
+[25/3/2015 13:42:24] Philosopher 1 status HUNGRY
+[25/3/2015 13:42:24] Leave Critical Section
+[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] Get Critical Section
+[25/3/2015 13:42:24] Philosopher 2 status HUNGRY[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] Get Critical Section
+[25/3/2015 13:42:24] Philosopher 4 status HUNGRY
+[25/3/2015 13:42:24] Leave Critical Section
+
+[25/3/2015 13:42:24] Leave Critical Section
+[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] Get Critical Section
+[25/3/2015 13:42:24] Philosopher 1 status HUNGRY
+[25/3/2015 13:42:24] Leave Critical Section
+[25/3/2015 13:42:24] [25/3/2015 13:42:24] Waining for Critical SectionWaining for Critical Section
+
+[25/3/2015 13:42:24] [25/3/2015 13:42:24] Get Critical SectionGet Critical Section
+
+[25/3/2015 13:42:24] [25/3/2015 13:42:24] Philosopher 2 status HUNGRYPhilosopher 4 status HUNGRY
+[25/3/2015 13:42:24] Leave Critical Section
+
+[25/3/2015 13:42:24] Leave Critical Section
+[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] Get Critical Section
+[25/3/2015 13:42:24] Philosopher 3 status THINKING[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] Get Critical Section
+[25/3/2015 13:42:24] Philosopher 0 status THINKING
+[25/3/2015 13:42:24] Leave Critical Section
+
+[25/3/2015 13:42:24] Leave Critical Section
+[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] Get Critical Section
+[25/3/2015 13:42:24] Philosopher 1 status HUNGRY
+[25/3/2015 13:42:24] Philosopher 1 status EATING
+[25/3/2015 13:42:24] Leave Critical Section
+[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] Get Critical Section
+[25/3/2015 13:42:24] Philosopher 4 status HUNGRY[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] Get Critical Section
+[25/3/2015 13:42:24] Philosopher 2 status HUNGRY
+[25/3/2015 13:42:24] Philosopher 4 status EATING
+[25/3/2015 13:42:24] Leave Critical Section
+
+[25/3/2015 13:42:24] Leave Critical Section
+[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] Get Critical Section
+[25/3/2015 13:42:24] Philosopher 2 status HUNGRY
+[25/3/2015 13:42:24] Leave Critical Section
+[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] Get Critical Section
+[25/3/2015 13:42:24] Philosopher 3 status HUNGRY[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] Get Critical Section
+[25/3/2015 13:42:24] Philosopher 0 status HUNGRY[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] Get Critical Section
+[25/3/2015 13:42:24] Philosopher 2 status HUNGRY
+[25/3/2015 13:42:24] Leave Critical Section
+
+[25/3/2015 13:42:24] Leave Critical Section
+
+[25/3/2015 13:42:24] Leave Critical Section
+[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] Get Critical Section
+[25/3/2015 13:42:24] Philosopher 1 status THINKING
+[25/3/2015 13:42:24] Leave Critical Section
+[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] Get Critical Section
+[25/3/2015 13:42:24] Philosopher 2 status HUNGRY
+[25/3/2015 13:42:24] Philosopher 2 status EATING
+[25/3/2015 13:42:24] Leave Critical Section
+[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] Get Critical Section
+[25/3/2015 13:42:24] Philosopher 0 status HUNGRY[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] Get Critical Section
+[25/3/2015 13:42:24] Philosopher 3 status HUNGRY
+[25/3/2015 13:42:24] Leave Critical Section
+
+[25/3/2015 13:42:24] Leave Critical Section
+[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] Get Critical Section
+[25/3/2015 13:42:24] Philosopher 4 status THINKING
+[25/3/2015 13:42:24] Leave Critical Section
+[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] [25/3/2015 13:42:24] Get Critical SectionWaining for Critical Section
+
+[25/3/2015 13:42:24] [25/3/2015 13:42:24] Philosopher 3 status HUNGRYGet Critical Section
+[25/3/2015 13:42:24] Philosopher 0 status HUNGRY
+[25/3/2015 13:42:24] Leave Critical Section
+
+[25/3/2015 13:42:24] Philosopher 0 status EATING
+[25/3/2015 13:42:24] Leave Critical Section
+[25/3/2015 13:42:24] Waining for Critical Section
+[25/3/2015 13:42:24] Get Critical Section
+[25/3/2015 13:42:24] Philosopher 1 status HUNGRY
+[25/3/2015 13:42:24] Leave Critical Section
+[25/3/2015 13:42:25] Waining for Critical Section
+[25/3/2015 13:42:25] Get Critical Section
+[25/3/2015 13:42:25] Philosopher 3 status HUNGRY
+[25/3/2015 13:42:25] Leave Critical Section
+[25/3/2015 13:42:25] Waining for Critical Section
+[25/3/2015 13:42:25] [25/3/2015 13:42:25] Get Critical SectionWaining for Critical Section
+
+[25/3/2015 13:42:25] [25/3/2015 13:42:25] Philosopher 4 status HUNGRYGet Critical Section
+[25/3/2015 13:42:25] Philosopher 1 status HUNGRY
+[25/3/2015 13:42:25] Leave Critical Section
+
+[25/3/2015 13:42:25] Leave Critical Section
+[25/3/2015 13:42:25] Waining for Critical Section
+[25/3/2015 13:42:25] Get Critical Section
+[25/3/2015 13:42:25] [25/3/2015 13:42:25] Waining for Critical SectionPhilosopher 3 status HUNGRY
+[25/3/2015 13:42:25] Get Critical Section
+[25/3/2015 13:42:25] Philosopher 2 status THINKING
+[25/3/2015 13:42:25] Leave Critical Section
+
+[25/3/2015 13:42:25] Leave Critical Section
+[25/3/2015 13:42:25] Waining for Critical Section
+[25/3/2015 13:42:25] Get Critical Section
+[25/3/2015 13:42:25] Philosopher 4 status HUNGRY
+[25/3/2015 13:42:25] Leave Critical Section
+[25/3/2015 13:42:25] Waining for Critical Section
+[25/3/2015 13:42:25] Get Critical Section
+[25/3/2015 13:42:25] Philosopher 0 status THINKING
+[25/3/2015 13:42:25] Leave Critical Section
+[25/3/2015 13:42:25] Waining for Critical Section
+[25/3/2015 13:42:25] Get Critical Section
+[25/3/2015 13:42:25] Philosopher 1 status HUNGRY
+[25/3/2015 13:42:25] Philosopher 1 status EATING
+[25/3/2015 13:42:25] Leave Critical Section
+[25/3/2015 13:42:25] Waining for Critical Section
+[25/3/2015 13:42:25] Get Critical Section
+[25/3/2015 13:42:25] Philosopher 3 status HUNGRY
+[25/3/2015 13:42:25] Philosopher 3 status EATING
+[25/3/2015 13:42:25] Leave Critical Section
+[25/3/2015 13:42:25] Waining for Critical Section
+[25/3/2015 13:42:25] Get Critical Section
+[25/3/2015 13:42:25] Philosopher 4 status HUNGRY
+[25/3/2015 13:42:25] Leave Critical Section
+[25/3/2015 13:42:25] Waining for Critical Section
+[25/3/2015 13:42:25] Get Critical Section
+[25/3/2015 13:42:25] Philosopher 4 status HUNGRY
+[25/3/2015 13:42:25] Leave Critical Section
+[25/3/2015 13:42:25] Waining for Critical Section
+[25/3/2015 13:42:25] Get Critical Section
+[25/3/2015 13:42:25] Philosopher 4 status HUNGRY
+[25/3/2015 13:42:25] Leave Critical Section
+[25/3/2015 13:42:25] Waining for Critical Section
+[25/3/2015 13:42:25] Get Critical Section
+[25/3/2015 13:42:25] Philosopher 3 status THINKING
+[25/3/2015 13:42:25] Leave Critical Section
+[25/3/2015 13:42:25] Waining for Critical Section
+[25/3/2015 13:42:25] Get Critical Section
+[25/3/2015 13:42:25] Philosopher 1 status THINKING
+[25/3/2015 13:42:25] Leave Critical Section
+[25/3/2015 13:42:25] Waining for Critical Section
+[25/3/2015 13:42:25] Get Critical Section
+[25/3/2015 13:42:25] Philosopher 0 status HUNGRY
+[25/3/2015 13:42:25] Philosopher 0 status EATING
+[25/3/2015 13:42:25] Leave Critical Section
+[25/3/2015 13:42:25] Waining for Critical Section
+[25/3/2015 13:42:25] Get Critical Section
+[25/3/2015 13:42:25] Philosopher 4 status HUNGRY
+[25/3/2015 13:42:25] Leave Critical Section
+[25/3/2015 13:42:25] [25/3/2015 13:42:25] Waining for Critical SectionWaining for Critical Section
+
+[25/3/2015 13:42:25] [25/3/2015 13:42:25] Get Critical SectionGet Critical Section
+
+[25/3/2015 13:42:25] [25/3/2015 13:42:25] Philosopher 2 status HUNGRYPhilosopher 4 status HUNGRY
+[25/3/2015 13:42:25] Philosopher 2 status EATING
+[25/3/2015 13:42:25] Leave Critical Section
+
+[25/3/2015 13:42:25] Leave Critical Section
+[25/3/2015 13:42:25] Waining for Critical Section
+[25/3/2015 13:42:25] Get Critical Section
+[25/3/2015 13:42:25] Philosopher 0 status THINKING
+[25/3/2015 13:42:25] Leave Critical Section
+[25/3/2015 13:42:25] Waining for Critical Section
+[25/3/2015 13:42:25] Get Critical Section
+[25/3/2015 13:42:25] Philosopher 2 status THINKING
+[25/3/2015 13:42:25] Leave Critical Section
+[25/3/2015 13:42:25] Waining for Critical Section
+[25/3/2015 13:42:25] Get Critical Section
+[25/3/2015 13:42:25] Philosopher 4 status HUNGRY
+[25/3/2015 13:42:25] Philosopher 4 status EATING
+[25/3/2015 13:42:25] Leave Critical Section
+[25/3/2015 13:42:25] Waining for Critical Section
+[25/3/2015 13:42:25] Get Critical Section
+[25/3/2015 13:42:25] Philosopher 3 status HUNGRY
+[25/3/2015 13:42:25] Leave Critical Section
+[25/3/2015 13:42:25] Shutting down.
+

@@ -1418,3 +1418,54 @@
 [25/3/2015 12:40:48] Thread 3664: Writer Thread exitting.
 [25/3/2015 12:40:50] Shutting down.
 
+[25/3/2015 14:17:10] ReaderWriterServer is starting.
+[25/3/2015 14:17:10] Server is started.
+
+
+[25/3/2015 14:17:10] Time Manager creation!
+[25/3/2015 14:17:10] Writers creation!
+[25/3/2015 14:17:10] Waiting for connect...
+[25/3/2015 14:17:10] Writer thread 1940 started![25/3/2015 14:17:10] Try to create named pipe on \\.\pipe\$$MyPipe$$
+[25/3/2015 14:17:10] Writer thread 2980 started![25/3/2015 14:17:10] Named pipe created successfully!
+[25/3/2015 14:17:10] Writer: Waining for Slim Reader/Writer (SRW) Lock
+
+
+[25/3/2015 14:17:10] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 14:17:15] Timer signal received, set Event exitEvent
+[25/3/2015 14:17:15] TimeManager finishing work
+[25/3/2015 14:17:17] Shutting down.
+
+[25/3/2015 14:17:20] ReaderWriterServer is starting.
+[25/3/2015 14:17:20] Server is started.
+
+
+[25/3/2015 14:17:20] Time Manager creation!
+[25/3/2015 14:17:20] Writers creation!
+[25/3/2015 14:17:20] Waiting for connect...[25/3/2015 14:17:21] Writer thread 3800 started!
+[25/3/2015 14:17:21] Writer thread 4076 started!
+[25/3/2015 14:17:21] Writer: Waining for Slim Reader/Writer (SRW) Lock
+
+[25/3/2015 14:17:21] Writer: Waining for Slim Reader/Writer (SRW) Lock
+[25/3/2015 14:17:21] Try to create named pipe on \\.\pipe\$$MyPipe$$
+[25/3/2015 14:17:21] Named pipe created successfully!
+[25/3/2015 14:17:25] Timer signal received, set Event exitEvent
+[25/3/2015 14:17:25] TimeManager finishing work
+[25/3/2015 14:17:28] Shutting down.
+
+[25/3/2015 14:17:34] ReaderWriterServer is starting.
+[25/3/2015 14:17:34] Server is started.
+
+
+[25/3/2015 14:17:34] Time Manager creation!
+[25/3/2015 14:17:34] Writers creation!
+[25/3/2015 14:17:34] Writer thread 3628 started![25/3/2015 14:17:34] Waiting for connect...[25/3/2015 14:17:34] Writer thread 3860 started!
+[25/3/2015 14:17:34] Writer: Waining for Slim Reader/Writer (SRW) Lock
+
+[25/3/2015 14:17:34] Writer: Waining for Slim Reader/Writer (SRW) Lock
+
+[25/3/2015 14:17:34] Try to create named pipe on \\.\pipe\$$MyPipe$$
+[25/3/2015 14:17:34] Named pipe created successfully!
+[25/3/2015 14:17:39] Timer signal received, set Event exitEvent
+[25/3/2015 14:17:39] TimeManager finishing work
+[25/3/2015 14:17:41] Shutting down.
+

@@ -1,4 +1,4 @@
-﻿#include <windows.h>
+#include <windows.h>
 #include <conio.h>
 #include <tchar.h>
 

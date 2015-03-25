@@ -50,7 +50,7 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	//Инициализируем ресурс (share memory): создаем объект "отображаемый файл"
 	// будет использован системный файл подкачки (на диске файл создаваться
 	// не будет), т.к. в качестве дескриптора файла использовано значение
-	// равное 0xFFFFFFFF (его эквивалент — символическая константа INVALID_HANDLE_VALUE)
+	// равное 0xFFFFFFFF (его эквивалент - символическая константа INVALID_HANDLE_VALUE)
 	if ((hFileMapping = CreateFileMapping(INVALID_HANDLE_VALUE, NULL,
 		PAGE_READWRITE, 0, 1500, shareFileName)) == NULL) {
 		// INVALID_HANDLE_VALUE - дескриптор открытого файла

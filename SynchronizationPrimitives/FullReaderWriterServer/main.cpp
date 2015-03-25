@@ -12,16 +12,16 @@
 
 struct CLIENT_INFO
 {
-	SOCKET hClientSocket;				// Сокет
+	SOCKET hClientSocket;				// РЎРѕРєРµС‚
 	struct sockaddr_in clientAddr;
-	_TCHAR username[128];				// Имя пользователя
+	_TCHAR username[128];				// РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 };
 
 _TCHAR szServerIPAddr[] = _T("127.0.0.1");// server IP
 int nServerPort = 5050;					// server port
 
-std::list<CLIENT_INFO*> clients;		// Все клиенты
-CRITICAL_SECTION csСlients;				// Защита списка
+std::list<CLIENT_INFO*> clients;		// Р’СЃРµ РєР»РёРµРЅС‚С‹
+CRITICAL_SECTION csРЎlients;				// Р—Р°С‰РёС‚Р° СЃРїРёСЃРєР°
 
 bool InitWinSock2_0();
 BOOL WINAPI ClientThread(LPVOID lpData);
@@ -85,8 +85,8 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	}
 	mylog.loudlog(_T("Ready for connection on %s:%d"), szServerIPAddr, nServerPort);
 
-	//инициализируем средство синхронизации
-	InitializeCriticalSection(&csСlients);
+	//РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј СЃСЂРµРґСЃС‚РІРѕ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё
+	InitializeCriticalSection(&csРЎlients);
 
 	// Start the infinite loop
 	while (true) {
@@ -122,8 +122,8 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		}
 	}
 
-	//удаляем объект синхронизации
-	DeleteCriticalSection(&csСlients);
+	//СѓРґР°Р»СЏРµРј РѕР±СЉРµРєС‚ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёРё
+	DeleteCriticalSection(&csРЎlients);
 	closesocket(hServerSocket);
 	WSACleanup();
 	exit(0);
@@ -142,9 +142,9 @@ bool InitWinSock2_0() {
 BOOL WINAPI ClientThread(LPVOID lpData) {
 	CLIENT_INFO *pClientInfo = (CLIENT_INFO *)lpData;
 
-	EnterCriticalSection(&csСlients);
-	clients.push_front(pClientInfo); // Добавить нового клиента в список
-	LeaveCriticalSection(&csСlients);
+	EnterCriticalSection(&csРЎlients);
+	clients.push_front(pClientInfo); // Р”РѕР±Р°РІРёС‚СЊ РЅРѕРІРѕРіРѕ РєР»РёРµРЅС‚Р° РІ СЃРїРёСЃРѕРє
+	LeaveCriticalSection(&csРЎlients);
 
 	_TCHAR szBuffer[1024];
 	_TCHAR szMessage[1024 + 255 + 128];
@@ -179,9 +179,9 @@ BOOL WINAPI ClientThread(LPVOID lpData) {
 				mylog.loudlog(_T("%s"), szMessage);
 				sendToAll(szMessage);
 
-				EnterCriticalSection(&csСlients);
-				clients.remove(pClientInfo); // Удалить клиента из списка
-				LeaveCriticalSection(&csСlients);
+				EnterCriticalSection(&csРЎlients);
+				clients.remove(pClientInfo); // РЈРґР°Р»РёС‚СЊ РєР»РёРµРЅС‚Р° РёР· СЃРїРёСЃРєР°
+				LeaveCriticalSection(&csРЎlients);
 
 				closesocket(pClientInfo->hClientSocket);
 				delete pClientInfo;
@@ -213,8 +213,8 @@ BOOL WINAPI ClientThread(LPVOID lpData) {
 }
 
 void sendToAll(_TCHAR *pBuffer) {
-	// Пока мы обрабатываем список, его ни кто не должен менять!
-	EnterCriticalSection(&csСlients);
+	// РџРѕРєР° РјС‹ РѕР±СЂР°Р±Р°С‚С‹РІР°РµРј СЃРїРёСЃРѕРє, РµРіРѕ РЅРё РєС‚Рѕ РЅРµ РґРѕР»Р¶РµРЅ РјРµРЅСЏС‚СЊ!
+	EnterCriticalSection(&csРЎlients);
 	std::list<CLIENT_INFO *>::iterator client;
 	for (client = clients.begin(); client != clients.end(); ++client) {
 		int nLength = (lstrlen(pBuffer) + 1) * sizeof(_TCHAR);
@@ -232,5 +232,5 @@ void sendToAll(_TCHAR *pBuffer) {
 			nLength -= nCntSend;
 		}
 	}
-	LeaveCriticalSection(&csСlients);
+	LeaveCriticalSection(&csРЎlients);
 }

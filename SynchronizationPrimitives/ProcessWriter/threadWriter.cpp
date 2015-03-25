@@ -55,7 +55,7 @@ DWORD WINAPI ThreadWriterHandler(LPVOID prm) {
 			log.quietlog(_T("Set Event changeCountEvent"));
 			SetEvent(changeCountEvent);
 
-			//разрешаем потокам-читателям прочитать сообщение и опять ставим событие в состояние «занято»
+			//разрешаем потокам-читателям прочитать сообщение и опять ставим событие в состояние занято
 			log.quietlog(_T("Set Event canReadEvent"));
 			SetEvent(canReadEvent);
 
