@@ -124,7 +124,7 @@ DWORD WINAPI InstanceThread(LPVOID lpvParam) {
 	FlushFileBuffers(hPipe);
 	DisconnectNamedPipe(hPipe);
 	CloseHandle(hPipe);
-	HeapFree(hPipe, 0, chBuf);
+	HeapFree(GetProcessHeap(), 0, chBuf);
 
 	writelog(_T("Thread %d: InstanceThread exitting."), GetCurrentThreadId());
 	_tprintf(TEXT("InstanceThread exitting.\n"));

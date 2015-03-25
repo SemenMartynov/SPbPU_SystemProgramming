@@ -7,7 +7,7 @@
 DWORD WINAPI ThreadReaderHandler(LPVOID prm) {
 	int myid = (int)prm;
 
-	Logger log(_T("Mutex.ThreadReader"), myid);
+	Logger log(_T("ThreadsReaderWriter.ThreadReader"), myid);
 	extern bool isDone;
 	extern struct Configuration config;
 

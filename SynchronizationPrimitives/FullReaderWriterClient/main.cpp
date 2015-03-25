@@ -1,18 +1,19 @@
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <winsock2.h>
-#include "logger.h"
+#include "Logger.h"
 
 #pragma comment(lib, "Ws2_32.lib")
 
-_TCHAR szServerIPAddr[20]; // server IP
-int nServerPort; // server port
+_TCHAR szServerIPAddr[20];			// server IP
+int nServerPort;					// server port
 
 bool InitWinSock2_0();
+BOOL WINAPI aReader(LPVOID lpData); // Чтение
+
+//Init log
+Logger mylog(_T("FullReaderWriterClient"), GetCurrentProcessId());
 
 int _tmain(int argc, _TCHAR* argv[]) {
-	//Init log
-	initlog(argv[0]);
-
 	_tprintf(_T("Enter the server IP Address: "));
 	wscanf_s(_T("%19s"), szServerIPAddr, _countof(szServerIPAddr));
 	_tprintf(_T("Enter the server port number: "));
@@ -20,12 +21,10 @@ int _tmain(int argc, _TCHAR* argv[]) {
 
 	if (!InitWinSock2_0()) {
 		double errorcode = WSAGetLastError();
-		writelog(_T("Unable to Initialize Windows Socket environment, GLE=%d"), errorcode);
-		_tprintf(_T("Unable to Initialize Windows Socket environment, GLE=%d"), errorcode);
-		closelog();
+		mylog.loudlog(_T("Unable to Initialize Windows Socket environment, GLE=%d"), errorcode);
 		exit(1);
 	}
-	writelog(_T("Windows Socket environment ready"));
+	mylog.quietlog(_T("Windows Socket environment ready"));
 
 	SOCKET hClientSocket;
 	hClientSocket = socket(
@@ -34,14 +33,12 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		0);             // Protoco Name. Should be 0 for AF_INET address family
 
 	if (hClientSocket == INVALID_SOCKET) {
-		writelog(_T("Unable to create Server socket"));
-		_tprintf(_T("Unable to create Server socket"));
+		mylog.loudlog(_T("Unable to create socket"));
 		// Cleanup the environment initialized by WSAStartup()
 		WSACleanup();
-		closelog();
 		exit(2);
 	}
-	writelog(_T("Client socket created"));
+	mylog.quietlog(_T("Client socket created"));
 
 	// Create the structure describing various Server parameters
 	struct sockaddr_in serverAddr;
@@ -56,32 +53,61 @@ int _tmain(int argc, _TCHAR* argv[]) {
 
 	// Connect to the server
 	if (connect(hClientSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr)) < 0) {
-		writelog(_T("Unable to connect to %s on port %d"), szServerIPAddr, nServerPort);
-		_tprintf(_T("Unable to connect to %s on port %d"), szServerIPAddr, nServerPort);
+		mylog.loudlog(_T("Unable to connect to %s on port %d"), szServerIPAddr, nServerPort);
 		closesocket(hClientSocket);
 		WSACleanup();
-		closelog();
 		exit(3);
 	}
-	writelog(_T("Connect"));
+	mylog.quietlog(_T("Connect"));
 
 	_TCHAR szBuffer[1024] = _T("");
 
+	// Choose username
+	_tprintf(_T("Enter your username: "));
+	wscanf_s(_T("%1023s"), szBuffer, _countof(szBuffer));
+	int nLength = (wcslen(szBuffer) + 1) * sizeof(_TCHAR);
+
+	// send( ) may not be able to send the complete data in one go.
+	// So try sending the data in multiple requests
+	int nCntSend = 0;
+	_TCHAR *pBuffer = szBuffer;
+
+	while ((nCntSend = send(hClientSocket, (char *)pBuffer, nLength, 0) != nLength)) {
+		if (nCntSend == -1) {
+			mylog.loudlog(_T("Error sending the data to server"));
+			break;
+		}
+		if (nCntSend == nLength)
+			break;
+
+		pBuffer += nCntSend;
+		nLength -= nCntSend;
+	}
+
+	// Запуск читающего треда
+	HANDLE haReader = CreateThread(NULL, 0,
+		(LPTHREAD_START_ROUTINE)aReader,
+		(LPVOID)&hClientSocket, 0, 0);
+	if (haReader == NULL) {
+		mylog.loudlog(_T("Unable to create Reader thread"));
+	}
+
+	// Chat loop:
+	_tprintf(_T("Enter your messages or QUIT for exit.\n"));
 	while (wcscmp(szBuffer, _T("QUIT")) != 0) {
-		_tprintf(_T("Enter the string to send (QUIT) to stop: "));
+		_tprintf(_T(">> "));
 		wscanf_s(_T("%1023s"), szBuffer, _countof(szBuffer));
 
-		int nLength = (wcslen(szBuffer) + 1) * sizeof(_TCHAR);
+		nLength = (wcslen(szBuffer) + 1) * sizeof(_TCHAR);
 
 		// send( ) may not be able to send the complete data in one go.
 		// So try sending the data in multiple requests
-		int nCntSend = 0;
-		_TCHAR *pBuffer = szBuffer;
+		nCntSend = 0;
+		pBuffer = szBuffer;
 
 		while ((nCntSend = send(hClientSocket, (char *)pBuffer, nLength, 0) != nLength)) {
 			if (nCntSend == -1) {
-				writelog(_T("Error sending the data to server"));
-				_tprintf(_T("Error sending the data to server\n"));
+				mylog.loudlog(_T("Error sending the data to server"));
 				break;
 			}
 			if (nCntSend == nLength)
@@ -93,20 +119,13 @@ int _tmain(int argc, _TCHAR* argv[]) {
 
 		_wcsdup(szBuffer);
 		if (wcscmp(szBuffer, _T("QUIT")) == 0) {
+			TerminateThread(haReader, 0);
 			break;
-		}
-
-		nLength = recv(hClientSocket, (char *)szBuffer, sizeof(szBuffer), 0);
-		if (nLength > 0) {
-			szBuffer[nLength] = '\0';
-			writelog(_T("Received %s from server"), szBuffer);
-			_tprintf(_T("Received %s from server\n"), szBuffer);
 		}
 	}
 
 	closesocket(hClientSocket);
 	WSACleanup();
-	closelog();
 	exit(0);
 }
 
@@ -118,4 +137,22 @@ bool InitWinSock2_0() {
 		return true;
 
 	return false;
+}
+
+BOOL WINAPI aReader(LPVOID lpData) {
+	SOCKET *hClientSocket = (SOCKET *)lpData;
+	_TCHAR szBuffer[1024];
+	int nLength = 0;
+
+	while (1) {
+		nLength = recv(*hClientSocket, (char *)szBuffer, sizeof(szBuffer), 0);
+
+		if (nLength > 0) {
+			szBuffer[nLength] = '\0';
+			mylog.loudlog(_T("%s"), szBuffer);
+			_tprintf(_T(">> "));
+		}
+	}
+
+	return 0;
 }

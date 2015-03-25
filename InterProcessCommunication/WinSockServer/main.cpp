@@ -29,7 +29,7 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		exit(1);
 	}
 	writelog(_T("Windows Socket environment ready"));
-	
+
 	SOCKET hServerSocket;
 	hServerSocket = socket(
 		AF_INET,        // The address family. AF_INET specifies TCP/IP
@@ -83,39 +83,34 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	}
 	writelog(_T("Ready for connection"));
 	_tprintf(_T("Ready for connection\n"));
-	
+
 	// Start the infinite loop
 	while (true) {
 		// As the socket is in listen mode there is a connection request pending.
 		// Calling accept( ) will succeed and return the socket for the request.
-		SOCKET hClientSocket;
-		struct sockaddr_in clientAddr;
-		int nSize = sizeof(clientAddr);
+		CLIENT_INFO *pClientInfo = new CLIENT_INFO;
+		int nSize = sizeof(pClientInfo->clientAddr);
 
-		hClientSocket = accept(hServerSocket, (struct sockaddr *) &clientAddr, &nSize);
-		if (hClientSocket == INVALID_SOCKET) {
+		pClientInfo->hClientSocket = accept(hServerSocket, (struct sockaddr *) &pClientInfo->clientAddr, &nSize);
+		if (pClientInfo->hClientSocket == INVALID_SOCKET) {
 			writelog(_T("accept() failed"));
 			_tprintf(_T("accept() failed\n"));
 		}
 		else {
 			HANDLE hClientThread;
-			struct CLIENT_INFO clientInfo;
 			DWORD dwThreadId;
-
-			clientInfo.clientAddr = clientAddr;
-			clientInfo.hClientSocket = hClientSocket;
 
 			wchar_t* sin_addr = new wchar_t[20];
 			size_t   convtd;
-			mbstowcs_s(&convtd, sin_addr, 20, inet_ntoa(clientAddr.sin_addr), 20);
-			writelog(_T("Client connected from %s"), sin_addr);
-			_tprintf(_T("Client connected from %s\n"), sin_addr);
+			mbstowcs_s(&convtd, sin_addr, 20, inet_ntoa(pClientInfo->clientAddr.sin_addr), 20);
+			writelog(_T("Client connected from %s:%d"), sin_addr, pClientInfo->clientAddr.sin_port);
+			_tprintf(_T("Client connected from %s:%d\n"), sin_addr, pClientInfo->clientAddr.sin_port);
 			delete[] sin_addr;
 
 			// Start the client thread
 			hClientThread = CreateThread(NULL, 0,
 				(LPTHREAD_START_ROUTINE)ClientThread,
-				(LPVOID)&clientInfo, 0, &dwThreadId);
+				(LPVOID)pClientInfo, 0, &dwThreadId);
 			if (hClientThread == NULL) {
 				writelog(_T("Unable to create client thread"));
 				_tprintf(_T("Unable to create client thread\n"));
@@ -154,13 +149,14 @@ BOOL WINAPI ClientThread(LPVOID lpData) {
 		mbstowcs_s(&convtd, sin_addr, 20, inet_ntoa(pClientInfo->clientAddr.sin_addr), 20);
 		if (nLength > 0) {
 			szBuffer[nLength] = '\0';
-			writelog(_T("Received %s from %s"), szBuffer, sin_addr);
-			_tprintf(_T("Received %s from %s\n"), szBuffer, sin_addr);
-			
+			writelog(_T("Received %s from %s:%d"), szBuffer, sin_addr, pClientInfo->clientAddr.sin_port);
+			_tprintf(_T("Received %s from %s:%d\n"), szBuffer, sin_addr, pClientInfo->clientAddr.sin_port);
+
 			// Convert the string to upper case and send it back, if its not QUIT
-			_wcsdup(szBuffer);
+			//_wcsdup(szBuffer);
 			if (wcscmp(szBuffer, _T("QUIT")) == 0) {
 				closesocket(pClientInfo->hClientSocket);
+				delete pClientInfo;
 				return TRUE;
 			}
 			// send() may not be able to send the complete data in one go.
@@ -170,8 +166,8 @@ BOOL WINAPI ClientThread(LPVOID lpData) {
 
 			while ((nCntSend = send(pClientInfo->hClientSocket, (char *)pBuffer, nLength, 0) != nLength)) {
 				if (nCntSend == -1) {
-					writelog(_T("Error sending the data to %s"), sin_addr);
-					_tprintf(_T("Error sending the data to %s\n"), sin_addr);
+					writelog(_T("Error sending the data to %s:%d"), sin_addr, pClientInfo->clientAddr.sin_port);
+					_tprintf(_T("Error sending the data to %s:%d\n"), sin_addr, pClientInfo->clientAddr.sin_port);
 					break;
 				}
 				if (nCntSend == nLength)
@@ -182,8 +178,8 @@ BOOL WINAPI ClientThread(LPVOID lpData) {
 			}
 		}
 		else {
-			writelog(_T("Error reading the data from %s"), sin_addr);
-			_tprintf(_T("Error reading the data from %s\n"), sin_addr);
+			writelog(_T("Error reading the data from %s:%d"), sin_addr, pClientInfo->clientAddr.sin_port);
+			_tprintf(_T("Error reading the data from %s:%d\n"), sin_addr, pClientInfo->clientAddr.sin_port);
 		}
 		delete[] sin_addr;
 	}

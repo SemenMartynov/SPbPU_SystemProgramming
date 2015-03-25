@@ -16,10 +16,7 @@ void writelog(_TCHAR* format, ...);
 void initlog(const _TCHAR* prog) {
 	_TCHAR logname[255];
 	wcscpy_s(logname, prog);
-	// replace extension
-	_TCHAR* extension;
-	extension = wcsstr(logname, _T(".exe"));
-	wcsncpy_s(extension, 5, _T(".log"), 4);
+	swprintf_s(logname, _T("%s.%d.log"), prog, GetCurrentThreadId());
 	// Try to open log file for append
 	if (_wfopen_s(&logfile, logname, _T("a+"))) {
 		_wperror(_T("The following error occurred"));

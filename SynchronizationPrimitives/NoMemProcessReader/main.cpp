@@ -8,7 +8,7 @@
 int _tmain(int argc, _TCHAR* argv[]) {
 	//проверяем число аргументов
 	if (argc != 3) {
-		Logger log(_T("ProcessReader"));
+		Logger log(_T("NoMemProcessReader"));
 		log.loudlog(_T("Error with start reader process. Need 2 arguments, but %d presented."), argc);
 		_getch();
 		ExitProcess(1000);
@@ -17,7 +17,7 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	int myid = _wtoi(argv[1]);
 	int pause = _wtoi(argv[2]);
 
-	Logger log(_T("ProcessReader"), myid);
+	Logger log(_T("NoMemProcessReader"), myid);
 	log.loudlog(_T("Reader with id= %d is started"), myid);
 
 	// Состояние готовности:
