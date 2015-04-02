@@ -239,7 +239,7 @@
 Для логирования использовался код, приведённый в листинге 1. Этот файл подключается в первых строках каждого проекта. Он создаёт файл, с именем идентичным исполняемой программе, и записывает туда все события.
 
 \lstinputlisting[language=C++, caption={Логер, используемый во всех проектах}]
-{../../InterProcessCommunication/AnonymousPipeServer/logger.h}
+{../../src/InterProcessCommunication/AnonymousPipeServer/logger.h}
 
 \vspace{1em}
 Исходный код всех представленных листингов доступен по адресу \\ \url{https://github.com/SemenMartynov/SPbPU_SystemProgramming}.
@@ -266,12 +266,12 @@ BOOL CreatePipe(PHANDLE phRead, PHANDLE phWrite,
 В листинге 2 и 3 демонстрируются серверный и клиентский модуль программы, в которой используется передача дескрипторов через наследование. Анонимный канал является полудуплексным, поэтому для организации эхо-сервера было необходимо создавать 2 канала (для передачи от клиента к серверу и в обратном направлении). При этом ненужные дескрипторы каналов закрываются только на стороне сервера (т.к. клиент наследует 4 дескриптора, а явно передаются только 2). Дескрипторы каналов связываются со стандартным вводом и выводом клиентского процесса. Для вывода информации клиенту остаётся только поток ошибок.
 
 \lstinputlisting[language=C++, caption={Сервер анонимных каналов}]
-{../../InterProcessCommunication/AnonymousPipeServer/main.cpp}
+{../../src/InterProcessCommunication/AnonymousPipeServer/main.cpp}
 
 Клиент передаёт сообщение, например, вида: «message num 1», ждёт 1 секунду, и пытается прочитать его от сервера. Сервер, получив сообщение от клиента, передаёт его обратно. Процессы завершаются после передачи 10 сообщений.
 
 \lstinputlisting[language=C++, caption={Клиент анонимных каналов}]
-{../../InterProcessCommunication/AnonymousPipeClient/main.cpp}
+{../../src/InterProcessCommunication/AnonymousPipeClient/main.cpp}
 
 \begin{figure}[h!]
 \centering
@@ -308,7 +308,7 @@ BOOL CreatePipe(PHANDLE phRead, PHANDLE phWrite,
 Реализация работы с именованными каналами представлена в листинге 8 (серверный модуль) и 9 (клиентский модуль). Сервер, как и ранее, создает все необходимые ресурсы и переходит в состояние ожидания соединений. Именованный канал создается для чтения и записи. Передача происходит сообщениями, функции передачи и приема блокируются до их окончания.
 
 \lstinputlisting[language=C++, caption={Клиент именованного каналов}]
-{../../InterProcessCommunication/NamedPipeClient/main.cpp}
+{../../src/InterProcessCommunication/NamedPipeClient/main.cpp}
 \vspace{3em}
 
 Клиент после соединения с сервером начинает чтение сообщений с консоли, пока не
@@ -317,7 +317,7 @@ BOOL CreatePipe(PHANDLE phRead, PHANDLE phWrite,
 Для данной программы были внесены изменения в логер. Теперь каждый клиентский процесс создаёт свой отдельный файл с протоколом.
 
 \lstinputlisting[language=C++, caption={Клиент именованного каналов}]
-{../../InterProcessCommunication/NamedPipeClient/main.cpp}
+{../../src/InterProcessCommunication/NamedPipeClient/main.cpp}
 \vspace{3em}
 
 Результат работы программы показан на рисунке 3. Запущен один сервер и три клиента, с которыми этот сервер взаимодействует.
@@ -378,12 +378,12 @@ BOOL CreatePipe(PHANDLE phRead, PHANDLE phWrite,
 Листинг 8 и 9 демонстрируют реализацию приложения, иллюстрирующую обмен информацией почтовыми слотами. В процессе экспериментов было протестировано локальное, сетевое взаимодействие. Для широковещательной передач сообщений, адрес заменялся символом звездочки (*).
 
 \lstinputlisting[language=C++, caption={Реализация серверной части почтового ящика}]
-{../../InterProcessCommunication/MailslotServer/main.cpp}
+{../../src/InterProcessCommunication/MailslotServer/main.cpp}
 
 \vspace{3em}
 
 \lstinputlisting[language=C++, caption={Реализация клиентской части почтового ящика}]
-{../../InterProcessCommunication/MailslotClient/main.cpp}
+{../../src/InterProcessCommunication/MailslotClient/main.cpp}
 
 Результат работы программы показан на рисунке 6.
 
@@ -422,12 +422,12 @@ BOOL CreatePipe(PHANDLE phRead, PHANDLE phWrite,
 В листинге 12 и 13 представлен код двух программ, одна из которых генерирует случайные числа, а другая их читает и выводит на экран. Взаимодействие осуществляется через разделяемую память, защищённую мьютексом. Рисунок 8 показывает результат такого взаимодействия.
 
 \lstinputlisting[language=C++, caption={Программа, генерирующая случайные числа в разделяемую память}]
-{../../InterProcessCommunication/SharedMemoryServer/main.cpp}
+{../../src/InterProcessCommunication/SharedMemoryServer/main.cpp}
 
 \vspace{3em}
 
 \lstinputlisting[language=C++, caption={Программа, читающая случайные числа из разделяемой памяти}]
-{../../InterProcessCommunication/SharedMemoryClient/main.cpp}
+{../../src/InterProcessCommunication/SharedMemoryClient/main.cpp}
 
 \newpage
 \begin{figure}[h!]
@@ -473,12 +473,12 @@ Winsock API разрабатывался как расширение Berkley Soc
 
 
 \lstinputlisting[language=C++, caption={Сервер для работы с Win-сокетами}]
-{../../InterProcessCommunication/WinSockServer/main.cpp}
+{../../src/InterProcessCommunication/WinSockServer/main.cpp}
 
 Клиент отправляет серверу сообщения, и получает эхо-ответ. Слово QUIT зарезервировано для завершения работы.
 
 \lstinputlisting[language=C++, caption={Клиент для работы с Win-сокетами}]
-{../../InterProcessCommunication/WinSockClient/main.cpp}
+{../../src/InterProcessCommunication/WinSockClient/main.cpp}
 
 Листинг 18 и 19 содержит протокол работы программы.
 
@@ -536,7 +536,7 @@ Winsock API разрабатывался как расширение Berkley Soc
 Листинг 20 показывает реализацию порта завершения. Для работы с ним использовался клиент из предыдущего примера.
 
 \lstinputlisting[language=C++, caption={Порт завершения}]
-{../../InterProcessCommunication/CompletionPortServer/main.cpp}
+{../../src/InterProcessCommunication/CompletionPortServer/main.cpp}
 
 Листинги 21 и 22 содержат протокол работы программы. Стоит обратить внимание, что в отличии от предыдущего примера, когда клиент ожидал данные сразу после отправки, здесь клиент получает ответ асинхронно.
 
@@ -565,7 +565,7 @@ Winsock API разрабатывался как расширение Berkley Soc
 В отличии от Linux, сигналы в Windows имеют сильно усеченные возможности. Наиболее сложной задаче при работе с сигналами было придумать, что можно с ними сделать. В листинге 23 по сигналу меняется цвет консоли, это видно на рисунке 14.
 
 \lstinputlisting[language=C++, caption={Сигналы в Windows}]
-{../../InterProcessCommunication/Signals/main.cpp}
+{../../src/InterProcessCommunication/Signals/main.cpp}
 \vspace{1em}
 
 \begin{figure}[h!]

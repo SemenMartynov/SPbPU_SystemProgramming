@@ -270,7 +270,7 @@
 
 Листинг 1 содержит отрывок файла Process.h, описывающий структуру Process. На самом деле этот отрезок короче, если учесть работу препроцессора, который содержит многие строки (отладочную информацию, данные OpenVZ и виртуального сервера).
 
-\lstinputlisting[firstline=63,lastline=153,language=C++, caption={Клиент именованного каналов}]{../../top/Process.h}
+\lstinputlisting[firstline=63,lastline=153,language=C++, caption={Клиент именованного каналов}]{../../src/top/Process.h}
 
 Назначение большинства полей понятно исходя из их названий, и они здесь представлены для дальнейшего перехода к системам, которые заполняют значение этих полей (к примеру, процент занятой памяти или процессорного времени). Процессы объединяются в списки (строка 4), а объект Object (строка 2) отвечает за отображение. Полный граф взаимодействия структура данных представлен на рисунке 3.
 
@@ -315,7 +315,7 @@
 \item объём используемого места в свапе, как разность между общим объёмом и свободным пространством (стр. 42);
 \end{itemize}
 
-\lstinputlisting[firstline=765,lastline=897,language=C++, caption={Считывание различных общесистемных показателей}]{../../top/ProcessList.c}
+\lstinputlisting[firstline=765,lastline=897,language=C++, caption={Считывание различных общесистемных показателей}]{../../src/top/ProcessList.c}
 
 \newpage
 %------------------------------------------------
@@ -332,7 +332,7 @@
 Источник питания может быть электросетью, а может быть аккумуляторной батареей, выводимый текст определяется в строке 275. Полный граф включения для файла BatteryMeter.c представлен на рисунке 4.
 
 \newpage
-\lstinputlisting[firstline=36,lastline=295,language=C++,caption={Battery Meter - измерение уровня заряда}]{../../top/BatteryMeter.c}
+\lstinputlisting[firstline=36,lastline=295,language=C++,caption={Battery Meter - измерение уровня заряда}]{../../src/top/BatteryMeter.c}
 
 \begin{figure}[h!]
 \centering
@@ -348,7 +348,7 @@
 
 Интерес представляет только одна функция. Она берёт локальное время (стр. 3) и преобразует его к привычному виду (часы:минуты:секунды), сохраняя это преобразование в буфере, который является аргументом функции.
 
-\lstinputlisting[firstline=22,lastline=28,language=C++, caption={Clock Meter - мониторинг времени}]{../../top/ClockMeter.c}
+\lstinputlisting[firstline=22,lastline=28,language=C++, caption={Clock Meter - мониторинг времени}]{../../src/top/ClockMeter.c}
 
 \begin{figure}[h!]
 \centering
@@ -376,7 +376,7 @@
 
 Функция CPUMeter\_display (стр. 33) занимается оформленным выводом информации, которую мы описали выше. Граф включения представлен на рисунке 6.
 
-\lstinputlisting[firstline=45,lastline=126,language=C++, caption={CPU Meter - центральный процессор}]{../../top/CPUMeter.c}
+\lstinputlisting[firstline=45,lastline=126,language=C++, caption={CPU Meter - центральный процессор}]{../../src/top/CPUMeter.c}
 
 \begin{figure}[h!]
 \centering
@@ -390,7 +390,7 @@
 
 Этот модуль является самым простым. Его работа сводится фактически к одной строке, которая записывает имя хоста в переданный буфер. Функция gethostname является стандартной (POSIX), и она определена в заголовочном файле unistd.h. Вызов этой функции обёрнут другой функцией HostnameMeter\_setValues, которая показана в листинге 5. Простота этой функции не отменяет её значимости, которая показана в графе включения на рисунке 7.
 
-\lstinputlisting[firstline=22,lastline=25,language=C++, caption={Hostname Meter - имя устройства (хоста)}]{../../top/HostnameMeter.c}
+\lstinputlisting[firstline=22,lastline=25,language=C++, caption={Hostname Meter - имя устройства (хоста)}]{../../src/top/HostnameMeter.c}
 
 \begin{figure}[h!]
 \centering
@@ -420,7 +420,7 @@
 Функции LoadMeter\_setValues (стр. 30) и LoadMeter\_display (стр 39) также обращаются к функции LoadAverageMeter\_scan, но они отображают только загрузку за последнюю минуту, для просмотра изменения загрузки в режиме (относительно) реального времени.
 
 \newpage
-\lstinputlisting[firstline=25,lastline=68,language=C++, caption={Load Average Meter - измерение средней загрузки}]{../../top/LoadAverageMeter.c}
+\lstinputlisting[firstline=25,lastline=68,language=C++, caption={Load Average Meter - измерение средней загрузки}]{../../src/top/LoadAverageMeter.c}
 
 \begin{figure}[h!]
 \centering
@@ -443,7 +443,7 @@
 
 Функция MemoryMeter\_display (стр. 13) занимается оформленным выводом собранной информации. Граф включения представлен на рисунке 9.
 
-\lstinputlisting[firstline=28,lastline=60,language=C++, caption={Memory Meter - измерение уровня использования памяти}]{../../top/MemoryMeter.c}
+\lstinputlisting[firstline=28,lastline=60,language=C++, caption={Memory Meter - измерение уровня использования памяти}]{../../src/top/MemoryMeter.c}
 
 \begin{figure}[h!]
 \centering
@@ -467,7 +467,7 @@
 
 Функция SwapMeter\_display (стр 18) обеспечивает форматированный вывод всей собранной информации. Граф включения представлен на рисунке 10.
 
-\lstinputlisting[firstline=32,lastline=60,language=C++, caption={Swap Meter - измерение уровня использования области подкачки}]{../../top/SwapMeter.c}
+\lstinputlisting[firstline=32,lastline=60,language=C++, caption={Swap Meter - измерение уровня использования области подкачки}]{../../src/top/SwapMeter.c}
 
 \begin{figure}[h!]
 \centering
@@ -487,7 +487,7 @@
 
 Граф включений представлен на рисунке 11.
 
-\lstinputlisting[firstline=21,lastline=56,language=C++, caption={Tasks Meter - мониторинг процессов}]{../../top/TasksMeter.c}
+\lstinputlisting[firstline=21,lastline=56,language=C++, caption={Tasks Meter - мониторинг процессов}]{../../src/top/TasksMeter.c}
 
 \begin{figure}[h!]
 \centering
@@ -508,7 +508,7 @@
 
 Число секунд с момента включения приводится к виду, удобному для человеческого восприятия - в буфер выводится (стр. 27) количество дней, часов, минут и секунд работы.
 
-\lstinputlisting[firstline=24,lastline=51,language=C++, caption={Uptime Meter - измерение времени работы системы}]{../../top/UptimeMeter.c}
+\lstinputlisting[firstline=24,lastline=51,language=C++, caption={Uptime Meter - измерение времени работы системы}]{../../src/top/UptimeMeter.c}
 
 \begin{figure}[h!]
 \centering

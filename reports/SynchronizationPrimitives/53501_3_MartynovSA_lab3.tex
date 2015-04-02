@@ -271,7 +271,7 @@
 В листинге 1 представлена реализация класса, который занимается логированием событий программы. Логирование может быть тихим (когда информация попадает в файл) или громким (когда информация записывается в файл и выводится на экран). При создании класса в качестве параметра передаётся номер процесса, это позволяет отличать логи разных потоков. Каждое событие сопровождается мекой времени.
 
 \lstinputlisting[language=C++, caption={Реализация класса логера}]
-{../../SynchronizationPrimitives/Mutex/Logger.cpp}
+{../../src/SynchronizationPrimitives/Mutex/Logger.cpp}
 
 Сервисные функции представлены в листинге 2. Они используются для создания потоков и чтения конфигурационного файла.Если конфигурационный файл прочитать не удалось, используются значения по умолчанию. Сам конфигурационный файл может выглядеть следующим образом:
 \begin{verbatim}
@@ -284,7 +284,7 @@ ttl= 3
 \end{verbatim}
 
 \lstinputlisting[language=C++, caption={Сервисные функции}]
-{../../SynchronizationPrimitives/Mutex/utils.cpp}
+{../../src/SynchronizationPrimitives/Mutex/utils.cpp}
 
 \newpage
 %------------------------------------------------
@@ -297,13 +297,13 @@ ttl= 3
 Листинг 3 демонстрирует инициализацию и закрытие мьютекса, который активно используется читателями (листинг 4) и писателями (листинг 5). Важно отметить, что этот мьютекс имеет пустое имя, следовательно не может использоваться сторонним процессом и служить средством IPC.
 
 \lstinputlisting[language=C++, caption={Основной файл, демонстрирующий работу с мьютексами}]
-{../../SynchronizationPrimitives/Mutex/main.cpp}
+{../../src/SynchronizationPrimitives/Mutex/main.cpp}
 
 \lstinputlisting[language=C++, caption={Потоки читатели, синхронизация через мьютекс}]
-{../../SynchronizationPrimitives/Mutex/threadReader.cpp}
+{../../src/SynchronizationPrimitives/Mutex/threadReader.cpp}
 
 \lstinputlisting[language=C++, caption={Потоки писатели, синхронизация через мьютекс}]
-{../../SynchronizationPrimitives/Mutex/threadWriter.cpp}
+{../../src/SynchronizationPrimitives/Mutex/threadWriter.cpp}
 
 На рисунке 1 показана работа потоков с мьютексом.
 
@@ -331,14 +331,14 @@ ttl= 3
 Как и в прошлом случае, Листинг 6 содержит основной файл, в котором семафор инициализируется, а используется он писателем и читателем в листингах 7 и 8.
 
 \lstinputlisting[language=C++, caption={Основной файл, инициализация семафора со счётчиком 1}]
-{../../SynchronizationPrimitives/Semaphore/main.cpp}
+{../../src/SynchronizationPrimitives/Semaphore/main.cpp}
 \newpage
 
 \lstinputlisting[language=C++, caption={Потоки писатели, синхронизация через семафор}]
-{../../SynchronizationPrimitives/Semaphore/threadWriter.cpp}
+{../../src/SynchronizationPrimitives/Semaphore/threadWriter.cpp}
 
 \lstinputlisting[language=C++, caption={Потоки читатели, синхронизация через семафор}]
-{../../SynchronizationPrimitives/Semaphore/threadReader.cpp}
+{../../src/SynchronizationPrimitives/Semaphore/threadReader.cpp}
 
 Результат работы на рисунке 3.
 
@@ -368,14 +368,14 @@ ttl= 3
 Среди синхронизирующих объектов критические разделы наиболее просты. Инициализация критической секции показана в листинге 12 (при этом имя мекции ни где не указывается), а захват в листинге 13 и листинге 14 (для захвата нет ожидания события, секция оказывается захваченой когда это возможно).
 
 \lstinputlisting[language=C++, caption={Основной файл, инициализирующий критическую секцию}]
-{../../SynchronizationPrimitives/CriticalSection/main.cpp}
+{../../src/SynchronizationPrimitives/CriticalSection/main.cpp}
 
 \lstinputlisting[language=C++, caption={Потоки писатели, синхронизация через семафор критическую секцию}]
-{../../SynchronizationPrimitives/CriticalSection/threadWriter.cpp}
+{../../src/SynchronizationPrimitives/CriticalSection/threadWriter.cpp}
 
 \newpage
 \lstinputlisting[language=C++, caption={Потоки читатели, синхронизация через семафор критическую секцию}]
-{../../SynchronizationPrimitives/CriticalSection/threadReader.cpp}
+{../../src/SynchronizationPrimitives/CriticalSection/threadReader.cpp}
 
 Демонстрация работы синхронизации через критическую секцию показана на рисунке 4.
 
@@ -398,13 +398,13 @@ ttl= 3
 В листинге 15 просиходит инициализация и закрытие объектов-событий, а в листинге 16 и 17 происходит ожидание и захват.
 
 \lstinputlisting[language=C++, caption={Основной файл инициализации объектов-событий}]
-{../../SynchronizationPrimitives/Event/main.cpp}
+{../../src/SynchronizationPrimitives/Event/main.cpp}
 
 \lstinputlisting[language=C++, caption={Потоки писатели, синхронизация через объекты-события}]
-{../../SynchronizationPrimitives/Event/threadWriter.cpp}
+{../../src/SynchronizationPrimitives/Event/threadWriter.cpp}
 
 \lstinputlisting[language=C++, caption={Потоки читатели, синхронизация через объекты-события}]
-{../../SynchronizationPrimitives/Event/threadReader.cpp}
+{../../src/SynchronizationPrimitives/Event/threadReader.cpp}
 
 Рисунок 5 содержит результат работы, дублирующий лог программы.
 
@@ -423,15 +423,15 @@ ttl= 3
 В листинге 18 происходит инициализация условных перемсенных, но для организации полноценной работы их не достаточно. Поэтому в качестве вспомогательного объекта синхронизации используется критическая секция.
 
 \lstinputlisting[language=C++, caption={Основной файл инициализации примитивов синхронизации}]
-{../../SynchronizationPrimitives/ConditionVariable/main.cpp}
+{../../src/SynchronizationPrimitives/ConditionVariable/main.cpp}
 
 Читатели (листинг 19) и писатели (листинг 20) входят в критическую секцию, но для работы ожидают условную переменную.
 
 \lstinputlisting[language=C++, caption={Потоки читатели, синхронизация через условные переменные и критические секции}]
-{../../SynchronizationPrimitives/ConditionVariable/threadReader.cpp}
+{../../src/SynchronizationPrimitives/ConditionVariable/threadReader.cpp}
 
 \lstinputlisting[language=C++, caption={Потоки писатели, синхронизация через условные переменные и критические секции}]
-{../../SynchronizationPrimitives/ConditionVariable/threadWriter.cpp}
+{../../src/SynchronizationPrimitives/ConditionVariable/threadWriter.cpp}
 \newpage
 
 Результат работы сразу с двумя примитивами показан на рисунке 6. Можно заметить, что читатели не по порядку обрабатывают сообщения, но все сообщения оказываются обработанными.
@@ -455,13 +455,13 @@ ttl= 3
 Для этой задачи были внесены некоторые изменения в файл с сервисными функциями, которые позволили запустить только один поток-писатель. Примтивы синнхронизации (события) и общая память инициализируются в листинге 21, а используются писателем и читателями в листинге 22 и 23.
 
 \lstinputlisting[language=C++, caption={Основной файл}]
-{../../SynchronizationPrimitives/ThreadsReaderWriter/main.cpp}
+{../../src/SynchronizationPrimitives/ThreadsReaderWriter/main.cpp}
 
 \lstinputlisting[language=C++, caption={Единственный поток-писатель}]
-{../../SynchronizationPrimitives/ThreadsReaderWriter/threadWriter.cpp}
+{../../src/SynchronizationPrimitives/ThreadsReaderWriter/threadWriter.cpp}
 
 \lstinputlisting[language=C++, caption={Потоки читатели}]
-{../../SynchronizationPrimitives/ThreadsReaderWriter/threadReader.cpp}
+{../../src/SynchronizationPrimitives/ThreadsReaderWriter/threadReader.cpp}
 \newpage
 
 Каждый читатель, в соотвтетствии с условиями задачи, по одному разу прочитал сообщение писателя (рисунок 7).
@@ -482,17 +482,17 @@ ttl= 3
 Это более сложный случай, т.к. требуется синхронизация разных процессов, а не потоков! Для этого инициализируются объекты-собтия (листинг 24) с указанием имени (по которому смогут обратиться читатели), потом стартует поток писатель (листинг 25) и запускаются (листинг 26) процессы-читатели (листинг 27).
 
 \lstinputlisting[language=C++, caption={Основной файл}]
-{../../SynchronizationPrimitives/ProcessWriter/main.cpp}
+{../../src/SynchronizationPrimitives/ProcessWriter/main.cpp}
 
 \lstinputlisting[language=C++, caption={Потоки писатели}]
-{../../SynchronizationPrimitives/ProcessWriter/threadWriter.cpp}
+{../../src/SynchronizationPrimitives/ProcessWriter/threadWriter.cpp}
 \newpage
 
 \lstinputlisting[language=C++, caption={Запуск кллиентских процессов}, firstline=20, lastline=76]
-{../../SynchronizationPrimitives/ProcessWriter/utils.cpp}
+{../../src/SynchronizationPrimitives/ProcessWriter/utils.cpp}
 
 \lstinputlisting[language=C++, caption={Потоки читатели}]
-{../../SynchronizationPrimitives/ProcessReader/main.cpp}
+{../../src/SynchronizationPrimitives/ProcessReader/main.cpp}
 
 Результат работы показан на рисунке 8, но тут интереснее взглянуть на process explorer (рисунок 9), который показывает наличие множества процессов-читателей, а среди ресурсов имена событий и общую память.
 
@@ -525,17 +525,17 @@ orer.}
 Как и в предыдушем случае, у нас есть основной файл программы (листинг 30), поток писталеь (листинг 31), сервисные функции (листинг 32) и потоки читатели (листинг 33), которые не имеют доступа на запись к общей памяти.
 
 \lstinputlisting[language=C++, caption={Основной файл}]
-{../../SynchronizationPrimitives/NoMemProcessWriter/main.cpp}
+{../../src/SynchronizationPrimitives/NoMemProcessWriter/main.cpp}
 
 \lstinputlisting[language=C++, caption={Потоки писатели}]
-{../../SynchronizationPrimitives/NoMemProcessWriter/threadWriter.cpp}
+{../../src/SynchronizationPrimitives/NoMemProcessWriter/threadWriter.cpp}
 
 \lstinputlisting[language=C++, caption={Запуск клиентских процессов}, firstline=20, lastline=76]
-{../../SynchronizationPrimitives/NoMemProcessWriter/utils.cpp}
+{../../src/SynchronizationPrimitives/NoMemProcessWriter/utils.cpp}
 \newpage
 
 \lstinputlisting[language=C++, caption={Потоки читатели}]
-{../../SynchronizationPrimitives/NoMemProcessReader/main.cpp}
+{../../src/SynchronizationPrimitives/NoMemProcessReader/main.cpp}
 \newpage
 
 Результат работы на рисунке 10.
@@ -554,15 +554,15 @@ orer.}
 Решение с использованием Slim Reader/Writer (SRW) Lock приведено в листинге 34 (инициализация), 35 (писатели) и 36 (читатели). Сравнивать скорость этой реализации с реализациями, работающими с процессами не корректно, так что это можно рассматривать скорее как изучение ещё одного инструмента для синхронизации.
 
 \lstinputlisting[language=C++, caption={Основной файл}]
-{../../SynchronizationPrimitives/OptimalReaderWriter/main.cpp}
+{../../src/SynchronizationPrimitives/OptimalReaderWriter/main.cpp}
 \newpage
 
 \lstinputlisting[language=C++, caption={Потоки писатели}]
-{../../SynchronizationPrimitives/OptimalReaderWriter/threadWriter.cpp}
+{../../src/SynchronizationPrimitives/OptimalReaderWriter/threadWriter.cpp}
 \newpage
 
 \lstinputlisting[language=C++, caption={Потоки читатели}]
-{../../SynchronizationPrimitives/OptimalReaderWriter/threadReader.cpp}
+{../../src/SynchronizationPrimitives/OptimalReaderWriter/threadReader.cpp}
 \newpage
 
 Требование по обязательному прочтению каждого сообщения каждым читателем выполняется, как видно на рисунке 11.
@@ -588,11 +588,11 @@ orer.}
 В данной реализации (листинг 39) писатель сосредоточен в серверном модуле (всего два пистателя), а читатель (листинг 40) разнесён между серверной и клиентской частью: на сервере есть клиентский поток, который читает информацию, и отправляет её в именованный канал, где она может быть получена клиентской половиной читателя (число читателей зависит от количества запущенных клиентов и не известно заранее).
 
 \lstinputlisting[language=C++, caption={Сервер-пистаель}]
-{../../SynchronizationPrimitives/ReaderWriterServer/main.cpp}
+{../../src/SynchronizationPrimitives/ReaderWriterServer/main.cpp}
 
 
 \lstinputlisting[language=C++, caption={Клиент-читатель}]
-{../../SynchronizationPrimitives/ReaderWriterClient/main.cpp}
+{../../src/SynchronizationPrimitives/ReaderWriterClient/main.cpp}
 
 Сервер создаёт именованный канал, и начинает писать; клиент подцепляется к каналу, и начинает читать (рисунок 12).
 
@@ -618,10 +618,10 @@ orer.}
 Реализация сервера (с двумя процессами-писателями) показана в листинге 43, реализация клиента - листинг 44.
 
 \lstinputlisting[language=C++, caption={Сервер}]
-{../../SynchronizationPrimitives/NetReaderWriterServer/main.cpp}
+{../../src/SynchronizationPrimitives/NetReaderWriterServer/main.cpp}
 
 \lstinputlisting[language=C++, caption={Клиент}]
-{../../SynchronizationPrimitives/NetReaderWriterClient/main.cpp}
+{../../src/SynchronizationPrimitives/NetReaderWriterClient/main.cpp}
 
 На рисунке 13 изображена работа приложения с двумя клиентами. На рисунке 14 показано, что работа происохдит именно через сокет.
 \newpage
@@ -648,10 +648,10 @@ orer.}
 Реализация сервера представлена в листинге 45, реализация клиента - в листинге 46. При этом сложно выделить производителя и потребителя, т.к. каждый клиент является и производителем и потребителем, который должен получить каждое сообщение.
 
 \lstinputlisting[language=C++, caption={Сервер}]
-{../../SynchronizationPrimitives/FullReaderWriterServer/main.cpp}
+{../../src/SynchronizationPrimitives/FullReaderWriterServer/main.cpp}
 
 \lstinputlisting[language=C++, caption={Клиент}]
-{../../SynchronizationPrimitives/FullReaderWriterClient/main.cpp}
+{../../src/SynchronizationPrimitives/FullReaderWriterClient/main.cpp}
 
 Рисунок 15 показывает сервер (левый верхний угол) и трёх клиентов, которые общаются между собой. Особенность реализованного протокола в том, что каждый клиент должен ввести своё имя, перед началом общения.
 
@@ -668,7 +668,7 @@ orer.}
 Классическая задача про обедающих философов. Она имеет несколько классических решений. В данном решении (листинг 47) упор сделан на то, что вовсе не обязательно вешать объект-синхронизацию на вилку, т.к. её состояние можно вывести из состояния другого философа (если он обедает, то, очевидно, вилка занята). В качестве механизма синхронизации была выбрана критическая сессия, как наиболее простая и легковесная.
 
 \lstinputlisting[language=C++, caption={Клиент}]
-{../../SynchronizationPrimitives/DiningPhilosophersProblem/main.cpp}
+{../../src/SynchronizationPrimitives/DiningPhilosophersProblem/main.cpp}
 
 Результаты работы программы показаны на рисунке 16 и в листинге 48 (в этом отрывке опять набюлюдается наложение записей, т.к. несколько потоков пишут в 1 файл).
 
