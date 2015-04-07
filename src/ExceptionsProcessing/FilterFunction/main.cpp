@@ -15,14 +15,18 @@
 #include <windows.h>
 #include <time.h>
 
+#include "messages.h"
+
 // log
 FILE* logfile;
+HANDLE eventlog;
 
 void usage(const _TCHAR* prog);
 void initlog(const _TCHAR* prog);
 void closelog();
 void writelog(_TCHAR* format, ...);
 LONG Filter(DWORD dwExceptionGode);
+void syslog(WORD category, WORD identifier, LPWSTR message);
 
 // Task switcher
 enum {
@@ -34,6 +38,7 @@ enum {
 int _tmain(int argc, _TCHAR* argv[]) {
 	//Init log
 	initlog(argv[0]);
+	eventlog = RegisterEventSource(NULL, L"MyEventProvider");
 
 	// Check parameters number
 	if (argc != 2) {
@@ -71,6 +76,8 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		switch (task) {
 		case DIVIDE_BY_ZERO:
 			writelog(_T("Ready for generate DIVIDE_BY_ZERO exception."));
+			syslog(ZERODIVIDE_CATEGORY, READY_FOR_EXCEPTION,
+				_T("Ready for generate DIVIDE_BY_ZERO exception."));
 			tmp = 1 / tmp;
 			writelog(_T("DIVIDE_BY_ZERO exception is generated."));
 			break;
@@ -79,6 +86,8 @@ int _tmain(int argc, _TCHAR* argv[]) {
 			// So, the exception will not be handled until the next floating
 			// point instruction.
 			writelog(_T("Ready for generate FLT_OVERFLOW exception."));
+			syslog(OVERFLOW_CATEGORY, READY_FOR_EXCEPTION,
+				_T("Ready for generate FLT_OVERFLOW exception."));
 			tmp = pow(FLT_MAX, 3);
 			writelog(_T("Task: FLT_OVERFLOW exception is generated."));
 			break;
@@ -93,10 +102,14 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		case EXCEPTION_FLT_DIVIDE_BY_ZERO:
 			_tprintf(_T("Caught exception is: EXCEPTION_FLT_DIVIDE_BY_ZERO"));
 			writelog(_T("Caught exception is: EXCEPTION_FLT_DIVIDE_BY_ZERO"));
+			syslog(ZERODIVIDE_CATEGORY, CAUGHT_EXCEPRION,
+				_T("Caught exception is: EXCEPTION_FLT_DIVIDE_BY_ZERO."));
 			break;
 		case EXCEPTION_FLT_OVERFLOW:
 			_tprintf(_T("Caught exception is: EXCEPTION_FLT_OVERFLOW"));
 			writelog(_T("Caught exception is: EXCEPTION_FLT_OVERFLOW"));
+			syslog(OVERFLOW_CATEGORY, CAUGHT_EXCEPRION,
+				_T("Caught exception is: EXCEPTION_FLT_OVERFLOW."));
 			break;
 		default:
 			_tprintf(_T("UNKNOWN exception: %x\n"), GetExceptionCode());
@@ -104,6 +117,7 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		}
 	}
 	closelog();
+	CloseHandle(eventlog);
 	exit(0);
 }
 
@@ -174,4 +188,21 @@ void writelog(_TCHAR* format, ...) {
 	va_end(ap);
 	// New sting
 	fwprintf(logfile, _T("\n"));
+}
+
+void syslog(WORD category, WORD identifier, LPWSTR message) {
+	LPWSTR pMessages[1] = { message };
+
+	if (!ReportEvent(
+		eventlog,					// event log handle 
+		EVENTLOG_INFORMATION_TYPE,	// event type
+		category,					// event category 
+		identifier,					// event identifier
+		NULL,						// user security identifier
+		1,							// number of substitution strings
+		0,							// data size
+		(LPCWSTR*)pMessages,		// pointer to strings
+		NULL)) {					// pointer to binary data buffer
+		writelog(_T("ReportEvent failed with 0x%x"), GetLastError());
+	}
 }

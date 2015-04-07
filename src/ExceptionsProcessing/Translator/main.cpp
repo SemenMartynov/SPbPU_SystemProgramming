@@ -20,12 +20,16 @@
 #include <windows.h>
 #include <time.h>
 
+#include "messages.h"
+
 // log
 FILE* logfile;
+HANDLE eventlog;
 
 void initlog(const _TCHAR* prog);
 void closelog();
 void writelog(_TCHAR* format, ...);
+void syslog(WORD category, WORD identifier, LPWSTR message);
 
 void translator(unsigned int u, EXCEPTION_POINTERS* pExp);
 
@@ -44,6 +48,7 @@ private:
 int _tmain(int argc, _TCHAR* argv[]) {
 	//Init log
 	initlog(argv[0]);
+	eventlog = RegisterEventSource(NULL, L"MyEventProvider");
 
 	// Floating point exceptions are masked by default.
 	_clearfp();
@@ -53,6 +58,8 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		writelog(_T("Ready for translator ativation."));
 		_set_se_translator(translator);
 		writelog(_T("Ready for generate DIVIDE_BY_ZERO exception."));
+		syslog(ZERODIVIDE_CATEGORY, READY_FOR_EXCEPTION,
+			_T("Ready for generate DIVIDE_BY_ZERO exception."));
 		RaiseException(EXCEPTION_FLT_DIVIDE_BY_ZERO,
 			EXCEPTION_NONCONTINUABLE, 0, NULL);
 		writelog(_T("DIVIDE_BY_ZERO exception is generated."));
@@ -60,9 +67,11 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	catch (translator_exception &e) {
 		_tprintf(_T("CPP exception: %s"), e.what());
 		writelog(_T("CPP exception: %s"), e.what());
+		syslog(OVERFLOW_CATEGORY, CAUGHT_EXCEPRION, _T("CPP exception"));
 	}
 
 	closelog();
+	CloseHandle(eventlog);
 	exit(0);
 }
 
@@ -122,4 +131,21 @@ void writelog(_TCHAR* format, ...) {
 	va_end(ap);
 	// New sting
 	fwprintf(logfile, _T("\n"));
+}
+
+void syslog(WORD category, WORD identifier, LPWSTR message) {
+	LPWSTR pMessages[1] = { message };
+
+	if (!ReportEvent(
+		eventlog,					// event log handle 
+		EVENTLOG_INFORMATION_TYPE,	// event type
+		category,					// event category 
+		identifier,					// event identifier
+		NULL,						// user security identifier
+		1,							// number of substitution strings
+		0,							// data size
+		(LPCWSTR*)pMessages,		// pointer to strings
+		NULL)) {					// pointer to binary data buffer
+		writelog(_T("ReportEvent failed with 0x%x"), GetLastError());
+	}
 }

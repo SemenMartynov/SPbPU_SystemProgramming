@@ -13,17 +13,22 @@
 #include <time.h>
 #include <windows.h>
 
+#include "messages.h"
+
 // log
 FILE* logfile;
+HANDLE eventlog;
 
 void initlog(const _TCHAR* prog);
 void closelog();
 void writelog(_TCHAR* format, ...);
+void syslog(WORD category, WORD identifier, LPWSTR message);
 
 // Defines the entry point for the console application.
 int _tmain(int argc, _TCHAR* argv[]) {
 	//Init log
 	initlog(argv[0]);
+	eventlog = RegisterEventSource(NULL, L"MyEventProvider");
 
 	// Floating point exceptions are masked by default.
 	_clearfp();
@@ -37,9 +42,12 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	{
 		writelog(_T("Thre is no exception, but the handler is called."));
 		_tprintf(_T("Thre is no exception, but the handler is called."));
+		syslog(OVERFLOW_CATEGORY, CAUGHT_EXCEPRION,
+			_T("Thre is no exception, but the handler is called."));
 	}
 
 	closelog();
+	CloseHandle(eventlog);
 	exit(0);
 }
 
@@ -93,4 +101,21 @@ void writelog(_TCHAR* format, ...) {
 	va_end(ap);
 	// New sting
 	fwprintf(logfile, _T("\n"));
+}
+
+void syslog(WORD category, WORD identifier, LPWSTR message) {
+	LPWSTR pMessages[1] = { message };
+
+	if (!ReportEvent(
+		eventlog,					// event log handle 
+		EVENTLOG_INFORMATION_TYPE,	// event type
+		category,					// event category 
+		identifier,					// event identifier
+		NULL,						// user security identifier
+		1,							// number of substitution strings
+		0,							// data size
+		(LPCWSTR*)pMessages,		// pointer to strings
+		NULL)) {					// pointer to binary data buffer
+		writelog(_T("ReportEvent failed with 0x%x"), GetLastError());
+	}
 }

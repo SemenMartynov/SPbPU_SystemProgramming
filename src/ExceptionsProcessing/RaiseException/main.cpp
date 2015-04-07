@@ -16,14 +16,18 @@
 #include <windows.h>
 #include <time.h>
 
+#include "messages.h"
+
 // log
 FILE* logfile;
+HANDLE eventlog;
 
 void usage(const _TCHAR* prog);
 void initlog(const _TCHAR* prog);
 void closelog();
 void writelog(_TCHAR* format, ...);
 LONG Filter(DWORD dwExceptionGode, const _EXCEPTION_POINTERS *ep);
+void syslog(WORD category, WORD identifier, LPWSTR message);
 
 // Task switcher
 enum {
@@ -35,7 +39,8 @@ enum {
 int _tmain(int argc, _TCHAR* argv[]) {
 	//Init log
 	initlog(argv[0]);
-	
+	eventlog = RegisterEventSource(NULL, L"MyEventProvider");
+
 	// Check parameters number
 	if (argc != 2) {
 		_tprintf(_T("Too few parameters.\n\n"));
@@ -71,6 +76,8 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		case DIVIDE_BY_ZERO:
 			// throw an exception using the RaiseException() function
 			writelog(_T("Ready for generate DIVIDE_BY_ZERO exception."));
+			syslog(ZERODIVIDE_CATEGORY, READY_FOR_EXCEPTION,
+				_T("Ready for generate DIVIDE_BY_ZERO exception."));
 			RaiseException(EXCEPTION_FLT_DIVIDE_BY_ZERO,
 				EXCEPTION_NONCONTINUABLE, 0, NULL);
 			writelog(_T("DIVIDE_BY_ZERO exception is generated."));
@@ -78,6 +85,8 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		case FLT_OVERFLOW:
 			// throw an exception using the RaiseException() function
 			writelog(_T("Ready for generate FLT_OVERFLOW exception."));
+			syslog(OVERFLOW_CATEGORY, READY_FOR_EXCEPTION,
+				_T("Ready for generate FLT_OVERFLOW exception."));
 			RaiseException(EXCEPTION_FLT_OVERFLOW,
 				EXCEPTION_NONCONTINUABLE, 0, NULL);
 			writelog(_T("Task: FLT_OVERFLOW exception is generated."));
@@ -90,6 +99,7 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		// There is nothing to do, everything is done in the filter function.
 	}
 	closelog();
+	CloseHandle(eventlog);
 	exit(0);
 }
 
@@ -108,9 +118,10 @@ LONG Filter(DWORD dwExceptionGode, const _EXCEPTION_POINTERS *ExceptionPointers)
 		ExceptionPointers->ExceptionRecord->ExceptionAddress, mes);
 	else
 		swprintf_s(buf, _T("%s%x%s"), err, dwExceptionGode, mes);
-	
+
 	_tprintf(_T("%s"), buf);
 	writelog(_T("%s"), buf);
+	syslog(OVERFLOW_CATEGORY, CAUGHT_EXCEPRION, buf);
 
 	return EXCEPTION_EXECUTE_HANDLER;
 }
@@ -174,4 +185,21 @@ void writelog(_TCHAR* format, ...) {
 	va_end(ap);
 	// New sting
 	fwprintf(logfile, _T("\n"));
+}
+
+void syslog(WORD category, WORD identifier, LPWSTR message) {
+	LPWSTR pMessages[1] = { message };
+
+	if (!ReportEvent(
+		eventlog,					// event log handle 
+		EVENTLOG_INFORMATION_TYPE,	// event type
+		category,					// event category 
+		identifier,					// event identifier
+		NULL,						// user security identifier
+		1,							// number of substitution strings
+		0,							// data size
+		(LPCWSTR*)pMessages,		// pointer to strings
+		NULL)) {					// pointer to binary data buffer
+		writelog(_T("ReportEvent failed with 0x%x"), GetLastError());
+	}
 }
