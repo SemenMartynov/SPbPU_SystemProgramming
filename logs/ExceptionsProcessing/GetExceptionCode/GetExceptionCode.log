@@ -1,0 +1,16 @@
+[8/4/2015 5:51:42] GetExceptionCode.exe is starting.
+[8/4/2015 5:51:42] Too few parameters.
+[8/4/2015 5:51:42] Shutting down.
+
+[8/4/2015 5:51:45] GetExceptionCode.exe is starting.
+[8/4/2015 5:51:45] Task: FLT_OVERFLOW exception.
+[8/4/2015 5:51:45] Ready for generate FLT_OVERFLOW exception.
+[8/4/2015 5:51:45] Caught exception is: EXCEPTION_FLT_OVERFLOW
+[8/4/2015 5:51:45] Shutting down.
+
+[8/4/2015 5:51:47] GetExceptionCode.exe is starting.
+[8/4/2015 5:51:47] Task: DIVIDE_BY_ZERO exception.
+[8/4/2015 5:51:47] Ready for generate DIVIDE_BY_ZERO exception.
+[8/4/2015 5:51:47] Caught exception is: EXCEPTION_FLT_DIVIDE_BY_ZERO
+[8/4/2015 5:51:47] Shutting down.
+

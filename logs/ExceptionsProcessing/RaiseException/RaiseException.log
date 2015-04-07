@@ -1,0 +1,18 @@
+[8/4/2015 6:36:6] RaiseException.exe is starting.
+[8/4/2015 6:36:6] Too few parameters.
+[8/4/2015 6:36:6] Shutting down.
+
+[8/4/2015 6:36:10] RaiseException.exe is starting.
+[8/4/2015 6:36:10] Task: DIVIDE_BY_ZERO exception.
+[8/4/2015 6:36:10] Ready for generate DIVIDE_BY_ZERO exception.
+[8/4/2015 6:36:10] Fatal error!
+exeption code: 0xc000008e, data adress: 0xcccccccc, instruction adress: 0x75a8c42d
+[8/4/2015 6:36:10] Shutting down.
+
+[8/4/2015 6:36:14] RaiseException.exe is starting.
+[8/4/2015 6:36:14] Task: FLT_OVERFLOW exception.
+[8/4/2015 6:36:14] Ready for generate FLT_OVERFLOW exception.
+[8/4/2015 6:36:14] Fatal error!
+exeption code: 0xc0000091, data adress: 0xcccccccc, instruction adress: 0x75a8c42d
+[8/4/2015 6:36:14] Shutting down.
+

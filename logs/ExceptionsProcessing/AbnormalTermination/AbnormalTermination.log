@@ -1,0 +1,9 @@
+[8/4/2015 6:57:4] AbnormalTermination.exe is starting.
+[8/4/2015 6:57:4] Call goto
+[8/4/2015 6:57:4] Abnormal termination in goto case.
+[8/4/2015 6:57:4] A point outside the first __try block.
+[8/4/2015 6:57:4] Call __leave
+[8/4/2015 6:57:4] Normal termination in __leave case.
+[8/4/2015 6:57:4] A point outside the second __try block.
+[8/4/2015 6:57:4] Shutting down.
+

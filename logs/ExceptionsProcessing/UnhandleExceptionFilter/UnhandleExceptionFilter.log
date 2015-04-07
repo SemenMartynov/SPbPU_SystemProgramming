@@ -1,0 +1,14 @@
+[8/4/2015 6:39:26] UnhandleExceptionFilter.exe is starting.
+[8/4/2015 6:39:26] Too few parameters.
+[8/4/2015 6:39:26] Shutting down.
+
+[8/4/2015 6:39:30] UnhandleExceptionFilter.exe is starting.
+[8/4/2015 6:39:30] Task: DIVIDE_BY_ZERO exception.
+[8/4/2015 6:39:30] Ready for generate DIVIDE_BY_ZERO exception.
+[8/4/2015 6:39:30] Unhandled exception!
+exeption code : 0xc000008e, data adress: 0xcccccccc, instruction adress: 0x75a8c42d
+[8/4/2015 6:39:37] UnhandleExceptionFilter.exe is starting.
+[8/4/2015 6:39:37] Task: FLT_OVERFLOW exception.
+[8/4/2015 6:39:37] Ready for generate FLT_OVERFLOW exception.
+[8/4/2015 6:39:37] Unhandled exception!
+exeption code : 0xc0000091, data adress: 0xcccccccc, instruction adress: 0x75a8c42d
