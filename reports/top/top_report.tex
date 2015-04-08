@@ -211,6 +211,18 @@
 \vspace{3em}
 
 В работе необходимо указать источники и версии используемых программных продуктов.
+\vspace{1em}
+
+Показать пример доступа к proc в утилите.
+\vspace{1em}
+
+Привести отдельные собственные программные примеры доступа к proc (по чтению и записи посредством утилит и напрямую);
+\vspace{1em}
+
+Предложить модификацию утилиты дополнением информации о входящих потоках (нитях) в заданный в качестве параметра процесс, а также по ключу информации о потоках каждого процесса.
+\vspace{1em}
+
+Предварительно описать возможные способы получения и источники информации о потоках процесса, привести отдельные программные примеры (вне модифицированной утилиты) получения  информации о входящих потоках для процесса.
 
 
 \newpage
@@ -227,8 +239,6 @@
 \end{figure}
 
 Рассматривается версия 1.0.3 (от 24 апреля 2014 года). Исходники доступны по лицензии GPL на сайте \url{http://hisham.hm/htop/}. Для простоты изучения, в код системы были внесены не значительные изменения.
-
-Часть кода приведена в листингах, но более подробная версия и отчёт доступны по адресу \\ \url{https://github.com/SemenMartynov/SPbPU_SystemProgramming}.
 
 \newpage
 %------------------------------------------------
@@ -262,6 +272,101 @@
 Возможны и  некоторые комбинации  этих трех вариантов.  К тому же в  некоторые файлы можно записать только строго определенное значение.
 
 Утилита htop производит считывание различных параметров процессов. Далее будет рассмотрено как это происходит.
+
+Просмтотреть информацию о процессоре можно командой cat из файла /proc/cpuinfo. В моём случае это дало следующий результат (для отчёта вывод обрезан, т.к. повторяется по всем ядрам):
+
+\begin{verbatim}
+sam@spb:~$ cat /proc/cpuinfo 
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 23
+model name	: Intel(R) Core(TM)2 Quad CPU    Q8300  @ 2.50GHz
+stepping	: 10
+microcode	: 0xa0b
+cpu MHz		: 1998.000
+cache size	: 2048 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 4
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat
+ pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx lm constant_tsc
+ arch_perfmon pebs bts rep_good nopl aperfmperf pni dtes64 monitor ds_cpl vmx est
+ tm2 ssse3 cx16  xtpr pdcm sse4_1 xsave lahf_lm dtherm tpr_shadow vnmi flexpriority
+bogomips	: 4991.93
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+\end{verbatim}
+
+А вот вывод информации о памяти
+
+\begin{verbatim}
+sam@spb:~$ cat /proc/meminfo 
+MemTotal:        8176408 kB
+MemFree:          391976 kB
+Buffers:           39692 kB
+Cached:           964508 kB
+SwapCached:         1784 kB
+Active:          1878368 kB
+Inactive:        1060044 kB
+Active(anon):    1528192 kB
+Inactive(anon):   729880 kB
+Active(file):     350176 kB
+Inactive(file):   330164 kB
+Unevictable:          32 kB
+Mlocked:              32 kB
+SwapTotal:       8387580 kB
+SwapFree:        8359320 kB
+Dirty:                 0 kB
+Writeback:             0 kB
+AnonPages:       1932372 kB
+Mapped:          4824228 kB
+Shmem:            323860 kB
+Slab:             176288 kB
+SReclaimable:     100712 kB
+SUnreclaim:        75576 kB
+KernelStack:        4568 kB
+PageTables:        39424 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    12475784 kB
+Committed_AS:    9617760 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:      327844 kB
+VmallocChunk:   34359407416 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:    475136 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:     1467968 kB
+DirectMap2M:     6920192 kB
+\end{verbatim}
+
+Следующий пример показывает как можно разрешить машине быть сетевым шлюзом для IPv6 соеднинений (параметр будет сброшен в 0 после перезагрузки):
+
+\begin{verbatim}
+sam@spb:~$ cat /proc/sys/net/ipv6/conf/all/forwarding
+0
+sam@spb:~$ echo "1" | sudo tee -a /proc/sys/net/ipv6/conf/all/forwarding
+[sudo] password for sam: 
+1
+sam@spb:~$ cat /proc/sys/net/ipv6/conf/all/forwarding
+1
+sam@spb:~$
+\end{verbatim}
 
 
 \newpage
@@ -516,6 +621,132 @@
 \caption{Граф включения для файла UptimeMeter.c}
 \end{figure}
 
+\newpage%------------------------------------------------
+\section{Модификация для работы с процеессом}
+
+Как уже говорилось во введении, на верхнем уровне процессы представляют собой директории, именованные в соответствии с их pid. Рассмотрим, какую информацию можно получить из файловой системы proc, а потом добавим рассматриваемой утилите возможность работать с процессом, переданным в качестве параметра по его pid.
+
+Некоторые файлы и директории из ProcFS:
+\begin{itemize}
+\item /proc/PID/cmdline – аргументы командной строки (где PID – идентификатор процесса или self);
+\item /proc/PID/environ – переменные окружения для данного процесса;
+\item /proc/PID/status – статус процесса;
+\item /proc/PID/fd – директория, содержащая символьные ссылки на каждый открытый файловый дескриптор;
+\item /proc/cpuinfo – информация о процессоре (производитель, модель, поколение и т.п.);
+\item /proc/cmdline – параметры, передаваемые ядру при загрузке;
+\item /proc/uptime – количество секунд, прошедших с момента загрузки ядра и проведенных в режиме бездействия;
+\item /proc/version – содержит информацию о версии ядра, компилятора и другую информацию, связанную с загруженным ядром.
+\end{itemize}
+
+Приведём несколько примеров использования procfs.
+
+Слудуюящая команда демонстрирует, как из procfs можно получить информацию о текущей рабочей директории процесса (3165 — номер pid’a процесса)
+
+\begin{verbatim}
+# ls -la /proc/3165/cwd
+lrwxrwxrwx 1 clamav clamav 0 Авг 18 16:07 /proc/3165/cwd -> /var/lib/clamav
+\end{verbatim}
+
+Далее, можно вывести все переменные процесса
+
+\begin{verbatim}
+# cat /proc/3165/environ | strings
+ReceiveTimeout=30
+CONSOLE=/dev/console
+SELINUX_INIT=YES
+TERM=linux
+rootmnt=/root
+PidFile=/var/run/clamav/freshclam.pid
+NotifyClamd=/etc/clamav/clamd.conf
+LogTime=no
+INIT_VERSION=sysvinit-2.86
+init=/sbin/init
+DNSDatabaseInfo=current.cvd.clamav.net
+AllowSupplementaryGroups=false
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+LogSyslog=false
+DatabaseMirror=database.clamav.net db.local.clamav.net
+runlevel=2
+RUNLEVEL=2
+PWD=/
+VERBOSE=no
+DatabaseOwner=clamav
+CompressLocalDatabase=no
+previous=N
+PREVLEVEL=N
+LogVerbose=false
+MaxAttempts=5
+ScriptedUpdates=yes
+Foreground=false
+Checks=24
+SHLVL=3
+HOME=/
+DatabaseDirectory=/var/lib/clamav/
+LogFacility=LOG_LOCAL6
+UpdateLogFile=/var/log/clamav/freshclam.log
+LogFileMaxSize=0
+ConnectTimeout=30
+Debug=false
+_=/sbin/start-stop-daemon
+\end{verbatim}
+
+Теперь можно получить статистику процесса
+\begin{verbatim}
+$ cat /proc/1742/status
+Name:   bash
+State:  S (sleeping)
+Tgid:   3515
+Pid:    3515
+PPid:   3452
+TracerPid:      0
+Uid:    1000    1000    1000    1000
+Gid:    100     100     100     100
+FDSize: 256
+Groups: 16 33 100
+VmPeak:     9136 kB
+VmSize:     7896 kB
+VmLck:         0 kB
+VmHWM:      7572 kB
+VmRSS:      6316 kB
+VmData:     5224 kB
+VmStk:        88 kB
+VmExe:       572 kB
+VmLib:      1708 kB
+VmPTE:        20 kB
+Threads:        1
+SigQ:   0/3067
+SigPnd: 0000000000000000
+ShdPnd: 0000000000000000
+SigBlk: 0000000000010000
+SigIgn: 0000000000384004
+SigCgt: 000000004b813efb
+CapInh: 0000000000000000
+CapPrm: 0000000000000000
+CapEff: 0000000000000000
+CapBnd: ffffffffffffffff
+Cpus_allowed:   00000001
+Cpus_allowed_list:      0
+Mems_allowed:   1
+Mems_allowed_list:      0
+voluntary_ctxt_switches:        150
+nonvoluntary_ctxt_switches:     545
+\end{verbatim}
+
+Самое полезное в данном выводе, это поле Threads. Оно показывает количество потоков у процесса (ещё эту информацию можно получить через утилиту ps, к примеру). Теперь остаётся внести изменения в исследуемую утилиту.
+
+Запуск модифицированной версии, для отследивания потоков firefox
+\begin{verbatim}
+sam@spb:~/tmp/top$ ./top --pid 19771
+\end{verbatim}
+
+Поле с потоками называется NLWP (number of light-weight processes). Это название пошло со времён ОС Солярис.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.7]{res/NLWP.png}
+\caption{Поличество потоков у процесса с pid 19771}
+\end{figure}
+
 \newpage
 %------------------------------------------------
 \section*{Заключение}
@@ -525,7 +756,7 @@
 
 Изучив исходный код, мы убедились, что никакие специальные системные вызовы утилита не использует, только самые широко распространённы, вроде чтения из файла и вывод на экран (но они используются так часто, что их систематизация для данного отчёта оказалась крайне затруднительной).
 
-Основным выводом является тот факт, что в отличии от Windows, Linux предоставляет удобный механизм сбора системной информации через файловую систему proc.
+Основным выводом является тот факт, что в отличии от Windows, Linux предоставляет удобный механизм сбора системной информации через файловую систему proc, который активно используется утилитами вроде ps, htop (стр. 5 листинг 2; стр. 18 листинг 3; стр. 136 листинг 3; стр. 201 листинг 3; стр. 4 листинг 7; стр. 3 листинг 11).
 
 \newpage
 %------------------------------------------------
