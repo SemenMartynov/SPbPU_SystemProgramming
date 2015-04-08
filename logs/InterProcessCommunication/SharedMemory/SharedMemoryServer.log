@@ -1,0 +1,106 @@
+[8/4/2015 12:31:42] C:\Users\win7\Documents\Visual Studio 2013\Projects\InterProcessCommunication\Debug\SharedMemoryServer.exe is starting.
+[8/4/2015 12:31:42] Mutex created
+[8/4/2015 12:31:42] FileMappingObject created
+[8/4/2015 12:31:42] Wait For Mutex
+[8/4/2015 12:31:42] Get Mutex
+[8/4/2015 12:31:42] Write message: 41
+[8/4/2015 12:31:44] Release Mutex
+[8/4/2015 12:31:44] Wait For Mutex
+[8/4/2015 12:31:44] Get Mutex
+[8/4/2015 12:31:44] Write message: 18467
+[8/4/2015 12:31:45] Release Mutex
+[8/4/2015 12:31:45] Wait For Mutex
+[8/4/2015 12:31:45] Get Mutex
+[8/4/2015 12:31:45] Write message: 6334
+[8/4/2015 12:31:46] Release Mutex
+[8/4/2015 12:31:46] Wait For Mutex
+[8/4/2015 12:31:46] Get Mutex
+[8/4/2015 12:31:46] Write message: 26500
+[8/4/2015 12:31:47] Release Mutex
+[8/4/2015 12:31:47] Wait For Mutex
+[8/4/2015 12:31:47] Get Mutex
+[8/4/2015 12:31:47] Write message: 19169
+[8/4/2015 12:31:48] Release Mutex
+[8/4/2015 12:31:48] Wait For Mutex
+[8/4/2015 12:31:48] Get Mutex
+[8/4/2015 12:31:48] Write message: 15724
+[8/4/2015 12:31:49] Release Mutex
+[8/4/2015 12:31:49] Wait For Mutex
+[8/4/2015 12:31:49] Get Mutex
+[8/4/2015 12:31:49] Write message: 11478
+[8/4/2015 12:31:51] Release Mutex
+[8/4/2015 12:31:51] Wait For Mutex
+[8/4/2015 12:31:51] Get Mutex
+[8/4/2015 12:31:51] Write message: 29358
+[8/4/2015 12:31:52] Release Mutex
+[8/4/2015 12:31:52] Wait For Mutex
+[8/4/2015 12:31:52] Get Mutex
+[8/4/2015 12:31:52] Write message: 26962
+[8/4/2015 12:31:53] Release Mutex
+[8/4/2015 12:31:53] Wait For Mutex
+[8/4/2015 12:31:53] Get Mutex
+[8/4/2015 12:31:53] Write message: 24464
+[8/4/2015 12:31:54] Release Mutex
+[8/4/2015 12:31:54] Wait For Mutex
+[8/4/2015 12:31:54] Get Mutex
+[8/4/2015 12:31:54] Write message: 5705
+[8/4/2015 12:31:55] Release Mutex
+[8/4/2015 12:31:55] Wait For Mutex
+[8/4/2015 12:31:55] Get Mutex
+[8/4/2015 12:31:55] Write message: 28145
+[8/4/2015 12:31:56] Release Mutex
+[8/4/2015 12:31:56] Wait For Mutex
+[8/4/2015 12:31:56] Get Mutex
+[8/4/2015 12:31:56] Write message: 23281
+[8/4/2015 12:31:57] Release Mutex
+[8/4/2015 12:31:57] Wait For Mutex
+[8/4/2015 12:31:57] Get Mutex
+[8/4/2015 12:31:57] Write message: 16827
+[8/4/2015 12:31:58] Release Mutex
+[8/4/2015 12:31:58] Wait For Mutex
+[8/4/2015 12:31:58] Get Mutex
+[8/4/2015 12:31:58] Write message: 9961
+[8/4/2015 12:31:59] Release Mutex
+[8/4/2015 12:31:59] Wait For Mutex
+[8/4/2015 12:31:59] Get Mutex
+[8/4/2015 12:31:59] Write message: 491
+[8/4/2015 12:32:0] Release Mutex
+[8/4/2015 12:32:0] Wait For Mutex
+[8/4/2015 12:32:0] Get Mutex
+[8/4/2015 12:32:0] Write message: 2995
+[8/4/2015 12:32:1] Release Mutex
+[8/4/2015 12:32:1] Wait For Mutex
+[8/4/2015 12:32:1] Get Mutex
+[8/4/2015 12:32:1] Write message: 11942
+[8/4/2015 12:32:2] Release Mutex
+[8/4/2015 12:32:2] Wait For Mutex
+[8/4/2015 12:32:2] Get Mutex
+[8/4/2015 12:32:2] Write message: 4827
+[8/4/2015 12:32:3] Release Mutex
+[8/4/2015 12:32:3] Wait For Mutex
+[8/4/2015 12:32:3] Get Mutex
+[8/4/2015 12:32:3] Write message: 5436
+[8/4/2015 12:32:4] Release Mutex
+[8/4/2015 12:32:4] Wait For Mutex
+[8/4/2015 12:32:4] Get Mutex
+[8/4/2015 12:32:4] Write message: 32391
+[8/4/2015 12:32:5] Release Mutex
+[8/4/2015 12:32:5] Wait For Mutex
+[8/4/2015 12:32:5] Get Mutex
+[8/4/2015 12:32:5] Write message: 14604
+[8/4/2015 12:32:6] Release Mutex
+[8/4/2015 12:32:6] Wait For Mutex
+[8/4/2015 12:32:6] Get Mutex
+[8/4/2015 12:32:6] Write message: 3902
+[8/4/2015 12:32:7] Release Mutex
+[8/4/2015 12:32:7] Wait For Mutex
+[8/4/2015 12:32:7] Get Mutex
+[8/4/2015 12:32:7] Write message: 153
+[8/4/2015 12:32:8] Release Mutex
+[8/4/2015 12:32:8] Wait For Mutex
+[8/4/2015 12:32:8] Get Mutex
+[8/4/2015 12:32:8] Write message: 292
+[8/4/2015 12:32:9] Release Mutex
+[8/4/2015 12:32:9] Wait For Mutex
+[8/4/2015 12:32:9] Get Mutex
+[8/4/2015 12:32:9] Write message: 12382

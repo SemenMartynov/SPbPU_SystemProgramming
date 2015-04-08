@@ -1,0 +1,19 @@
+[8/4/2015 12:26:49] C:\Users\win7\Documents\Visual Studio 2013\Projects\InterProcessCommunication\Debug\NamedPipeNetworkServer.exe is starting.
+[8/4/2015 12:26:49] Try to create named pipe on \\.\pipe\$$MyPipe$$
+[8/4/2015 12:26:49] Named pipe created successfully!
+[8/4/2015 12:26:49] Waiting for connect...
+[8/4/2015 12:26:50] Client connected!
+[8/4/2015 12:26:50] Creating a processing thread...
+[8/4/2015 12:26:50] Try to create named pipe on \\.\pipe\$$MyPipe$$
+[8/4/2015 12:26:50] Named pipe created successfully!
+[8/4/2015 12:26:50] Waiting for connect...
+[8/4/2015 12:26:50] Thread 1768 started!
+[8/4/2015 12:27:1] Thread 1768: Get client msg: 1
+
+[8/4/2015 12:27:1] Thread 1768: Get client msg: 2
+
+[8/4/2015 12:27:2] Thread 1768: Get client msg: 3
+
+[8/4/2015 12:27:5] Thread 1768: Get client msg: exit
+
+[8/4/2015 12:27:5] Thread 1768: InstanceThread exitting.

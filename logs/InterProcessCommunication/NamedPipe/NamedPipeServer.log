@@ -1,0 +1,43 @@
+[8/4/2015 12:24:47] C:\Users\win7\Documents\Visual Studio 2013\Projects\InterProcessCommunication\Debug\NamedPipeServer.exe is starting.
+[8/4/2015 12:24:47] Try to create named pipe on \\.\pipe\$$MyPipe$$
+[8/4/2015 12:24:47] Named pipe created successfully!
+[8/4/2015 12:24:47] Waiting for connect...
+[8/4/2015 12:24:49] Client connected!
+[8/4/2015 12:24:49] Creating a processing thread...
+[8/4/2015 12:24:49] Try to create named pipe on \\.\pipe\$$MyPipe$$
+[8/4/2015 12:24:49] Thread 2288 started!
+[8/4/2015 12:24:49] Named pipe created successfully!
+[8/4/2015 12:24:49] Waiting for connect...
+[8/4/2015 12:24:57] Client connected!
+[8/4/2015 12:24:57] Creating a processing thread...
+[8/4/2015 12:24:57] Try to create named pipe on \\.\pipe\$$MyPipe$$
+[8/4/2015 12:24:57] Thread 1796 started!
+[8/4/2015 12:24:57] Named pipe created successfully!
+[8/4/2015 12:24:57] Waiting for connect...
+[8/4/2015 12:25:3] Client connected!
+[8/4/2015 12:25:3] Creating a processing thread...
+[8/4/2015 12:25:3] Try to create named pipe on \\.\pipe\$$MyPipe$$
+[8/4/2015 12:25:3] Thread 852 started!
+[8/4/2015 12:25:3] Named pipe created successfully!
+[8/4/2015 12:25:3] Waiting for connect...
+[8/4/2015 12:25:10] Thread 2288: Get client msg: 1
+
+[8/4/2015 12:25:12] Thread 1796: Get client msg: 2
+
+[8/4/2015 12:25:15] Thread 852: Get client msg: 3
+
+[8/4/2015 12:25:18] Thread 2288: Get client msg: 1
+
+[8/4/2015 12:25:20] Thread 1796: Get client msg: 2
+
+[8/4/2015 12:25:22] Thread 852: Get client msg: 3
+
+[8/4/2015 12:25:59] Thread 2288: Get client msg: exit
+
+[8/4/2015 12:25:59] Thread 2288: InstanceThread exitting.
+[8/4/2015 12:26:4] Thread 1796: Get client msg: exit
+
+[8/4/2015 12:26:4] Thread 1796: InstanceThread exitting.
+[8/4/2015 12:26:7] Thread 852: Get client msg: exit
+
+[8/4/2015 12:26:7] Thread 852: InstanceThread exitting.

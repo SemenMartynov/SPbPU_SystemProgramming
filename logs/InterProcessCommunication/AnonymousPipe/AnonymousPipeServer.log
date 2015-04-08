@@ -1,0 +1,16 @@
+[8/4/2015 12:21:59] C:\Users\win7\Documents\Visual Studio 2013\Projects\InterProcessCommunication\Debug\AnonymousPipeServer.exe is starting.
+[8/4/2015 12:21:59] Anonymous pipe from server to client created
+[8/4/2015 12:21:59] Anonymous pipe from client to server created
+[8/4/2015 12:21:59] New process created
+[8/4/2015 12:21:59] Get from client: "Message num 1"
+[8/4/2015 12:22:0] Get from client: "Message num 2"
+[8/4/2015 12:22:1] Get from client: "Message num 3"
+[8/4/2015 12:22:2] Get from client: "Message num 4"
+[8/4/2015 12:22:3] Get from client: "Message num 5"
+[8/4/2015 12:22:4] Get from client: "Message num 6"
+[8/4/2015 12:22:5] Get from client: "Message num 7"
+[8/4/2015 12:22:6] Get from client: "Message num 8"
+[8/4/2015 12:22:7] Get from client: "Message num 9"
+[8/4/2015 12:22:8] Get from client: "Message num 10"
+[8/4/2015 12:22:8] Shutting down.
+

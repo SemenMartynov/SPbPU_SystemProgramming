@@ -1,0 +1,17 @@
+[8/4/2015 12:29:58] C:\Users\win7\Documents\Visual Studio 2013\Projects\InterProcessCommunication\Debug\MailslotClient.exe is starting.
+[8/4/2015 12:29:58] Mailslot created
+[8/4/2015 12:29:58] Waiting for a message...
+[8/4/2015 12:30:2] Contents of the mailslot: Message one for mailslot.
+Message #1 of 2
+
+
+[8/4/2015 12:30:2] Contents of the mailslot: Message two for mailslot.
+Message #2 of 2
+
+
+[8/4/2015 12:30:5] Waiting for a message...
+[8/4/2015 12:30:8] Contents of the mailslot: Message three for mailslot.
+Message #1 of 1
+
+
+[8/4/2015 12:30:11] Waiting for a message...

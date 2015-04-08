@@ -1,0 +1,9 @@
+[8/4/2015 12:33:55] C:\Users\win7\Documents\Visual Studio 2013\Projects\InterProcessCommunication\Debug\WinSockClient.exe is starting.
+[8/4/2015 12:34:1] Windows Socket environment ready
+[8/4/2015 12:34:1] Client socket created
+[8/4/2015 12:34:1] Connect
+[8/4/2015 12:34:3] Received 1 from server
+[8/4/2015 12:34:4] Received 12 from server
+[8/4/2015 12:34:5] Received 123 from server
+[8/4/2015 12:34:7] Shutting down.
+

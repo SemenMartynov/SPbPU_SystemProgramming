@@ -21,6 +21,7 @@
 \linespread{1.3}							% line spacing
 \usepackage[left=2.5cm, right=1.5cm, top=2.5cm, bottom=2.5cm]{geometry}
 \setlength{\parindent}{0pt}					% we don't want any paragraph indentation
+\usepackage{parskip}						% add distance between paragraphs
 \renewcommand{\chaptername}{}
 
 %%%% Other
@@ -237,12 +238,20 @@
 Все результаты, представленные в данном отчёте получены с использованием Microsoft Windows 7 Ultimate Service Pack 1 64-bit (build 7601). Для разработки использовалась Microsoft Visual Studio Express 2013 for Windows Desktops (Version 12.0.30723.00 Update 3). В качестве отладчика использовался Microsoft WinDbg (release 6.3.9600.16384).
 
 Для логирования использовался код, приведённый в листинге 1. Этот файл подключается в первых строках каждого проекта. Он создаёт файл, с именем идентичным исполняемой программе, и записывает туда все события.
+\newpage
 
-\lstinputlisting[language=C++, caption={Логер, используемый во всех проектах}]
+\lstinputlisting[language=C++, caption={Логер, используемый во всех проектах\\ (src/InterProcessCommunication/AnonymousPipeServer/logger.h)}]
 {../../src/InterProcessCommunication/AnonymousPipeServer/logger.h}
 
+В данном файле содержатся следующие методы:
+\begin{itemize}
+\item initlog -- принимает в качестве параметра имя приложения, заменяет exe на log и создаёт лог-файл;
+\item closelog -- обеспечивает корректное завершение работы, освобождая дескриптор файла;
+\item writelog -- функция получает форматированную строку и набор параметров, из которых формируется строка лога по аналогии с библиотечной функцией printf. Интересным моментом является тот факт, что строка дописывает текущее время, что упрощает анализ параллельных программ.
+\end{itemize}
+
 \vspace{1em}
-Исходный код всех представленных листингов доступен по адресу \\ \url{https://github.com/SemenMartynov/SPbPU_SystemProgramming}.
+Часть кода и лог-файлов приведена в листингах по ходу работы, однако более полная версия находится в папках src/InterProcessCommunication и logs/InterProcessCommunication.
 
 %------------------------------------------------
 \chapter*{Анонимные каналы}
@@ -265,12 +274,12 @@ BOOL CreatePipe(PHANDLE phRead, PHANDLE phWrite,
 
 В листинге 2 и 3 демонстрируются серверный и клиентский модуль программы, в которой используется передача дескрипторов через наследование. Анонимный канал является полудуплексным, поэтому для организации эхо-сервера было необходимо создавать 2 канала (для передачи от клиента к серверу и в обратном направлении). При этом ненужные дескрипторы каналов закрываются только на стороне сервера (т.к. клиент наследует 4 дескриптора, а явно передаются только 2). Дескрипторы каналов связываются со стандартным вводом и выводом клиентского процесса. Для вывода информации клиенту остаётся только поток ошибок.
 
-\lstinputlisting[language=C++, caption={Сервер анонимных каналов}]
+\lstinputlisting[language=C++, caption={Сервер анонимных каналов\\ (src/InterProcessCommunication/AnonymousPipeServer/main.cpp)}]
 {../../src/InterProcessCommunication/AnonymousPipeServer/main.cpp}
 
 Клиент передаёт сообщение, например, вида: «message num 1», ждёт 1 секунду, и пытается прочитать его от сервера. Сервер, получив сообщение от клиента, передаёт его обратно. Процессы завершаются после передачи 10 сообщений.
 
-\lstinputlisting[language=C++, caption={Клиент анонимных каналов}]
+\lstinputlisting[language=C++, caption={Клиент анонимных каналов\\ (src/InterProcessCommunication/AnonymousPipeClient/main.cpp)}]
 {../../src/InterProcessCommunication/AnonymousPipeClient/main.cpp}
 
 \begin{figure}[h!]
@@ -278,6 +287,7 @@ BOOL CreatePipe(PHANDLE phRead, PHANDLE phWrite,
 \includegraphics[scale=0.95]{res/02_anonymous_channels}
 \caption{Работа с анонимными каналами.}
 \end{figure}
+\newpage
 
 Результаты работы показаны на рисунке 2. Листинг 4 и листинг 5 содержат протоколы работы сервера и клиента.
 
@@ -307,8 +317,8 @@ BOOL CreatePipe(PHANDLE phRead, PHANDLE phWrite,
 
 Реализация работы с именованными каналами представлена в листинге 8 (серверный модуль) и 9 (клиентский модуль). Сервер, как и ранее, создает все необходимые ресурсы и переходит в состояние ожидания соединений. Именованный канал создается для чтения и записи. Передача происходит сообщениями, функции передачи и приема блокируются до их окончания.
 
-\lstinputlisting[language=C++, caption={Клиент именованного каналов}]
-{../../src/InterProcessCommunication/NamedPipeClient/main.cpp}
+\lstinputlisting[language=C++, caption={Сервер именованного каналов\\ (src/InterProcessCommunication/NamedPipeServer/main.cpp)}]
+{../../src/InterProcessCommunication/NamedPipeServer/main.cpp}
 \vspace{3em}
 
 Клиент после соединения с сервером начинает чтение сообщений с консоли, пока не
@@ -316,16 +326,15 @@ BOOL CreatePipe(PHANDLE phRead, PHANDLE phWrite,
 
 Для данной программы были внесены изменения в логер. Теперь каждый клиентский процесс создаёт свой отдельный файл с протоколом.
 
-\lstinputlisting[language=C++, caption={Клиент именованного каналов}]
+\lstinputlisting[language=C++, caption={Клиент именованного каналов\\ (src/InterProcessCommunication/NamedPipeClient/main.cpp)}]
 {../../src/InterProcessCommunication/NamedPipeClient/main.cpp}
 \vspace{3em}
 
 Результат работы программы показан на рисунке 3. Запущен один сервер и три клиента, с которыми этот сервер взаимодействует.
-\vspace{2em}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.75]{res/03_named_pipes}
+\includegraphics[scale=0.85]{res/03_named_pipes}
 \caption{Работа нескольких клиентов с одним сервером по именованному каналу.}
 \end{figure}
 
@@ -334,13 +343,13 @@ BOOL CreatePipe(PHANDLE phRead, PHANDLE phWrite,
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.85]{res/04_Process_Explorer_np}
+\includegraphics[scale=0.8]{res/04_Process_Explorer_np}
 \caption{Отслеживания обращений к локальным (не сетевым) именованным каналам}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.85]{res/05_Process_Explorer_npn}
+\includegraphics[scale=0.8]{res/05_Process_Explorer_npn}
 \caption{Отслеживания обращений к сетевым именованным каналам в Process Explorer}
 \end{figure}
 
@@ -377,12 +386,12 @@ BOOL CreatePipe(PHANDLE phRead, PHANDLE phWrite,
 
 Листинг 8 и 9 демонстрируют реализацию приложения, иллюстрирующую обмен информацией почтовыми слотами. В процессе экспериментов было протестировано локальное, сетевое взаимодействие. Для широковещательной передач сообщений, адрес заменялся символом звездочки (*).
 
-\lstinputlisting[language=C++, caption={Реализация серверной части почтового ящика}]
+\lstinputlisting[language=C++, caption={Реализация серверной части почтового ящика\\ (src/InterProcessCommunication/MailslotServer/main.cpp)}]
 {../../src/InterProcessCommunication/MailslotServer/main.cpp}
 
 \vspace{3em}
 
-\lstinputlisting[language=C++, caption={Реализация клиентской части почтового ящика}]
+\lstinputlisting[language=C++, caption={Реализация клиентской части почтового ящика\\ (src/InterProcessCommunication/MailslotClient/main.cpp)}]
 {../../src/InterProcessCommunication/MailslotClient/main.cpp}
 
 Результат работы программы показан на рисунке 6.
@@ -421,12 +430,12 @@ BOOL CreatePipe(PHANDLE phRead, PHANDLE phWrite,
 
 В листинге 12 и 13 представлен код двух программ, одна из которых генерирует случайные числа, а другая их читает и выводит на экран. Взаимодействие осуществляется через разделяемую память, защищённую мьютексом. Рисунок 8 показывает результат такого взаимодействия.
 
-\lstinputlisting[language=C++, caption={Программа, генерирующая случайные числа в разделяемую память}]
+\lstinputlisting[language=C++, caption={Программа, генерирующая случайные числа в разделяемую память (src/InterProcessCommunication/SharedMemoryServer/main.cpp)}]
 {../../src/InterProcessCommunication/SharedMemoryServer/main.cpp}
 
 \vspace{3em}
 
-\lstinputlisting[language=C++, caption={Программа, читающая случайные числа из разделяемой памяти}]
+\lstinputlisting[language=C++, caption={Программа, читающая случайные числа из разделяемой памяти (src/InterProcessCommunication/SharedMemoryClient/main.cpp)}]
 {../../src/InterProcessCommunication/SharedMemoryClient/main.cpp}
 
 \newpage
@@ -470,14 +479,14 @@ Winsock API разрабатывался как расширение Berkley Soc
 \end{itemize}
 
 Работа с сокетами демонстрируется в листинге 16 и 17. Рисунок 6 показывает работу программ, из этих листингов.
+\newpage
 
-
-\lstinputlisting[language=C++, caption={Сервер для работы с Win-сокетами}]
+\lstinputlisting[language=C++, caption={Сервер для работы с Win-сокетами\\ (src/InterProcessCommunication/WinSockServer/main.cpp)}]
 {../../src/InterProcessCommunication/WinSockServer/main.cpp}
 
 Клиент отправляет серверу сообщения, и получает эхо-ответ. Слово QUIT зарезервировано для завершения работы.
 
-\lstinputlisting[language=C++, caption={Клиент для работы с Win-сокетами}]
+\lstinputlisting[language=C++, caption={Клиент для работы с Win-сокетами\\ (src/InterProcessCommunication/WinSockClient/main.cpp)}]
 {../../src/InterProcessCommunication/WinSockClient/main.cpp}
 
 Листинг 18 и 19 содержит протокол работы программы.
@@ -535,26 +544,122 @@ Winsock API разрабатывался как расширение Berkley Soc
 
 Листинг 20 показывает реализацию порта завершения. Для работы с ним использовался клиент из предыдущего примера.
 
-\lstinputlisting[language=C++, caption={Порт завершения}]
+\lstinputlisting[language=C++, caption={Порт завершения (src/InterProcessCommunication/CompletionPortServer/main.cpp)}]
 {../../src/InterProcessCommunication/CompletionPortServer/main.cpp}
 
-Листинги 21 и 22 содержат протокол работы программы. Стоит обратить внимание, что в отличии от предыдущего примера, когда клиент ожидал данные сразу после отправки, здесь клиент получает ответ асинхронно.
 
-\lstinputlisting[language={},caption={Протокол работы серверного модуля программы работы с портами завершения}]{res/CompletionPortServer.log}
-
-\lstinputlisting[language={},caption={Протокол работы клиентского модуля программы работы с портами завершения}]{res/WinSockClient-comlp.log}
-
-Рисунок 12 показывает работу программы, а на рисунке 13 видны несколько процессов серверного модуля (в клиентском модуле никаких изменений, по сравнению с обычными сокетами нет).
+Объект порт, по сути, представляет собой очередь событий ядра, из которой извлекаются и в которую добавляются сообщения об операциях ввода/вывода. Туда добавляются не все текущие операции, а только те, которые указаны порту. Делается это путем связывания дескриптора файла (сокета, именованного канала, мэйлслота и т.д.) с дескриптором порта. Когда над файлом инициируется асинхронная операция ввода/вывода, то после ее завершения соответствующая запись добавляется в порт.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.8]{res/12_Completion_Port}
-\caption{Программа работы с портами завершения}
+\includegraphics[scale=1]{res/iop}
+\caption{Схема работы с портом завершения}
+\end{figure}
+
+Для обработки результатов используется пул потоков, количество которых выбирается пользователем, и, как правило, коррелирует с количеством ядер центрального процессора. Когда поток присоединяют к пулу, он извлекает из очереди один результат операции и обрабатывает его. Если на момент присоединения очередь пуста, то поток засыпает до тех пор, пока не появится сообщение для обработки (см. рис. 12).
+
+Порт создаётся командой
+\begin{verbatim}
+HANDLE WINAPI CreateIoCompletionPort(
+  _In_      HANDLE FileHandle,
+  _In_opt_  HANDLE ExistingCompletionPort,
+  _In_      ULONG_PTR CompletionKey,
+  _In_      DWORD NumberOfConcurrentThreads
+);
+\end{verbatim}
+
+Параметрами являются:
+\begin{itemize}
+\item FileHandle -- дескриптор файла открывается  для завершения асинхронной операции ввода-вывода (Если FileHandle установлен в INVALID\_HANDLE\_VALUE, функция CreateIoCompletionPort создает порт завершение ввода - вывода, не связывая его с файлом);
+\item ExistingCompletionPort -- дескриптор порта завершения ввода - вывода (Если этот параметр определяет существующий порт завершения I/O, функция связывает его с файлом, указанным параметром FileHandle);
+\item CompletionKey -- код завершения для каждого файла, который включается в каждый блок завершения ввода - вывода для указанного файла;
+\item NumberOfConcurrentThreads -- максимальное число потоков, которым операционная система дает возможность одновременно работать с блоками завершения ввода - вывода для порта завершения  ввода - вывода.
+\end{itemize}
+
+Если функция завершается успешно, возвращаемое значение - дескриптор порта завершения ввода-вывода (I/O), который связан с указанным файлом.
+
+Теперь рассмотрим функцию API, которая присоединяет вызывающий ее поток к пулу:
+\begin{verbatim}
+BOOL WINAPI GetQueuedCompletionStatus(
+  _In_   HANDLE CompletionPort,
+  _Out_  LPDWORD lpNumberOfBytes,
+  _Out_  PULONG_PTR lpCompletionKey,
+  _Out_  LPOVERLAPPED *lpOverlapped,
+  _In_   DWORD dwMilliseconds
+);
+\end{verbatim}
+
+Параметры:
+\begin{itemize}
+\item CompletionPort -- дескриптор ранее созданного порта завершения;
+\item lpNumberOfBytes -- указатель на переменную, которая получает число байтов, перемещенных в ходе операции ввода-вывода (I/O), которая завершилась;
+\item lpCompletionKey -- указатель на переменную, которая получает значение кода завершения, связанного с дескриптором файла, операция ввода-вывода (I/O) которого завершилась;
+\item lpOverlapped -- указатель на переменную-буфер;
+\item dwMilliseconds --число миллисекунд, которое вызывающая программа будет ждать пакет завершения, чтобы появиться в порте завершения.
+\end{itemize}
+
+Если функция исключает из очереди пакет окончания работы в следствие успешной операции I/O порта завершения, возвращаемое значение -- не нуль.
+
+Теперь рассмотрим внутреннюю структура порта завершения. Фактически, он представляет собой следующую структуру:
+
+\begin{verbatim}
+typedef stuct _IO_COMPLETION { KQUEUE Queue; } IO_COMPLETION;
+\end{verbatim}
+
+Это просто очередь событий ядра. Вот описание структуры KQUEUE:
+
+\begin{verbatim}
+typedef stuct _KQUEUE {
+    DISPATCHER_HEADER Header;
+    LIST_ENTRY EnrtyListHead; //очередь пакетов
+    DWORD CurrentCount;
+    DWORD MaximumCount;
+    LIST_ENTRY ThreadListHead; //очередь ожидающих потоков
+ } KQUEUE;
+\end{verbatim}
+
+При создании порта функцией CreateIoCompletionPort вызывается внутренний сервис NtCreateIoCompletion. Затем происходит его инициализация с помощью функции KeInitializeQueue. Когда происходит связывание порта с объектом «файл», Win32-функция CreateIoCompletionPort вызывает NtSetInformationFile.
+
+\begin{verbatim}
+NtSetInformationFile(
+    HANDLE FileHandle,
+    PIO_STATUS_BLOCK IoStatusBlock,
+    PVOID FileInformation,
+    ULONG Length,
+    FILE_INFORMATION_CLASS FileInformationClass);
+\end{verbatim}
+
+Для этой функции FILE\_INFORMATION\_CLASS устанавливается как FileCompletionInformation, а в качестве параметра FileInformation передается указатель на структуру IO\_COMPLETION\_CONTEXT или FILE\_COMPLETION\_INFORMATION.
+
+\begin{verbatim}
+typedef struct _IO_COMPLETION_CONTEXT {
+    PVOID Port;
+    PVOID Key; } IO_COMPLETION_CONTEXT;
+   
+typedef struct _FILE_COMPLETION_INFORMATION {
+    HANDLE IoCompletionHandle;
+    ULONG CompletionKey; } FILE_COMPLETION_INFORMATION, *PFILE_COMPLETION_INFORMATION;
+\end{verbatim}
+
+После завершения асинхронной операции ввода/вывода для ассоциированного файла диспетчер ввода/вывода создает пакет запроса из структуры OVERLAPPED и ключа завершения и помещает его в очередь с помощью вызова KeInsertQueue. Когда поток вызывает функцию GetQueuedCompletionStatus, на самом деле вызывается функция NtRemoveIoCompletion. NtRemoveIoCompletion проверяет параметры и вызывает функцию KeRemoveQueue, которая блокирует поток, если в очереди отсутствуют запросы, или поле CurrentCount структуры KQUEUE больше или равно MaximumCount. Если запросы есть, и число активных потоков меньше максимального, KeRemoveQueue удаляет вызвавший ее поток из очереди ожидающих потоков и увеличивает число активных потоков на 1. При занесении потока в очередь ожидающих потоков поле Queue структуры KTHREAD устанавливается равным адресу порта завершения. Когда запрос помещается в порт завершения функцией PostQueuedCompletionStatus, на самом деле вызывается функция NtSetIoCompletion, которая после проверки параметров и преобразования хендла порта в указатель, вызывает KeInsertQueue.
+
+Листинги 21 и 22 содержат протокол работы программы. Стоит обратить внимание, что в отличии от предыдущего примера, когда клиент ожидал данные сразу после отправки, здесь клиент получает ответ асинхронно.
+
+\lstinputlisting[language={},caption={Протокол работы серверного модуля программы работы с портом завершения}]{res/CompletionPortServer.log}
+
+\lstinputlisting[language={},caption={Протокол работы клиентского модуля программы работы с портом завершения}]{res/WinSockClient-comlp.log}
+
+Рисунок 13 показывает работу программы, а на рисунке 14 видны несколько процессов серверного модуля (в клиентском модуле никаких изменений, по сравнению с обычными сокетами нет).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.7]{res/12_Completion_Port}
+\caption{Программа работы с портом завершения}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.8]{res/13_Process_Explorer}
+\includegraphics[scale=0.7]{res/13_Process_Explorer}
 \caption{Процессы серверного модуля}
 \end{figure}
 
@@ -562,9 +667,9 @@ Winsock API разрабатывался как расширение Berkley Soc
 \chapter*{Сигналы}
 \addcontentsline{toc}{chapter}{Сигналы}
 
-В отличии от Linux, сигналы в Windows имеют сильно усеченные возможности. Наиболее сложной задаче при работе с сигналами было придумать, что можно с ними сделать. В листинге 23 по сигналу меняется цвет консоли, это видно на рисунке 14.
+В отличии от Linux, сигналы в Windows имеют сильно усеченные возможности. Наиболее сложной задаче при работе с сигналами было придумать, что можно с ними сделать. В листинге 23 по сигналу меняется цвет консоли, это видно на рисунке 15.
 
-\lstinputlisting[language=C++, caption={Сигналы в Windows}]
+\lstinputlisting[language=C++, caption={Сигналы в Windows\\ (src/InterProcessCommunication/Signals/main.cpp)}]
 {../../src/InterProcessCommunication/Signals/main.cpp}
 \vspace{1em}
 
@@ -581,7 +686,16 @@ Winsock API разрабатывался как расширение Berkley Soc
 В данной работе были рассмотрены основные механизмы межпроцессорного взаимодействия, от самых простых, типа анонимных каналов, до самых сложных, таких как сокеты и порты завершения. Каждый механизм имеет свою нишу для использования.
 \vspace{1em}
 
-Отдельно выделяются только сигналы, которые значительно уступают подобному механизму из мира linux.
+\begin{enumerate}
+    \item Анонимные каналы -- достаточно слабый инструмент. Представляют собой полудуплексное средство потоковой передачи байтов между родственными процессами. Они функционируют в пределах локальной вычислительной системы и хорошо подходят для перенаправления выходного потока одной программы на вход другой. Минусом является то, что использование этого средства в некоторых случаях приводит к невозможности использования стандартных механизмов ввода/вывода (т.к. они уже заняты каналом).
+    \item Именованные каналы -- являясь объектами ядра ОС Windows, они позволяют организовать межпроцессный обмен не только в изолированной вычислительной системе, но и в локальной сети. Они обеспечивают дуплексную связь и позволяют использовать как потоковую модель, так и модель, ориентированную на сообщения. Обмен данными может быть синхронным и асинхронным.
+    \item Почтовые ящики -- хотя этот механизм обеспечивают одностороннее взаимодействие процессов, любой процесс может выступать одновременно как в роли сервера, так и в роли клиента, вследствие чего возможно двустороннее межпроцессное взаимодействие (путем создания по крайней мере двух почтовых ящиков). Сообщения хранятся в почтовом ящике до тех пор, пока сервер их не прочтет.
+    \item Shared memory -- очень быстрый и очень опасный механизм взаимодействия. Общая память должна быть защищена каким-то механизмом типа блокера, в противном случае один процесс может испортить то, что перед этим записал другой.
+    \item Сокеты -- представляет собой независимый от протокола интерфейс, который даёт возможность использовать преимущества базовых протоколов. Сокет Windows Sockets 2 представляет собой дескриптор, который может быть использован и как дескриптор файла в стандартных файловых функциях ввода и вывода. Приложение, использующее сокеты Windows, может взаимодействовать с сокетами других ОС.
+    \item Порты завершения -- обеспечивают эффективную обработку асинхронных запросов ввода/вывода на многопроцессорных системах за счёт использования очередей и пула потоков обработки.
+    \item Сигналы -- самый слабый инструмент, которому сложно придумать практическое применение. Механизм сигналов в Windows значительно уступает аналогичному механизму из мира *nix.
+\end{enumerate}
+
 \vspace{1em}
 
 Наиболее интересным средством взаимодействия оказался сокет. Он не имеет больших отличий от классического сокета Беркли, что упрощает его изучение. Работа в асинхронном режиме (порты завершения) оказывает драматическое влияние на скорость работы системы, и должна применяться в высоко нагруженных системах.

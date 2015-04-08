@@ -1,0 +1,18 @@
+[8/4/2015 12:24:49] C:\Users\win7\Documents\Visual Studio 2013\Projects\InterProcessCommunication\Debug\NamedPipeClient.exe is starting.
+[8/4/2015 12:24:49] Try to use WaitNamedPipe...
+[8/4/2015 12:24:49] Successfully connected!
+[8/4/2015 12:25:10] Client sended: 1
+
+[8/4/2015 12:25:10] Received from server: 1
+
+[8/4/2015 12:25:18] Client sended: 1
+
+[8/4/2015 12:25:18] Received from server: 1
+
+[8/4/2015 12:25:59] Client sended: exit
+
+[8/4/2015 12:25:59] Received from server: exit
+
+[8/4/2015 12:25:59] Processing exit code
+[8/4/2015 12:25:59] Shutting down.
+

@@ -1,0 +1,25 @@
+[8/4/2015 12:26:50] C:\Users\win7\Documents\Visual Studio 2013\Projects\InterProcessCommunication\Debug\NamedPipeNetworkClient.exe is starting.
+[8/4/2015 12:26:50] Try to use WaitNamedPipe...
+[8/4/2015 12:26:50] Successfully connected
+[8/4/2015 12:27:1] Inpust string is 1
+
+[8/4/2015 12:27:1] Received from server: 1
+
+
+[8/4/2015 12:27:1] Inpust string is 2
+
+[8/4/2015 12:27:1] Received from server: 2
+
+
+[8/4/2015 12:27:2] Inpust string is 3
+
+[8/4/2015 12:27:2] Received from server: 3
+
+
+[8/4/2015 12:27:5] Inpust string is exit
+
+[8/4/2015 12:27:5] Received from server: exit
+
+
+[8/4/2015 12:27:5] Shutting down.
+

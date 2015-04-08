@@ -1,0 +1,63 @@
+[8/4/2015 12:31:50] C:\Users\win7\Documents\Visual Studio 2013\Projects\InterProcessCommunication\Debug\SharedMemoryClient.exe is starting.
+[8/4/2015 12:31:51] OpenMutex successfully opened the mutex
+[8/4/2015 12:31:51] Wait For Mutex
+[8/4/2015 12:31:52] Get Mutex
+[8/4/2015 12:31:52] Read message: 29358
+[8/4/2015 12:31:52] Release Mutex
+[8/4/2015 12:31:52] Wait For Mutex
+[8/4/2015 12:31:53] Get Mutex
+[8/4/2015 12:31:53] Read message: 26962
+[8/4/2015 12:31:53] Release Mutex
+[8/4/2015 12:31:53] Wait For Mutex
+[8/4/2015 12:31:54] Get Mutex
+[8/4/2015 12:31:54] Read message: 24464
+[8/4/2015 12:31:54] Release Mutex
+[8/4/2015 12:31:54] Wait For Mutex
+[8/4/2015 12:31:55] Get Mutex
+[8/4/2015 12:31:55] Read message: 5705
+[8/4/2015 12:31:55] Release Mutex
+[8/4/2015 12:31:55] Wait For Mutex
+[8/4/2015 12:31:56] Get Mutex
+[8/4/2015 12:31:56] Read message: 28145
+[8/4/2015 12:31:56] Release Mutex
+[8/4/2015 12:31:56] Wait For Mutex
+[8/4/2015 12:31:57] Get Mutex
+[8/4/2015 12:31:57] Read message: 23281
+[8/4/2015 12:31:57] Release Mutex
+[8/4/2015 12:31:57] Wait For Mutex
+[8/4/2015 12:31:58] Get Mutex
+[8/4/2015 12:31:58] Read message: 16827
+[8/4/2015 12:31:58] Release Mutex
+[8/4/2015 12:31:58] Wait For Mutex
+[8/4/2015 12:31:59] Get Mutex
+[8/4/2015 12:31:59] Read message: 9961
+[8/4/2015 12:31:59] Release Mutex
+[8/4/2015 12:31:59] Wait For Mutex
+[8/4/2015 12:32:0] Get Mutex
+[8/4/2015 12:32:0] Read message: 491
+[8/4/2015 12:32:0] Release Mutex
+[8/4/2015 12:32:0] Wait For Mutex
+[8/4/2015 12:32:1] Get Mutex
+[8/4/2015 12:32:1] Read message: 2995
+[8/4/2015 12:32:1] Release Mutex
+[8/4/2015 12:32:1] Wait For Mutex
+[8/4/2015 12:32:2] Get Mutex
+[8/4/2015 12:32:2] Read message: 11942
+[8/4/2015 12:32:2] Release Mutex
+[8/4/2015 12:32:2] Wait For Mutex
+[8/4/2015 12:32:3] Get Mutex
+[8/4/2015 12:32:3] Read message: 4827
+[8/4/2015 12:32:3] Release Mutex
+[8/4/2015 12:32:3] Wait For Mutex
+[8/4/2015 12:32:4] Get Mutex
+[8/4/2015 12:32:4] Read message: 5436
+[8/4/2015 12:32:4] Release Mutex
+[8/4/2015 12:32:4] Wait For Mutex
+[8/4/2015 12:32:5] Get Mutex
+[8/4/2015 12:32:5] Read message: 32391
+[8/4/2015 12:32:5] Release Mutex
+[8/4/2015 12:32:5] Wait For Mutex
+[8/4/2015 12:32:6] Get Mutex
+[8/4/2015 12:32:6] Read message: 14604
+[8/4/2015 12:32:6] Release Mutex
+[8/4/2015 12:32:6] Wait For Mutex
