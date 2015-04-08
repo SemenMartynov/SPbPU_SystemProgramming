@@ -1,0 +1,105 @@
+[8/4/2015 13:58:22] CriticalSection.ThreadReader is starting.
+[8/4/2015 13:58:22] Waining for Critical Section
+[8/4/2015 13:58:22] Get Critical Section
+[8/4/2015 13:58:22] Leave Critical Section
+[8/4/2015 13:58:22] Waining for Critical Section
+[8/4/2015 13:58:22] Get Critical Section
+[8/4/2015 13:58:22] Reader 8 get data: "writer_id = 9 numMsg=   0" from position 9
+[8/4/2015 13:58:22] Leave Critical Section
+[8/4/2015 13:58:22] Waining for Critical Section
+[8/4/2015 13:58:22] Get Critical Section
+[8/4/2015 13:58:22] Reader 8 get data: "writer_id = 4 numMsg=   1" from position 1
+[8/4/2015 13:58:22] Leave Critical Section
+[8/4/2015 13:58:22] Waining for Critical Section
+[8/4/2015 13:58:22] Get Critical Section
+[8/4/2015 13:58:22] Reader 8 get data: "writer_id = 0 numMsg=   1" from position 8
+[8/4/2015 13:58:22] Leave Critical Section
+[8/4/2015 13:58:22] Waining for Critical Section
+[8/4/2015 13:58:22] Get Critical Section
+[8/4/2015 13:58:22] Reader 8 get data: "writer_id = 4 numMsg=   2" from position 1
+[8/4/2015 13:58:22] Leave Critical Section
+[8/4/2015 13:58:22] Waining for Critical Section
+[8/4/2015 13:58:22] Get Critical Section
+[8/4/2015 13:58:22] Leave Critical Section
+[8/4/2015 13:58:23] Waining for Critical Section
+[8/4/2015 13:58:23] Get Critical Section
+[8/4/2015 13:58:23] Reader 8 get data: "writer_id = 6 numMsg=   3" from position 4
+[8/4/2015 13:58:23] Leave Critical Section
+[8/4/2015 13:58:23] Waining for Critical Section
+[8/4/2015 13:58:23] Get Critical Section
+[8/4/2015 13:58:23] Leave Critical Section
+[8/4/2015 13:58:23] Waining for Critical Section
+[8/4/2015 13:58:23] Get Critical Section
+[8/4/2015 13:58:23] Reader 8 get data: "writer_id = 6 numMsg=   4" from position 4
+[8/4/2015 13:58:23] Leave Critical Section
+[8/4/2015 13:58:23] Waining for Critical Section
+[8/4/2015 13:58:23] Get Critical Section
+[8/4/2015 13:58:23] Leave Critical Section
+[8/4/2015 13:58:23] Waining for Critical Section
+[8/4/2015 13:58:23] Get Critical Section
+[8/4/2015 13:58:23] Reader 8 get data: "writer_id = 7 numMsg=   5" from position 4
+[8/4/2015 13:58:23] Leave Critical Section
+[8/4/2015 13:58:23] Waining for Critical Section
+[8/4/2015 13:58:23] Get Critical Section
+[8/4/2015 13:58:23] Leave Critical Section
+[8/4/2015 13:58:23] Waining for Critical Section
+[8/4/2015 13:58:23] Get Critical Section
+[8/4/2015 13:58:23] Reader 8 get data: "writer_id = 2 numMsg=   6" from position 7
+[8/4/2015 13:58:23] Leave Critical Section
+[8/4/2015 13:58:23] Waining for Critical Section
+[8/4/2015 13:58:23] Get Critical Section
+[8/4/2015 13:58:23] Leave Critical Section
+[8/4/2015 13:58:23] Waining for Critical Section
+[8/4/2015 13:58:23] Get Critical Section
+[8/4/2015 13:58:23] Reader 8 get data: "writer_id = 9 numMsg=   7" from position 9
+[8/4/2015 13:58:23] Leave Critical Section
+[8/4/2015 13:58:24] Waining for Critical Section
+[8/4/2015 13:58:24] Get Critical Section
+[8/4/2015 13:58:24] Reader 8 get data: "writer_id = 5 numMsg=   8" from position 1
+[8/4/2015 13:58:24] Leave Critical Section
+[8/4/2015 13:58:24] Waining for Critical Section
+[8/4/2015 13:58:24] Get Critical Section
+[8/4/2015 13:58:24] Leave Critical Section
+[8/4/2015 13:58:24] Waining for Critical Section
+[8/4/2015 13:58:24] Get Critical Section
+[8/4/2015 13:58:24] Reader 8 get data: "writer_id = 8 numMsg=   9" from position 4
+[8/4/2015 13:58:24] Leave Critical Section
+[8/4/2015 13:58:24] Waining for Critical Section
+[8/4/2015 13:58:24] Get Critical Section
+[8/4/2015 13:58:24] Leave Critical Section
+[8/4/2015 13:58:24] Waining for Critical Section
+[8/4/2015 13:58:24] Get Critical Section
+[8/4/2015 13:58:24] Reader 8 get data: "writer_id = 7 numMsg=  10" from position 4
+[8/4/2015 13:58:24] Leave Critical Section
+[8/4/2015 13:58:24] Waining for Critical Section
+[8/4/2015 13:58:24] Get Critical Section
+[8/4/2015 13:58:24] Leave Critical Section
+[8/4/2015 13:58:24] Waining for Critical Section
+[8/4/2015 13:58:24] Get Critical Section
+[8/4/2015 13:58:24] Reader 8 get data: "writer_id = 6 numMsg=  11" from position 5
+[8/4/2015 13:58:24] Leave Critical Section
+[8/4/2015 13:58:24] Waining for Critical Section
+[8/4/2015 13:58:24] Get Critical Section
+[8/4/2015 13:58:24] Leave Critical Section
+[8/4/2015 13:58:24] Waining for Critical Section
+[8/4/2015 13:58:24] Get Critical Section
+[8/4/2015 13:58:24] Reader 8 get data: "writer_id = 3 numMsg=  12" from position 7
+[8/4/2015 13:58:24] Leave Critical Section
+[8/4/2015 13:58:25] Waining for Critical Section
+[8/4/2015 13:58:25] Get Critical Section
+[8/4/2015 13:58:25] Leave Critical Section
+[8/4/2015 13:58:25] Waining for Critical Section
+[8/4/2015 13:58:25] Get Critical Section
+[8/4/2015 13:58:25] Reader 8 get data: "writer_id = 0 numMsg=  13" from position 6
+[8/4/2015 13:58:25] Leave Critical Section
+[8/4/2015 13:58:25] Waining for Critical Section
+[8/4/2015 13:58:25] Get Critical Section
+[8/4/2015 13:58:25] Reader 8 get data: "writer_id = 5 numMsg=  14" from position 1
+[8/4/2015 13:58:25] Leave Critical Section
+[8/4/2015 13:58:25] Waining for Critical Section
+[8/4/2015 13:58:25] Get Critical Section
+[8/4/2015 13:58:25] Reader 8 get data: "writer_id = 0 numMsg=  14" from position 7
+[8/4/2015 13:58:25] Leave Critical Section
+[8/4/2015 13:58:25] Reader 8 finishing work
+[8/4/2015 13:58:25] Shutting down.
+

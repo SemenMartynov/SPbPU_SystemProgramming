@@ -1,0 +1,26 @@
+[8/4/2015 14:9:45] OptimalReaderWriter is starting.
+[8/4/2015 14:9:45] Using default config
+[8/4/2015 14:9:45] Config:
+	NumOfReaders = 10
+	ReadersDelay = 100
+	NumOfWriters = 1
+	WritersDelay = 200
+	SizeOfQueue = 10
+	ttl = 3
+[8/4/2015 14:9:45] Total num of threads is 12
+[8/4/2015 14:9:45] Create readers
+[8/4/2015 14:9:45] Count = 0
+[8/4/2015 14:9:45] Count = 1
+[8/4/2015 14:9:45] Count = 2
+[8/4/2015 14:9:45] Count = 3
+[8/4/2015 14:9:45] Count = 4
+[8/4/2015 14:9:45] Count = 5
+[8/4/2015 14:9:45] Count = 6
+[8/4/2015 14:9:45] Count = 7
+[8/4/2015 14:9:45] Count = 8
+[8/4/2015 14:9:45] Count = 9
+[8/4/2015 14:9:45] Create writers
+[8/4/2015 14:9:45] count = 10
+[8/4/2015 14:9:45] Create TimeManager
+[8/4/2015 14:9:45] Count = 11
+[8/4/2015 14:9:45] Successfully created threads!

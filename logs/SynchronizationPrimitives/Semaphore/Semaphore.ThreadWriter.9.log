@@ -1,0 +1,60 @@
+[8/4/2015 13:56:2] Semaphore.ThreadWriter is starting.
+[8/4/2015 13:56:2] Waining for Semaphore
+[8/4/2015 13:56:2] Get Semaphore
+[8/4/2015 13:56:2] Writer 9 put data: "writer_id = 9 numMsg=   0" in position 4
+[8/4/2015 13:56:2] Release Semaphore
+[8/4/2015 13:56:2] Waining for Semaphore
+[8/4/2015 13:56:2] Get Semaphore
+[8/4/2015 13:56:2] Writer 9 put data: "writer_id = 9 numMsg=   1" in position 4
+[8/4/2015 13:56:2] Release Semaphore
+[8/4/2015 13:56:2] Waining for Semaphore
+[8/4/2015 13:56:2] Get Semaphore
+[8/4/2015 13:56:2] Writer 9 put data: "writer_id = 9 numMsg=   2" in position 3
+[8/4/2015 13:56:2] Release Semaphore
+[8/4/2015 13:56:2] Waining for Semaphore
+[8/4/2015 13:56:2] Get Semaphore
+[8/4/2015 13:56:2] Writer 9 put data: "writer_id = 9 numMsg=   3" in position 3
+[8/4/2015 13:56:2] Release Semaphore
+[8/4/2015 13:56:3] Waining for Semaphore
+[8/4/2015 13:56:3] Get Semaphore
+[8/4/2015 13:56:3] Writer 9 put data: "writer_id = 9 numMsg=   4" in position 4
+[8/4/2015 13:56:3] Release Semaphore
+[8/4/2015 13:56:3] Waining for Semaphore
+[8/4/2015 13:56:3] Get Semaphore
+[8/4/2015 13:56:3] Writer 9 put data: "writer_id = 9 numMsg=   5" in position 3
+[8/4/2015 13:56:3] Release Semaphore
+[8/4/2015 13:56:3] Waining for Semaphore
+[8/4/2015 13:56:3] Get Semaphore
+[8/4/2015 13:56:3] Writer 9 put data: "writer_id = 9 numMsg=   6" in position 3
+[8/4/2015 13:56:3] Release Semaphore
+[8/4/2015 13:56:3] Waining for Semaphore
+[8/4/2015 13:56:3] Get Semaphore
+[8/4/2015 13:56:3] Writer 9 put data: "writer_id = 9 numMsg=   7" in position 4
+[8/4/2015 13:56:3] Release Semaphore
+[8/4/2015 13:56:4] Waining for Semaphore
+[8/4/2015 13:56:4] Get Semaphore
+[8/4/2015 13:56:4] Writer 9 put data: "writer_id = 9 numMsg=   8" in position 5
+[8/4/2015 13:56:4] Release Semaphore
+[8/4/2015 13:56:4] Waining for Semaphore
+[8/4/2015 13:56:4] Get Semaphore
+[8/4/2015 13:56:4] Writer 9 put data: "writer_id = 9 numMsg=   9" in position 5
+[8/4/2015 13:56:4] Release Semaphore
+[8/4/2015 13:56:4] Waining for Semaphore
+[8/4/2015 13:56:4] Get Semaphore
+[8/4/2015 13:56:4] Writer 9 put data: "writer_id = 9 numMsg=  10" in position 4
+[8/4/2015 13:56:4] Release Semaphore
+[8/4/2015 13:56:4] Waining for Semaphore
+[8/4/2015 13:56:4] Get Semaphore
+[8/4/2015 13:56:4] Writer 9 put data: "writer_id = 9 numMsg=  11" in position 4
+[8/4/2015 13:56:4] Release Semaphore
+[8/4/2015 13:56:4] Waining for Semaphore
+[8/4/2015 13:56:4] Get Semaphore
+[8/4/2015 13:56:4] Writer 9 put data: "writer_id = 9 numMsg=  12" in position 4
+[8/4/2015 13:56:4] Release Semaphore
+[8/4/2015 13:56:5] Waining for Semaphore
+[8/4/2015 13:56:5] Get Semaphore
+[8/4/2015 13:56:5] Writer 9 put data: "writer_id = 9 numMsg=  13" in position 4
+[8/4/2015 13:56:5] Release Semaphore
+[8/4/2015 13:56:5] Writer 9 finishing work
+[8/4/2015 13:56:5] Shutting down.
+

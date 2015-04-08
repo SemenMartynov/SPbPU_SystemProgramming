@@ -1,0 +1,38 @@
+[8/4/2015 13:56:2] Semaphore is starting.
+[8/4/2015 13:56:2] Using default config
+[8/4/2015 13:56:2] Config:
+	NumOfReaders = 10
+	ReadersDelay = 100
+	NumOfWriters = 10
+	WritersDelay = 200
+	SizeOfQueue = 10
+	ttl = 3
+[8/4/2015 13:56:2] Total num of threads is 21
+[8/4/2015 13:56:2] Create readers
+[8/4/2015 13:56:2] Count = 0
+[8/4/2015 13:56:2] Count = 1
+[8/4/2015 13:56:2] Count = 2
+[8/4/2015 13:56:2] Count = 3
+[8/4/2015 13:56:2] Count = 4
+[8/4/2015 13:56:2] Count = 5
+[8/4/2015 13:56:2] Count = 6
+[8/4/2015 13:56:2] Count = 7
+[8/4/2015 13:56:2] Count = 8
+[8/4/2015 13:56:2] Count = 9
+[8/4/2015 13:56:2] Create writers
+[8/4/2015 13:56:2] count = 10
+[8/4/2015 13:56:2] count = 11
+[8/4/2015 13:56:2] count = 12
+[8/4/2015 13:56:2] count = 13
+[8/4/2015 13:56:2] count = 14
+[8/4/2015 13:56:2] count = 15
+[8/4/2015 13:56:2] count = 16
+[8/4/2015 13:56:2] count = 17
+[8/4/2015 13:56:2] count = 18
+[8/4/2015 13:56:2] count = 19
+[8/4/2015 13:56:2] Create TimeManager
+[8/4/2015 13:56:2] Count = 20
+[8/4/2015 13:56:2] Successfully created threads!
+[8/4/2015 13:56:5] All tasks are done!
+[8/4/2015 13:56:22] Shutting down.
+

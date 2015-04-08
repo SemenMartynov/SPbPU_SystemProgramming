@@ -1,0 +1,93 @@
+[8/4/2015 13:56:2] Semaphore.ThreadReader is starting.
+[8/4/2015 13:56:2] Waining for Semaphore
+[8/4/2015 13:56:2] Get Semaphore
+[8/4/2015 13:56:2] Reader 8 get data: "writer_id = 7 numMsg=   0" from position 6
+[8/4/2015 13:56:2] Release Semaphore
+[8/4/2015 13:56:2] Waining for Semaphore
+[8/4/2015 13:56:2] Get Semaphore
+[8/4/2015 13:56:2] Release Semaphore
+[8/4/2015 13:56:2] Waining for Semaphore
+[8/4/2015 13:56:2] Get Semaphore
+[8/4/2015 13:56:2] Reader 8 get data: "writer_id = 6 numMsg=   1" from position 7
+[8/4/2015 13:56:2] Release Semaphore
+[8/4/2015 13:56:2] Waining for Semaphore
+[8/4/2015 13:56:2] Get Semaphore
+[8/4/2015 13:56:2] Reader 8 get data: "writer_id = 0 numMsg=   2" from position 1
+[8/4/2015 13:56:2] Release Semaphore
+[8/4/2015 13:56:2] Waining for Semaphore
+[8/4/2015 13:56:2] Get Semaphore
+[8/4/2015 13:56:2] Reader 8 get data: "writer_id = 4 numMsg=   2" from position 9
+[8/4/2015 13:56:2] Release Semaphore
+[8/4/2015 13:56:3] Waining for Semaphore
+[8/4/2015 13:56:3] Get Semaphore
+[8/4/2015 13:56:3] Reader 8 get data: "writer_id = 2 numMsg=   3" from position 1
+[8/4/2015 13:56:3] Release Semaphore
+[8/4/2015 13:56:3] Waining for Semaphore
+[8/4/2015 13:56:3] Get Semaphore
+[8/4/2015 13:56:3] Release Semaphore
+[8/4/2015 13:56:3] Waining for Semaphore
+[8/4/2015 13:56:3] Get Semaphore
+[8/4/2015 13:56:3] Reader 8 get data: "writer_id = 8 numMsg=   4" from position 3
+[8/4/2015 13:56:3] Release Semaphore
+[8/4/2015 13:56:3] Waining for Semaphore
+[8/4/2015 13:56:3] Get Semaphore
+[8/4/2015 13:56:3] Release Semaphore
+[8/4/2015 13:56:3] Waining for Semaphore
+[8/4/2015 13:56:3] Get Semaphore
+[8/4/2015 13:56:3] Reader 8 get data: "writer_id = 7 numMsg=   5" from position 6
+[8/4/2015 13:56:3] Release Semaphore
+[8/4/2015 13:56:3] Waining for Semaphore
+[8/4/2015 13:56:3] Get Semaphore
+[8/4/2015 13:56:3] Reader 8 get data: "writer_id = 5 numMsg=   6" from position 2
+[8/4/2015 13:56:3] Release Semaphore
+[8/4/2015 13:56:3] Waining for Semaphore
+[8/4/2015 13:56:3] Get Semaphore
+[8/4/2015 13:56:3] Reader 8 get data: "writer_id = 4 numMsg=   6" from position 9
+[8/4/2015 13:56:3] Release Semaphore
+[8/4/2015 13:56:3] Waining for Semaphore
+[8/4/2015 13:56:3] Get Semaphore
+[8/4/2015 13:56:3] Reader 8 get data: "writer_id = 8 numMsg=   7" from position 5
+[8/4/2015 13:56:3] Release Semaphore
+[8/4/2015 13:56:4] Waining for Semaphore
+[8/4/2015 13:56:4] Get Semaphore
+[8/4/2015 13:56:4] Release Semaphore
+[8/4/2015 13:56:4] Waining for Semaphore
+[8/4/2015 13:56:4] Get Semaphore
+[8/4/2015 13:56:4] Reader 8 get data: "writer_id = 7 numMsg=   8" from position 7
+[8/4/2015 13:56:4] Release Semaphore
+[8/4/2015 13:56:4] Waining for Semaphore
+[8/4/2015 13:56:4] Get Semaphore
+[8/4/2015 13:56:4] Release Semaphore
+[8/4/2015 13:56:4] Waining for Semaphore
+[8/4/2015 13:56:4] Get Semaphore
+[8/4/2015 13:56:4] Release Semaphore
+[8/4/2015 13:56:4] Waining for Semaphore
+[8/4/2015 13:56:4] Get Semaphore
+[8/4/2015 13:56:4] Release Semaphore
+[8/4/2015 13:56:4] Waining for Semaphore
+[8/4/2015 13:56:4] Get Semaphore
+[8/4/2015 13:56:4] Reader 8 get data: "writer_id = 4 numMsg=  10" from position 8
+[8/4/2015 13:56:4] Release Semaphore
+[8/4/2015 13:56:4] Waining for Semaphore
+[8/4/2015 13:56:4] Get Semaphore
+[8/4/2015 13:56:4] Release Semaphore
+[8/4/2015 13:56:4] Waining for Semaphore
+[8/4/2015 13:56:4] Get Semaphore
+[8/4/2015 13:56:4] Release Semaphore
+[8/4/2015 13:56:4] Waining for Semaphore
+[8/4/2015 13:56:4] Get Semaphore
+[8/4/2015 13:56:4] Reader 8 get data: "writer_id = 8 numMsg=  12" from position 3
+[8/4/2015 13:56:4] Release Semaphore
+[8/4/2015 13:56:5] Waining for Semaphore
+[8/4/2015 13:56:5] Get Semaphore
+[8/4/2015 13:56:5] Release Semaphore
+[8/4/2015 13:56:5] Waining for Semaphore
+[8/4/2015 13:56:5] Get Semaphore
+[8/4/2015 13:56:5] Release Semaphore
+[8/4/2015 13:56:5] Waining for Semaphore
+[8/4/2015 13:56:5] Get Semaphore
+[8/4/2015 13:56:5] Reader 8 get data: "writer_id = 0 numMsg=  14" from position 0
+[8/4/2015 13:56:5] Release Semaphore
+[8/4/2015 13:56:5] Reader 8 finishing work
+[8/4/2015 13:56:5] Shutting down.
+

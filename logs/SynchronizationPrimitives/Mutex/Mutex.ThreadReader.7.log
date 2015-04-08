@@ -1,0 +1,102 @@
+[8/4/2015 13:54:47] Mutex.ThreadReader is starting.
+[8/4/2015 13:54:47] Waining for Mutex
+[8/4/2015 13:54:47] Get Mutex
+[8/4/2015 13:54:47] Reader 7 get data: "writer_id = 7 numMsg=   0" from position 0
+[8/4/2015 13:54:47] Release Mutex
+[8/4/2015 13:54:48] Waining for Mutex
+[8/4/2015 13:54:48] Get Mutex
+[8/4/2015 13:54:48] Release Mutex
+[8/4/2015 13:54:48] Waining for Mutex
+[8/4/2015 13:54:48] Get Mutex
+[8/4/2015 13:54:48] Reader 7 get data: "writer_id = 4 numMsg=   1" from position 12
+[8/4/2015 13:54:48] Release Mutex
+[8/4/2015 13:54:48] Waining for Mutex
+[8/4/2015 13:54:48] Get Mutex
+[8/4/2015 13:54:48] Release Mutex
+[8/4/2015 13:54:48] Waining for Mutex
+[8/4/2015 13:54:48] Get Mutex
+[8/4/2015 13:54:48] Reader 7 get data: "writer_id = 9 numMsg=   2" from position 24
+[8/4/2015 13:54:48] Release Mutex
+[8/4/2015 13:54:48] Waining for Mutex
+[8/4/2015 13:54:48] Get Mutex
+[8/4/2015 13:54:48] Reader 7 get data: "writer_id = 7 numMsg=   3" from position 30
+[8/4/2015 13:54:48] Release Mutex
+[8/4/2015 13:54:48] Waining for Mutex
+[8/4/2015 13:54:48] Get Mutex
+[8/4/2015 13:54:48] Reader 7 get data: "writer_id = 5 numMsg=   3" from position 36
+[8/4/2015 13:54:48] Release Mutex
+[8/4/2015 13:54:48] Waining for Mutex
+[8/4/2015 13:54:48] Get Mutex
+[8/4/2015 13:54:48] Reader 7 get data: "writer_id = 7 numMsg=   4" from position 40
+[8/4/2015 13:54:48] Release Mutex
+[8/4/2015 13:54:48] Waining for Mutex
+[8/4/2015 13:54:48] Get Mutex
+[8/4/2015 13:54:48] Reader 7 get data: "writer_id = 3 numMsg=   4" from position 49
+[8/4/2015 13:54:48] Release Mutex
+[8/4/2015 13:54:48] Waining for Mutex
+[8/4/2015 13:54:48] Get Mutex
+[8/4/2015 13:54:48] Reader 7 get data: "writer_id = 1 numMsg=   5" from position 51
+[8/4/2015 13:54:49] Release Mutex
+[8/4/2015 13:54:49] Waining for Mutex
+[8/4/2015 13:54:49] Get Mutex
+[8/4/2015 13:54:49] Release Mutex
+[8/4/2015 13:54:49] Waining for Mutex
+[8/4/2015 13:54:49] Get Mutex
+[8/4/2015 13:54:49] Reader 7 get data: "writer_id = 5 numMsg=   6" from position 63
+[8/4/2015 13:54:49] Release Mutex
+[8/4/2015 13:54:49] Waining for Mutex
+[8/4/2015 13:54:49] Get Mutex
+[8/4/2015 13:54:49] Release Mutex
+[8/4/2015 13:54:49] Waining for Mutex
+[8/4/2015 13:54:49] Get Mutex
+[8/4/2015 13:54:49] Reader 7 get data: "writer_id = 5 numMsg=   7" from position 74
+[8/4/2015 13:54:49] Release Mutex
+[8/4/2015 13:54:49] Waining for Mutex
+[8/4/2015 13:54:49] Get Mutex
+[8/4/2015 13:54:49] Release Mutex
+[8/4/2015 13:54:49] Waining for Mutex
+[8/4/2015 13:54:49] Get Mutex
+[8/4/2015 13:54:49] Reader 7 get data: "writer_id = 9 numMsg=   8" from position 84
+[8/4/2015 13:54:49] Release Mutex
+[8/4/2015 13:54:49] Waining for Mutex
+[8/4/2015 13:54:49] Get Mutex
+[8/4/2015 13:54:49] Reader 7 get data: "writer_id = 7 numMsg=   9" from position 90
+[8/4/2015 13:54:49] Release Mutex
+[8/4/2015 13:54:49] Waining for Mutex
+[8/4/2015 13:54:49] Get Mutex
+[8/4/2015 13:54:49] Reader 7 get data: "writer_id = 2 numMsg=   9" from position 95
+[8/4/2015 13:54:49] Release Mutex
+[8/4/2015 13:54:49] Waining for Mutex
+[8/4/2015 13:54:49] Get Mutex
+[8/4/2015 13:54:49] Release Mutex
+[8/4/2015 13:54:50] Waining for Mutex
+[8/4/2015 13:54:50] Get Mutex
+[8/4/2015 13:54:50] Reader 7 get data: "writer_id = 8 numMsg=  10" from position 108
+[8/4/2015 13:54:50] Release Mutex
+[8/4/2015 13:54:50] Waining for Mutex
+[8/4/2015 13:54:50] Get Mutex
+[8/4/2015 13:54:50] Reader 7 get data: "writer_id = 1 numMsg=  11" from position 111
+[8/4/2015 13:54:50] Release Mutex
+[8/4/2015 13:54:50] Waining for Mutex
+[8/4/2015 13:54:50] Get Mutex
+[8/4/2015 13:54:50] Release Mutex
+[8/4/2015 13:54:50] Waining for Mutex
+[8/4/2015 13:54:50] Get Mutex
+[8/4/2015 13:54:50] Release Mutex
+[8/4/2015 13:54:50] Waining for Mutex
+[8/4/2015 13:54:50] Get Mutex
+[8/4/2015 13:54:50] Release Mutex
+[8/4/2015 13:54:50] Waining for Mutex
+[8/4/2015 13:54:50] Get Mutex
+[8/4/2015 13:54:50] Reader 7 get data: "writer_id = 2 numMsg=  13" from position 134
+[8/4/2015 13:54:50] Release Mutex
+[8/4/2015 13:54:50] Waining for Mutex
+[8/4/2015 13:54:50] Get Mutex
+[8/4/2015 13:54:50] Release Mutex
+[8/4/2015 13:54:50] Waining for Mutex
+[8/4/2015 13:54:50] Get Mutex
+[8/4/2015 13:54:50] Reader 7 get data: "writer_id = 5 numMsg=  14" from position 144
+[8/4/2015 13:54:50] Release Mutex
+[8/4/2015 13:54:51] Reader 7 finishing work
+[8/4/2015 13:54:51] Shutting down.
+

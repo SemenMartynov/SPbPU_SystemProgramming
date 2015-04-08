@@ -1,0 +1,38 @@
+[8/4/2015 13:58:22] CriticalSection is starting.
+[8/4/2015 13:58:22] Using default config
+[8/4/2015 13:58:22] Config:
+	NumOfReaders = 10
+	ReadersDelay = 100
+	NumOfWriters = 10
+	WritersDelay = 200
+	SizeOfQueue = 10
+	ttl = 3
+[8/4/2015 13:58:22] Total num of threads is 21
+[8/4/2015 13:58:22] Create readers
+[8/4/2015 13:58:22] Count = 0
+[8/4/2015 13:58:22] Count = 1
+[8/4/2015 13:58:22] Count = 2
+[8/4/2015 13:58:22] Count = 3
+[8/4/2015 13:58:22] Count = 4
+[8/4/2015 13:58:22] Count = 5
+[8/4/2015 13:58:22] Count = 6
+[8/4/2015 13:58:22] Count = 7
+[8/4/2015 13:58:22] Count = 8
+[8/4/2015 13:58:22] Count = 9
+[8/4/2015 13:58:22] Create writers
+[8/4/2015 13:58:22] count = 10
+[8/4/2015 13:58:22] count = 11
+[8/4/2015 13:58:22] count = 12
+[8/4/2015 13:58:22] count = 13
+[8/4/2015 13:58:22] count = 14
+[8/4/2015 13:58:22] count = 15
+[8/4/2015 13:58:22] count = 16
+[8/4/2015 13:58:22] count = 17
+[8/4/2015 13:58:22] count = 18
+[8/4/2015 13:58:22] count = 19
+[8/4/2015 13:58:22] Create TimeManager
+[8/4/2015 13:58:22] Count = 20
+[8/4/2015 13:58:22] Successfully created threads!
+[8/4/2015 13:58:25] All tasks are done!
+[8/4/2015 13:58:27] Shutting down.
+

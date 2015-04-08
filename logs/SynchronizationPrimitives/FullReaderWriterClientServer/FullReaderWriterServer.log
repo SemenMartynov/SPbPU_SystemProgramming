@@ -1,0 +1,16 @@
+[8/4/2015 14:17:31] FullReaderWriterServer is starting.
+[8/4/2015 14:17:31] Windows Socket environment ready
+[8/4/2015 14:17:31] Server socket created
+[8/4/2015 14:17:31] Bind completed
+[8/4/2015 14:17:31] Ready for connection on 127.0.0.1:5050
+[8/4/2015 14:17:47] Client connected from 127.0.0.1:8384
+[8/4/2015 14:17:49] System: aaa has joined this chat
+[8/4/2015 14:17:58] Client connected from 127.0.0.1:8640
+[8/4/2015 14:17:59] System: bbb has joined this chat
+[8/4/2015 14:18:7] Client connected from 127.0.0.1:8896
+[8/4/2015 14:18:8] System: ccc has joined this chat
+[8/4/2015 14:18:10] [08/04/2015 14:18:10] aaa: 111
+[8/4/2015 14:18:12] [08/04/2015 14:18:12] bbb: 222
+[8/4/2015 14:18:13] [08/04/2015 14:18:13] ccc: 333
+[8/4/2015 14:18:16] Shutting down.
+

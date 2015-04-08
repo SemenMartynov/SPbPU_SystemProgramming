@@ -1,0 +1,29 @@
+[8/4/2015 14:5:7] ProcessWriter is starting.
+[8/4/2015 14:5:7] Using default config
+[8/4/2015 14:5:7] Config:
+	NumOfReaders = 10
+	ReadersDelay = 100
+	NumOfWriters = 1
+	WritersDelay = 200
+	SizeOfQueue = 10
+	ttl = 3
+[8/4/2015 14:5:7] Total num of threads is 12
+[8/4/2015 14:5:7] Create readers
+[8/4/2015 14:5:7] Count = 0
+[8/4/2015 14:5:7] Count = 1
+[8/4/2015 14:5:7] Count = 2
+[8/4/2015 14:5:7] Count = 3
+[8/4/2015 14:5:7] Count = 4
+[8/4/2015 14:5:7] Count = 5
+[8/4/2015 14:5:7] Count = 6
+[8/4/2015 14:5:7] Count = 7
+[8/4/2015 14:5:7] Count = 8
+[8/4/2015 14:5:7] Count = 9
+[8/4/2015 14:5:7] Create writers
+[8/4/2015 14:5:7] count = 10
+[8/4/2015 14:5:7] Create TimeManager
+[8/4/2015 14:5:7] Count = 11
+[8/4/2015 14:5:7] Successfully created threads!
+[8/4/2015 14:5:20] All tasks are done!
+[8/4/2015 14:5:21] Shutting down.
+

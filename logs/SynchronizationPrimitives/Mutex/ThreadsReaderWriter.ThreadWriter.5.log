@@ -1,0 +1,64 @@
+[8/4/2015 13:54:47] ThreadsReaderWriter.ThreadWriter is starting.
+[8/4/2015 13:54:47] Waining for Mutex
+[8/4/2015 13:54:47] Get Mutex
+[8/4/2015 13:54:47] Writer 5 put data: "writer_id = 5 numMsg=   0" in position 6
+[8/4/2015 13:54:47] Release Mutex
+[8/4/2015 13:54:48] Waining for Mutex
+[8/4/2015 13:54:48] Get Mutex
+[8/4/2015 13:54:48] Writer 5 put data: "writer_id = 5 numMsg=   1" in position 15
+[8/4/2015 13:54:48] Release Mutex
+[8/4/2015 13:54:48] Waining for Mutex
+[8/4/2015 13:54:48] Get Mutex
+[8/4/2015 13:54:48] Writer 5 put data: "writer_id = 5 numMsg=   2" in position 25
+[8/4/2015 13:54:48] Release Mutex
+[8/4/2015 13:54:48] Waining for Mutex
+[8/4/2015 13:54:48] Get Mutex
+[8/4/2015 13:54:48] Writer 5 put data: "writer_id = 5 numMsg=   3" in position 36
+[8/4/2015 13:54:48] Release Mutex
+[8/4/2015 13:54:48] Waining for Mutex
+[8/4/2015 13:54:48] Get Mutex
+[8/4/2015 13:54:48] Writer 5 put data: "writer_id = 5 numMsg=   4" in position 45
+[8/4/2015 13:54:48] Release Mutex
+[8/4/2015 13:54:49] Waining for Mutex
+[8/4/2015 13:54:49] Get Mutex
+[8/4/2015 13:54:49] Writer 5 put data: "writer_id = 5 numMsg=   5" in position 55
+[8/4/2015 13:54:49] Release Mutex
+[8/4/2015 13:54:49] Waining for Mutex
+[8/4/2015 13:54:49] Get Mutex
+[8/4/2015 13:54:49] Writer 5 put data: "writer_id = 5 numMsg=   6" in position 63
+[8/4/2015 13:54:49] Release Mutex
+[8/4/2015 13:54:49] Waining for Mutex
+[8/4/2015 13:54:49] Get Mutex
+[8/4/2015 13:54:49] Writer 5 put data: "writer_id = 5 numMsg=   7" in position 74
+[8/4/2015 13:54:49] Release Mutex
+[8/4/2015 13:54:49] Waining for Mutex
+[8/4/2015 13:54:49] Get Mutex
+[8/4/2015 13:54:49] Writer 5 put data: "writer_id = 5 numMsg=   8" in position 83
+[8/4/2015 13:54:49] Release Mutex
+[8/4/2015 13:54:49] Waining for Mutex
+[8/4/2015 13:54:49] Get Mutex
+[8/4/2015 13:54:49] Writer 5 put data: "writer_id = 5 numMsg=   9" in position 93
+[8/4/2015 13:54:49] Release Mutex
+[8/4/2015 13:54:50] Waining for Mutex
+[8/4/2015 13:54:50] Get Mutex
+[8/4/2015 13:54:50] Writer 5 put data: "writer_id = 5 numMsg=  10" in position 104
+[8/4/2015 13:54:50] Release Mutex
+[8/4/2015 13:54:50] Waining for Mutex
+[8/4/2015 13:54:50] Get Mutex
+[8/4/2015 13:54:50] Writer 5 put data: "writer_id = 5 numMsg=  11" in position 114
+[8/4/2015 13:54:50] Release Mutex
+[8/4/2015 13:54:50] Waining for Mutex
+[8/4/2015 13:54:50] Get Mutex
+[8/4/2015 13:54:50] Writer 5 put data: "writer_id = 5 numMsg=  12" in position 125
+[8/4/2015 13:54:50] Release Mutex
+[8/4/2015 13:54:50] Waining for Mutex
+[8/4/2015 13:54:50] Get Mutex
+[8/4/2015 13:54:50] Writer 5 put data: "writer_id = 5 numMsg=  13" in position 135
+[8/4/2015 13:54:50] Release Mutex
+[8/4/2015 13:54:50] Waining for Mutex
+[8/4/2015 13:54:50] Get Mutex
+[8/4/2015 13:54:50] Writer 5 put data: "writer_id = 5 numMsg=  14" in position 144
+[8/4/2015 13:54:50] Release Mutex
+[8/4/2015 13:54:51] Writer 5 finishing work
+[8/4/2015 13:54:51] Shutting down.
+

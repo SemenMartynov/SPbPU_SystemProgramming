@@ -1,0 +1,29 @@
+[8/4/2015 14:2:31] ThreadsReaderWriter is starting.
+[8/4/2015 14:2:31] Using default config
+[8/4/2015 14:2:31] Config:
+	NumOfReaders = 10
+	ReadersDelay = 100
+	NumOfWriters = 1
+	WritersDelay = 200
+	SizeOfQueue = 10
+	ttl = 3
+[8/4/2015 14:2:31] Total num of threads is 12
+[8/4/2015 14:2:31] Create readers
+[8/4/2015 14:2:31] Count = 0
+[8/4/2015 14:2:31] Count = 1
+[8/4/2015 14:2:31] Count = 2
+[8/4/2015 14:2:31] Count = 3
+[8/4/2015 14:2:31] Count = 4
+[8/4/2015 14:2:31] Count = 5
+[8/4/2015 14:2:31] Count = 6
+[8/4/2015 14:2:31] Count = 7
+[8/4/2015 14:2:31] Count = 8
+[8/4/2015 14:2:31] Count = 9
+[8/4/2015 14:2:31] Create writers
+[8/4/2015 14:2:31] count = 10
+[8/4/2015 14:2:31] Create TimeManager
+[8/4/2015 14:2:31] Count = 11
+[8/4/2015 14:2:31] Successfully created threads!
+[8/4/2015 14:2:34] All tasks are done!
+[8/4/2015 14:2:37] Shutting down.
+

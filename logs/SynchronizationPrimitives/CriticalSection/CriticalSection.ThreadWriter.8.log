@@ -1,0 +1,64 @@
+[8/4/2015 13:58:22] CriticalSection.ThreadWriter is starting.
+[8/4/2015 13:58:22] Waining for Critical Section
+[8/4/2015 13:58:22] Get Critical Section
+[8/4/2015 13:58:22] Writer 8 put data: "writer_id = 8 numMsg=   0" in position 6
+[8/4/2015 13:58:22] Leave Critical Section
+[8/4/2015 13:58:22] Waining for Critical Section
+[8/4/2015 13:58:22] Get Critical Section
+[8/4/2015 13:58:22] Writer 8 put data: "writer_id = 8 numMsg=   1" in position 5
+[8/4/2015 13:58:22] Leave Critical Section
+[8/4/2015 13:58:22] Waining for Critical Section
+[8/4/2015 13:58:22] Get Critical Section
+[8/4/2015 13:58:22] Writer 8 put data: "writer_id = 8 numMsg=   2" in position 5
+[8/4/2015 13:58:22] Leave Critical Section
+[8/4/2015 13:58:23] Waining for Critical Section
+[8/4/2015 13:58:23] Get Critical Section
+[8/4/2015 13:58:23] Writer 8 put data: "writer_id = 8 numMsg=   3" in position 5
+[8/4/2015 13:58:23] Leave Critical Section
+[8/4/2015 13:58:23] Waining for Critical Section
+[8/4/2015 13:58:23] Get Critical Section
+[8/4/2015 13:58:23] Writer 8 put data: "writer_id = 8 numMsg=   4" in position 5
+[8/4/2015 13:58:23] Leave Critical Section
+[8/4/2015 13:58:23] Waining for Critical Section
+[8/4/2015 13:58:23] Get Critical Section
+[8/4/2015 13:58:23] Writer 8 put data: "writer_id = 8 numMsg=   5" in position 6
+[8/4/2015 13:58:23] Leave Critical Section
+[8/4/2015 13:58:23] Waining for Critical Section
+[8/4/2015 13:58:23] Get Critical Section
+[8/4/2015 13:58:23] Writer 8 put data: "writer_id = 8 numMsg=   6" in position 5
+[8/4/2015 13:58:23] Leave Critical Section
+[8/4/2015 13:58:23] Waining for Critical Section
+[8/4/2015 13:58:23] Get Critical Section
+[8/4/2015 13:58:23] Writer 8 put data: "writer_id = 8 numMsg=   7" in position 5
+[8/4/2015 13:58:23] Leave Critical Section
+[8/4/2015 13:58:24] Waining for Critical Section
+[8/4/2015 13:58:24] Get Critical Section
+[8/4/2015 13:58:24] Writer 8 put data: "writer_id = 8 numMsg=   8" in position 5
+[8/4/2015 13:58:24] Leave Critical Section
+[8/4/2015 13:58:24] Waining for Critical Section
+[8/4/2015 13:58:24] Get Critical Section
+[8/4/2015 13:58:24] Writer 8 put data: "writer_id = 8 numMsg=   9" in position 4
+[8/4/2015 13:58:24] Leave Critical Section
+[8/4/2015 13:58:24] Waining for Critical Section
+[8/4/2015 13:58:24] Get Critical Section
+[8/4/2015 13:58:24] Writer 8 put data: "writer_id = 8 numMsg=  10" in position 3
+[8/4/2015 13:58:24] Leave Critical Section
+[8/4/2015 13:58:24] Waining for Critical Section
+[8/4/2015 13:58:24] Get Critical Section
+[8/4/2015 13:58:24] Writer 8 put data: "writer_id = 8 numMsg=  11" in position 4
+[8/4/2015 13:58:24] Leave Critical Section
+[8/4/2015 13:58:24] Waining for Critical Section
+[8/4/2015 13:58:24] Get Critical Section
+[8/4/2015 13:58:24] Writer 8 put data: "writer_id = 8 numMsg=  12" in position 4
+[8/4/2015 13:58:24] Leave Critical Section
+[8/4/2015 13:58:25] Waining for Critical Section
+[8/4/2015 13:58:25] Get Critical Section
+[8/4/2015 13:58:25] Writer 8 put data: "writer_id = 8 numMsg=  13" in position 3
+[8/4/2015 13:58:25] Leave Critical Section
+[8/4/2015 13:58:25] Waining for Critical Section
+[8/4/2015 13:58:25] Get Critical Section
+[8/4/2015 13:58:25] Writer 8 put data: "writer_id = 8 numMsg=  14" in position 4
+[8/4/2015 13:58:25] Leave Critical Section
+[8/4/2015 13:58:25] Writer 8 finishing work
+[8/4/2015 13:58:25] Shutting down.
+

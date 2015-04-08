@@ -1,0 +1,38 @@
+[8/4/2015 13:59:47] Event is starting.
+[8/4/2015 13:59:47] Using default config
+[8/4/2015 13:59:47] Config:
+	NumOfReaders = 10
+	ReadersDelay = 100
+	NumOfWriters = 10
+	WritersDelay = 200
+	SizeOfQueue = 10
+	ttl = 3
+[8/4/2015 13:59:47] Total num of threads is 21
+[8/4/2015 13:59:47] Create readers
+[8/4/2015 13:59:47] Count = 0
+[8/4/2015 13:59:47] Count = 1
+[8/4/2015 13:59:47] Count = 2
+[8/4/2015 13:59:47] Count = 3
+[8/4/2015 13:59:47] Count = 4
+[8/4/2015 13:59:47] Count = 5
+[8/4/2015 13:59:47] Count = 6
+[8/4/2015 13:59:47] Count = 7
+[8/4/2015 13:59:47] Count = 8
+[8/4/2015 13:59:47] Count = 9
+[8/4/2015 13:59:47] Create writers
+[8/4/2015 13:59:47] count = 10
+[8/4/2015 13:59:47] count = 11
+[8/4/2015 13:59:47] count = 12
+[8/4/2015 13:59:47] count = 13
+[8/4/2015 13:59:47] count = 14
+[8/4/2015 13:59:47] count = 15
+[8/4/2015 13:59:47] count = 16
+[8/4/2015 13:59:47] count = 17
+[8/4/2015 13:59:47] count = 18
+[8/4/2015 13:59:47] count = 19
+[8/4/2015 13:59:47] Create TimeManager
+[8/4/2015 13:59:47] Count = 20
+[8/4/2015 13:59:47] Successfully created threads!
+[8/4/2015 13:59:50] All tasks are done!
+[8/4/2015 13:59:54] Shutting down.
+

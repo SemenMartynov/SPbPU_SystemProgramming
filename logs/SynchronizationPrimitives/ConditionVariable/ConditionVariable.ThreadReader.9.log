@@ -1,0 +1,109 @@
+[8/4/2015 14:1:3] ConditionVariable.ThreadReader is starting.
+[8/4/2015 14:1:3] Waining for Critical Section
+[8/4/2015 14:1:3] Get Critical Section
+[8/4/2015 14:1:3] Waining for empty space in the queue
+[8/4/2015 14:1:3] Get space in the queue
+[8/4/2015 14:1:3] Reader 9 get data: "writer_id = 0 numMsg=   0" from position 7
+[8/4/2015 14:1:3] Wake Condition Variable
+[8/4/2015 14:1:3] Leave Critical Section
+[8/4/2015 14:1:3] Waining for Critical Section
+[8/4/2015 14:1:3] Get Critical Section
+[8/4/2015 14:1:3] Waining for empty space in the queue
+[8/4/2015 14:1:3] Get space in the queue
+[8/4/2015 14:1:3] Reader 9 get data: "writer_id = 2 numMsg=   1" from position 7
+[8/4/2015 14:1:3] Wake Condition Variable
+[8/4/2015 14:1:3] Leave Critical Section
+[8/4/2015 14:1:3] Waining for Critical Section
+[8/4/2015 14:1:3] Get Critical Section
+[8/4/2015 14:1:3] Waining for empty space in the queue
+[8/4/2015 14:1:3] Get space in the queue
+[8/4/2015 14:1:3] Reader 9 get data: "writer_id = 6 numMsg=   2" from position 8
+[8/4/2015 14:1:3] Wake Condition Variable
+[8/4/2015 14:1:3] Leave Critical Section
+[8/4/2015 14:1:4] Waining for Critical Section
+[8/4/2015 14:1:4] Get Critical Section
+[8/4/2015 14:1:4] Waining for empty space in the queue
+[8/4/2015 14:1:4] Get space in the queue
+[8/4/2015 14:1:4] Reader 9 get data: "writer_id = 5 numMsg=   3" from position 8
+[8/4/2015 14:1:4] Wake Condition Variable
+[8/4/2015 14:1:4] Leave Critical Section
+[8/4/2015 14:1:4] Waining for Critical Section
+[8/4/2015 14:1:4] Get Critical Section
+[8/4/2015 14:1:4] Waining for empty space in the queue
+[8/4/2015 14:1:4] Get space in the queue
+[8/4/2015 14:1:4] Reader 9 get data: "writer_id = 5 numMsg=   4" from position 8
+[8/4/2015 14:1:4] Wake Condition Variable
+[8/4/2015 14:1:4] Leave Critical Section
+[8/4/2015 14:1:4] Waining for Critical Section
+[8/4/2015 14:1:4] Get Critical Section
+[8/4/2015 14:1:4] Waining for empty space in the queue
+[8/4/2015 14:1:4] Get space in the queue
+[8/4/2015 14:1:4] Reader 9 get data: "writer_id = 8 numMsg=   5" from position 1
+[8/4/2015 14:1:4] Wake Condition Variable
+[8/4/2015 14:1:4] Leave Critical Section
+[8/4/2015 14:1:4] Waining for Critical Section
+[8/4/2015 14:1:4] Get Critical Section
+[8/4/2015 14:1:4] Waining for empty space in the queue
+[8/4/2015 14:1:4] Get space in the queue
+[8/4/2015 14:1:4] Reader 9 get data: "writer_id = 9 numMsg=   6" from position 2
+[8/4/2015 14:1:4] Wake Condition Variable
+[8/4/2015 14:1:4] Leave Critical Section
+[8/4/2015 14:1:4] Waining for Critical Section
+[8/4/2015 14:1:4] Get Critical Section
+[8/4/2015 14:1:4] Waining for empty space in the queue
+[8/4/2015 14:1:4] Get space in the queue
+[8/4/2015 14:1:4] Reader 9 get data: "writer_id = 9 numMsg=   7" from position 2
+[8/4/2015 14:1:4] Wake Condition Variable
+[8/4/2015 14:1:4] Leave Critical Section
+[8/4/2015 14:1:5] Waining for Critical Section
+[8/4/2015 14:1:5] Get Critical Section
+[8/4/2015 14:1:5] Waining for empty space in the queue
+[8/4/2015 14:1:5] Get space in the queue
+[8/4/2015 14:1:5] Reader 9 get data: "writer_id = 5 numMsg=   8" from position 8
+[8/4/2015 14:1:5] Wake Condition Variable
+[8/4/2015 14:1:5] Leave Critical Section
+[8/4/2015 14:1:5] Waining for Critical Section
+[8/4/2015 14:1:5] Get Critical Section
+[8/4/2015 14:1:5] Waining for empty space in the queue
+[8/4/2015 14:1:5] Get space in the queue
+[8/4/2015 14:1:5] Reader 9 get data: "writer_id = 3 numMsg=   9" from position 6
+[8/4/2015 14:1:5] Wake Condition Variable
+[8/4/2015 14:1:5] Leave Critical Section
+[8/4/2015 14:1:5] Waining for Critical Section
+[8/4/2015 14:1:5] Get Critical Section
+[8/4/2015 14:1:5] Waining for empty space in the queue
+[8/4/2015 14:1:5] Get space in the queue
+[8/4/2015 14:1:5] Reader 9 get data: "writer_id = 8 numMsg=  10" from position 1
+[8/4/2015 14:1:5] Wake Condition Variable
+[8/4/2015 14:1:5] Leave Critical Section
+[8/4/2015 14:1:5] Waining for Critical Section
+[8/4/2015 14:1:5] Get Critical Section
+[8/4/2015 14:1:5] Waining for empty space in the queue
+[8/4/2015 14:1:5] Get space in the queue
+[8/4/2015 14:1:5] Reader 9 get data: "writer_id = 8 numMsg=  11" from position 1
+[8/4/2015 14:1:5] Wake Condition Variable
+[8/4/2015 14:1:5] Leave Critical Section
+[8/4/2015 14:1:5] Waining for Critical Section
+[8/4/2015 14:1:5] Get Critical Section
+[8/4/2015 14:1:5] Waining for empty space in the queue
+[8/4/2015 14:1:6] Get space in the queue
+[8/4/2015 14:1:6] Reader 9 get data: "writer_id = 8 numMsg=  12" from position 1
+[8/4/2015 14:1:6] Wake Condition Variable
+[8/4/2015 14:1:6] Leave Critical Section
+[8/4/2015 14:1:6] Waining for Critical Section
+[8/4/2015 14:1:6] Get Critical Section
+[8/4/2015 14:1:6] Waining for empty space in the queue
+[8/4/2015 14:1:6] Get space in the queue
+[8/4/2015 14:1:6] Reader 9 get data: "writer_id = 8 numMsg=  13" from position 1
+[8/4/2015 14:1:6] Wake Condition Variable
+[8/4/2015 14:1:6] Leave Critical Section
+[8/4/2015 14:1:6] Waining for Critical Section
+[8/4/2015 14:1:6] Get Critical Section
+[8/4/2015 14:1:6] Waining for empty space in the queue
+[8/4/2015 14:1:6] Get space in the queue
+[8/4/2015 14:1:6] Reader 9 get data: "writer_id = 8 numMsg=  14" from position 1
+[8/4/2015 14:1:6] Wake Condition Variable
+[8/4/2015 14:1:6] Leave Critical Section
+[8/4/2015 14:1:6] Reader 9 finishing work
+[8/4/2015 14:1:6] Shutting down.
+

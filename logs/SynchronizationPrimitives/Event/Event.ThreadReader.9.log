@@ -1,0 +1,98 @@
+[8/4/2015 13:59:47] Event.ThreadReader is starting.
+[8/4/2015 13:59:47] Waining for Event
+[8/4/2015 13:59:47] Get Event
+[8/4/2015 13:59:47] Release Event
+[8/4/2015 13:59:47] Waining for Event
+[8/4/2015 13:59:47] Get Event
+[8/4/2015 13:59:47] Release Event
+[8/4/2015 13:59:47] Waining for Event
+[8/4/2015 13:59:47] Get Event
+[8/4/2015 13:59:47] Reader 9 get data: "writer_id = 2 numMsg=   1" from position 3
+[8/4/2015 13:59:47] Release Event
+[8/4/2015 13:59:47] Waining for Event
+[8/4/2015 13:59:47] Get Event
+[8/4/2015 13:59:47] Reader 9 get data: "writer_id = 0 numMsg=   2" from position 0
+[8/4/2015 13:59:47] Release Event
+[8/4/2015 13:59:48] Waining for Event
+[8/4/2015 13:59:48] Get Event
+[8/4/2015 13:59:48] Release Event
+[8/4/2015 13:59:48] Waining for Event
+[8/4/2015 13:59:48] Get Event
+[8/4/2015 13:59:48] Reader 9 get data: "writer_id = 2 numMsg=   3" from position 3
+[8/4/2015 13:59:48] Release Event
+[8/4/2015 13:59:48] Waining for Event
+[8/4/2015 13:59:48] Get Event
+[8/4/2015 13:59:48] Reader 9 get data: "writer_id = 3 numMsg=   3" from position 7
+[8/4/2015 13:59:48] Release Event
+[8/4/2015 13:59:48] Waining for Event
+[8/4/2015 13:59:48] Get Event
+[8/4/2015 13:59:48] Reader 9 get data: "writer_id = 2 numMsg=   4" from position 3
+[8/4/2015 13:59:48] Release Event
+[8/4/2015 13:59:48] Waining for Event
+[8/4/2015 13:59:48] Get Event
+[8/4/2015 13:59:48] Reader 9 get data: "writer_id = 6 numMsg=   5" from position 1
+[8/4/2015 13:59:48] Release Event
+[8/4/2015 13:59:48] Waining for Event
+[8/4/2015 13:59:48] Get Event
+[8/4/2015 13:59:48] Reader 9 get data: "writer_id = 4 numMsg=   5" from position 4
+[8/4/2015 13:59:48] Release Event
+[8/4/2015 13:59:48] Waining for Event
+[8/4/2015 13:59:48] Get Event
+[8/4/2015 13:59:48] Reader 9 get data: "writer_id = 6 numMsg=   6" from position 1
+[8/4/2015 13:59:48] Release Event
+[8/4/2015 13:59:49] Waining for Event
+[8/4/2015 13:59:49] Get Event
+[8/4/2015 13:59:49] Reader 9 get data: "writer_id = 4 numMsg=   6" from position 4
+[8/4/2015 13:59:49] Release Event
+[8/4/2015 13:59:49] Waining for Event
+[8/4/2015 13:59:49] Get Event
+[8/4/2015 13:59:49] Reader 9 get data: "writer_id = 6 numMsg=   7" from position 1
+[8/4/2015 13:59:49] Release Event
+[8/4/2015 13:59:49] Waining for Event
+[8/4/2015 13:59:49] Get Event
+[8/4/2015 13:59:49] Reader 9 get data: "writer_id = 8 numMsg=   7" from position 6
+[8/4/2015 13:59:49] Release Event
+[8/4/2015 13:59:49] Waining for Event
+[8/4/2015 13:59:49] Get Event
+[8/4/2015 13:59:49] Reader 9 get data: "writer_id = 7 numMsg=   8" from position 2
+[8/4/2015 13:59:49] Release Event
+[8/4/2015 13:59:49] Waining for Event
+[8/4/2015 13:59:49] Get Event
+[8/4/2015 13:59:49] Release Event
+[8/4/2015 13:59:49] Waining for Event
+[8/4/2015 13:59:49] Get Event
+[8/4/2015 13:59:49] Reader 9 get data: "writer_id = 2 numMsg=   9" from position 3
+[8/4/2015 13:59:49] Release Event
+[8/4/2015 13:59:49] Waining for Event
+[8/4/2015 13:59:49] Get Event
+[8/4/2015 13:59:49] Reader 9 get data: "writer_id = 9 numMsg=   9" from position 8
+[8/4/2015 13:59:49] Release Event
+[8/4/2015 13:59:49] Waining for Event
+[8/4/2015 13:59:49] Get Event
+[8/4/2015 13:59:49] Reader 9 get data: "writer_id = 2 numMsg=  10" from position 3
+[8/4/2015 13:59:49] Release Event
+[8/4/2015 13:59:49] Waining for Event
+[8/4/2015 13:59:49] Get Event
+[8/4/2015 13:59:49] Release Event
+[8/4/2015 13:59:50] Waining for Event
+[8/4/2015 13:59:50] Get Event
+[8/4/2015 13:59:50] Reader 9 get data: "writer_id = 2 numMsg=  11" from position 3
+[8/4/2015 13:59:50] Release Event
+[8/4/2015 13:59:50] Waining for Event
+[8/4/2015 13:59:50] Get Event
+[8/4/2015 13:59:50] Release Event
+[8/4/2015 13:59:50] Waining for Event
+[8/4/2015 13:59:50] Get Event
+[8/4/2015 13:59:50] Release Event
+[8/4/2015 13:59:50] Waining for Event
+[8/4/2015 13:59:50] Get Event
+[8/4/2015 13:59:50] Release Event
+[8/4/2015 13:59:50] Waining for Event
+[8/4/2015 13:59:50] Get Event
+[8/4/2015 13:59:50] Release Event
+[8/4/2015 13:59:50] Waining for Event
+[8/4/2015 13:59:50] Get Event
+[8/4/2015 13:59:50] Release Event
+[8/4/2015 13:59:50] Reader 9 finishing work
+[8/4/2015 13:59:50] Shutting down.
+

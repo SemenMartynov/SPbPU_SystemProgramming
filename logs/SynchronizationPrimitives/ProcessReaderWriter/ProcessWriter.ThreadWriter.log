@@ -1,0 +1,48 @@
+[8/4/2015 14:5:7] ProcessWriter.ThreadWriter is starting.
+[8/4/2015 14:5:7] Waining for multiple objects
+[8/4/2015 14:5:9] Get canWriteEvent
+[8/4/2015 14:5:9] Writer put msg: "Writer_id	0, msg with num = 1"
+[8/4/2015 14:5:9] Waining for changeCountEvent
+[8/4/2015 14:5:9] Set Event changeCountEvent
+[8/4/2015 14:5:9] Set Event canReadEvent
+[8/4/2015 14:5:9] Waining for multiple objects
+[8/4/2015 14:5:9] Get canWriteEvent
+[8/4/2015 14:5:9] Writer put msg: "Writer_id	0, msg with num = 2"
+[8/4/2015 14:5:9] Waining for changeCountEvent
+[8/4/2015 14:5:9] Set Event changeCountEvent
+[8/4/2015 14:5:9] Set Event canReadEvent
+[8/4/2015 14:5:9] Waining for multiple objects
+[8/4/2015 14:5:9] Get canWriteEvent
+[8/4/2015 14:5:9] Writer put msg: "Writer_id	0, msg with num = 3"
+[8/4/2015 14:5:9] Waining for changeCountEvent
+[8/4/2015 14:5:9] Set Event changeCountEvent
+[8/4/2015 14:5:9] Set Event canReadEvent
+[8/4/2015 14:5:9] Waining for multiple objects
+[8/4/2015 14:5:9] Get canWriteEvent
+[8/4/2015 14:5:9] Writer put msg: "Writer_id	0, msg with num = 4"
+[8/4/2015 14:5:9] Waining for changeCountEvent
+[8/4/2015 14:5:9] Set Event changeCountEvent
+[8/4/2015 14:5:9] Set Event canReadEvent
+[8/4/2015 14:5:9] Waining for multiple objects
+[8/4/2015 14:5:9] Get canWriteEvent
+[8/4/2015 14:5:9] Writer put msg: "Writer_id	0, msg with num = 5"
+[8/4/2015 14:5:9] Waining for changeCountEvent
+[8/4/2015 14:5:9] Set Event changeCountEvent
+[8/4/2015 14:5:9] Set Event canReadEvent
+[8/4/2015 14:5:9] Waining for multiple objects
+[8/4/2015 14:5:9] Get canWriteEvent
+[8/4/2015 14:5:9] Writer put msg: "Writer_id	0, msg with num = 6"
+[8/4/2015 14:5:9] Waining for changeCountEvent
+[8/4/2015 14:5:9] Set Event changeCountEvent
+[8/4/2015 14:5:9] Set Event canReadEvent
+[8/4/2015 14:5:9] Waining for multiple objects
+[8/4/2015 14:5:9] Get canWriteEvent
+[8/4/2015 14:5:9] Writer put msg: "Writer_id	0, msg with num = 7"
+[8/4/2015 14:5:9] Waining for changeCountEvent
+[8/4/2015 14:5:9] Set Event changeCountEvent
+[8/4/2015 14:5:9] Set Event canReadEvent
+[8/4/2015 14:5:9] Waining for multiple objects
+[8/4/2015 14:5:9] Get exitEvent
+[8/4/2015 14:5:9] Writer 0 finishing work
+[8/4/2015 14:5:9] Shutting down.
+

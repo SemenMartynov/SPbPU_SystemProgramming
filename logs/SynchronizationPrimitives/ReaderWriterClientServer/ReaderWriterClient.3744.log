@@ -1,0 +1,19 @@
+[8/4/2015 14:12:36] ReaderWriterClient is starting.
+[8/4/2015 14:12:36] Client is started!
+
+
+[8/4/2015 14:12:36] Try to use WaitNamedPipe...
+[8/4/2015 14:12:36] Successfully connected!
+[8/4/2015 14:12:36] Received from server: 19
+[8/4/2015 14:12:36] Received from server: 20
+[8/4/2015 14:12:36] Received from server: 21
+[8/4/2015 14:12:37] Received from server: 22
+[8/4/2015 14:12:37] Received from server: 23
+[8/4/2015 14:12:37] Received from server: 24
+[8/4/2015 14:12:37] Received from server: 25
+[8/4/2015 14:12:38] Received from server: 26
+[8/4/2015 14:12:38] Received from server: exit
+[8/4/2015 14:12:38] Processing exit code
+[8/4/2015 14:12:38] All tasks are done!
+[8/4/2015 14:12:40] Shutting down.
+
