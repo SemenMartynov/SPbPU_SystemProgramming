@@ -1,0 +1,101 @@
+>> General Information
+User time: 	2,015-4-15 11:24:45.622
+UTC time: 	2,015-4-15 8:24:45.622
+User name: 	ThinkPad\Sam
+Hostname: 	THINKPAD
+
+Windows: 	Windows 7 SP1, 6.1 (build 7601)
+Role: 		Workstation
+Uptime: 	0 days, 0:10:24
+
+CPU: 		GenuntelineI (4 cores)
+Physical RAM: 	2.92546 (GB)
+Available RAM: 	1.88725 (GB)
+Pagefile: 	5.84925 (GB)
+
+>> Video System Information
+Display Device:	\\.\DISPLAY1
+Display String:	Intel(R) HD Graphics
+Display ID:	PCI\VEN_8086&DEV_0046&SUBSYS_21C117AA&REV_02
+
+	Monitor Device:	\\.\DISPLAY1\Monitor0
+	Monitor String:	ThinkPad Display 1440x900
+	Monitor ID:	MONITOR\LEN4036\{4d36e96e-e325-11ce-bfc1-08002be10318}\0003
+
+	Freq.: 	50
+	BPP: 	32
+	Width: 	1,440
+	Heig.: 	900
+
+>> Hard Disk Drive Information
+C:
+	Label:	Windows7_OS
+	Numbr:	9,297-53,057
+	FSysm:	NTFS
+
+
+D:
+	Label:	mini
+	Numbr:	51,904-62,664
+	FSysm:	FAT32
+
+
+>> Network Interface Information
+
+>> Devices
+AMPPAL:
+	Description: Intel(r) Centrino(r) Wireless Bluetooth(r) + High Speed Virtual Adapter
+	Instance ID: ROOT\AMPPAL\0000
+	Manufacturer: Intel Corporation
+
+Battery:
+	Description: Microsoft Composite Battery
+	Instance ID: ROOT\COMPOSITE_BATTERY\0000
+	Manufacturer: Microsoft
+
+	Description: Microsoft AC Adapter
+	Instance ID: ACPI\ACPI0003\0
+	Manufacturer: Microsoft
+
+	Description: Microsoft ACPI-Compliant Control Method Battery
+	Instance ID: ACPI\PNP0C0A\0
+	Manufacturer: Microsoft
+
+BiometricDevice:
+	Description: TouchChip Fingerprint Coprocessor (WBF advanced mode)
+	Instance ID: USB\VID_147E&PID_2016\6&3AF1EAA2&0&3
+	Manufacturer: AuthenTec
+
+Computer:
+	Description: ACPI x86-based PC
+	Instance ID: ROOT\ACPI_HAL\0000
+	Manufacturer: (Standard computers)
+
+DiskDrive:
+	Description: Disk drive
+	Instance ID: USBSTOR\DISK&VEN_&PROD_USB_FLASH_DRIVE&REV_PMAP\19740E280962&0
+	Manufacturer: (Standard disk drives)
+
+	Description: Disk drive
+	Instance ID: IDE\DISKSAMSUNG_MMCRE28G8MXP-0VBL1______________VBM19C1Q\4&1BFC452C&0&0.0.0
+	Manufacturer: (Standard disk drives)
+
+Display:
+	Description: Intel(R) HD Graphics
+	Instance ID: PCI\VEN_8086&DEV_0046&SUBSYS_21C117AA&REV_02\3&E89B380&0&10
+	Manufacturer: Intel Corporation
+
+Image:
+	Description: Integrated Camera
+	Instance ID: USB\VID_17EF&PID_480D&MI_00\7&B52BAFA&1&0000
+	Manufacturer: Ricoh
+
+Keyboard:
+	Description: Standard PS/2 Keyboard
+	Instance ID: ACPI\PNP0303\4&6CDF74F&0
+	Manufacturer: (Standard keyboards)
+
+LegacyDriver:
+	Description: Storage volumes
+	Instance ID: ROOT\LEGACY_VOLSNAP\0000
+	Manufacturer: 

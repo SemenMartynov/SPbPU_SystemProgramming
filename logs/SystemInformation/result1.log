@@ -1,0 +1,536 @@
+>> General Information
+User time: 	2 015-4-15 11:5:33.176
+UTC time: 	2 015-4-15 8:5:33.176
+User name: 	user\win7
+Hostname: 	USER
+
+Windows: 	Windows 7 SP1, 6.1 (build 7601)
+Role: 		Workstation
+Uptime: 	0 days, 0:5:45
+
+CPU: 		GenuntelineI (3 cores)
+Physical RAM: 	3.99957 (GB)
+Available RAM: 	3.19099 (GB)
+Pagefile: 	7.99736 (GB)
+
+>> Video System Information
+Display Device:	\\.\DISPLAY1
+Display String:	VirtualBox Graphics Adapter
+Display ID:	PCI\VEN_80EE&DEV_BEEF&SUBSYS_00000000&REV_00
+
+	Monitor Device:	
+	Monitor String:	
+	Monitor ID:	
+
+	Freq.: 	60
+	BPP: 	32
+	Width: 	1 920
+	Heig.: 	990
+
+>> Hard Disk Drive Information
+C:
+	Label:	
+	Numbr:	57 595-10 786
+	FSysm:	NTFS
+
+
+D:
+	Label:	VBOXADDITIONS_4.
+	Numbr:	963-42 577
+	FSysm:	CDFS
+
+
+E:
+	Label:	VBOX_tmp
+	Numbr:	0-2 049
+	FSysm:	VBoxSharedFolderFS
+
+
+>> Network Interface Information
+Adapter {B3365931-ABDF-4E10-BE73-833735EBA0EB} //
+	MAC addr:	8-0-39-207-62-123
+	IP Address:	 192.168.124.235
+	IP Mask:	 255.255.255.0
+	Gateway:	 192.168.124.1
+	DHCP Enabled:	 Yes
+	DHCP Server:	 192.168.124.1
+
+>> Devices
+Battery:
+	Description: Microsoft Composite Battery
+	Instance ID: ROOT\COMPOSITE_BATTERY\0000
+	Manufacturer: Microsoft
+
+	Description: Microsoft AC Adapter
+	Instance ID: ACPI\ACPI0003\0
+	Manufacturer: Microsoft
+
+CDROM:
+	Description: CD-ROM Drive
+	Instance ID: IDE\CDROMVBOX_CD-ROM_____________________________1.0_____\5&106AF171&0&1.0.0
+	Manufacturer: (Standard CD-ROM drives)
+
+Computer:
+	Description: ACPI x64-based PC
+	Instance ID: ROOT\ACPI_HAL\0000
+	Manufacturer: (Standard computers)
+
+DiskDrive:
+	Description: Disk drive
+	Instance ID: IDE\DISKVBOX_HARDDISK___________________________1.0_____\5&33D1638A&0&0.0.0
+	Manufacturer: (Standard disk drives)
+
+Display:
+	Description: VirtualBox Graphics Adapter
+	Instance ID: PCI\VEN_80EE&DEV_BEEF&SUBSYS_00000000&REV_00\3&267A616A&0&10
+	Manufacturer: Oracle Corporation
+
+HIDClass:
+	Description: USB Input Device
+	Instance ID: USB\VID_80EE&PID_0021\5&18F54CB7&0&1
+	Manufacturer: (Standard system devices)
+
+Keyboard:
+	Description: Standard PS/2 Keyboard
+	Instance ID: ACPI\PNP0303\4&1D401FB5&0
+	Manufacturer: (Standard keyboards)
+
+LegacyDriver:
+	Description: Performance Counters for Windows Driver
+	Instance ID: ROOT\LEGACY_PCW\0000
+	Manufacturer: 
+
+	Description: Virtual Machine Bus
+	Instance ID: ROOT\LEGACY_VMBUS\0000
+	Manufacturer: 
+
+	Description: PEAUTH
+	Instance ID: ROOT\LEGACY_PEAUTH\0000
+	Manufacturer: 
+
+	Description: Dynamic Volume Manager
+	Instance ID: ROOT\LEGACY_VOLMGRX\0000
+	Manufacturer: 
+
+	Description: Mount Point Manager
+	Instance ID: ROOT\LEGACY_MOUNTMGR\0000
+	Manufacturer: 
+
+	Description: QoS Packet Scheduler
+	Instance ID: ROOT\LEGACY_PSCHED\0000
+	Manufacturer: 
+
+	Description: Ancillary Function Driver for Winsock
+	Instance ID: ROOT\LEGACY_AFD\0000
+	Manufacturer: 
+
+	Description: Тома запоминающих устройств
+	Instance ID: ROOT\LEGACY_VOLSNAP\0000
+	Manufacturer: 
+
+	Description: Beep
+	Instance ID: ROOT\LEGACY_BEEP\0000
+	Manufacturer: 
+
+	Description: Remote Access IPv6 ARP Driver
+	Instance ID: ROOT\LEGACY_WANARPV6\0000
+	Manufacturer: 
+
+	Description: Windows Firewall Authorization Driver
+	Instance ID: ROOT\LEGACY_MPSDRV\0000
+	Manufacturer: 
+
+	Description: RDPCDD
+	Instance ID: ROOT\LEGACY_RDPCDD\0000
+	Manufacturer: 
+
+	Description: Kernel Mode Driver Frameworks service
+	Instance ID: ROOT\LEGACY_WDF01000\0000
+	Manufacturer: 
+
+	Description: RDP Encoder Mirror Driver
+	Instance ID: ROOT\LEGACY_RDPENCDD\0000
+	Manufacturer: 
+
+	Description: WFP Lightweight Filter
+	Instance ID: ROOT\LEGACY_WFPLWF\0000
+	Manufacturer: 
+
+	Description: Reflector Display Driver used to gain access to graphics data
+	Instance ID: ROOT\LEGACY_RDPREFMP\0000
+	Manufacturer: 
+
+	Description: Common Log (CLFS)
+	Instance ID: ROOT\LEGACY_CLFS\0000
+	Manufacturer: 
+
+	Description: Link-Layer Topology Discovery Responder
+	Instance ID: ROOT\LEGACY_RSPNDR\0000
+	Manufacturer: 
+
+	Description: CNG
+	Instance ID: ROOT\LEGACY_CNG\0000
+	Manufacturer: 
+
+	Description: Offline Files Driver
+	Instance ID: ROOT\LEGACY_CSC\0000
+	Manufacturer: 
+
+	Description: Security Driver
+	Instance ID: ROOT\LEGACY_SECDRV\0000
+	Manufacturer: 
+
+	Description: msisadrv
+	Instance ID: ROOT\LEGACY_MSISADRV\0000
+	Manufacturer: 
+
+	Description: Security Processor Loader Driver
+	Instance ID: ROOT\LEGACY_SPLDR\0000
+	Manufacturer: 
+
+	Description: System Attribute Cache
+	Instance ID: ROOT\LEGACY_DISCACHE\0000
+	Manufacturer: 
+
+	Description: NDIS System Driver
+	Instance ID: ROOT\LEGACY_NDIS\0000
+	Manufacturer: 
+
+	Description: NDProxy
+	Instance ID: ROOT\LEGACY_NDPROXY\0000
+	Manufacturer: 
+
+	Description: Disk Virtual Machine Bus Acceleration Filter Driver
+	Instance ID: ROOT\LEGACY_STORFLT\0000
+	Manufacturer: 
+
+	Description: NETBT
+	Instance ID: ROOT\LEGACY_NETBT\0000
+	Manufacturer: 
+
+	Description: TCP/IP Protocol Driver
+	Instance ID: ROOT\LEGACY_TCPIP\0000
+	Manufacturer: 
+
+	Description: Bitlocker Drive Encryption Filter Driver
+	Instance ID: ROOT\LEGACY_FVEVOL\0000
+	Manufacturer: 
+
+	Description: Microsoft Network Inspection System
+	Instance ID: ROOT\LEGACY_NISDRV\0000
+	Manufacturer: 
+
+	Description: TCP/IP Registry Compatibility
+	Instance ID: ROOT\LEGACY_TCPIPREG\0000
+	Manufacturer: 
+
+	Description: HTTP
+	Instance ID: ROOT\LEGACY_HTTP\0000
+	Manufacturer: 
+
+	Description: Hardware Policy Driver
+	Instance ID: ROOT\LEGACY_HWPOLICY\0000
+	Manufacturer: 
+
+	Description: NetIO Legacy TDI Support Driver
+	Instance ID: ROOT\LEGACY_TDX\0000
+	Manufacturer: 
+
+	Description: NSI proxy service driver.
+	Instance ID: ROOT\LEGACY_NSIPROXY\0000
+	Manufacturer: 
+
+	Description: KSecDD
+	Instance ID: ROOT\LEGACY_KSECDD\0000
+	Manufacturer: 
+
+	Description: KSecPkg
+	Instance ID: ROOT\LEGACY_KSECPKG\0000
+	Manufacturer: 
+
+	Description: Null
+	Instance ID: ROOT\LEGACY_NULL\0000
+	Manufacturer: 
+
+	Description: VgaSave
+	Instance ID: ROOT\LEGACY_VGASAVE\0000
+	Manufacturer: 
+
+	Description: Link-Layer Topology Discovery Mapper I/O Driver
+	Instance ID: ROOT\LEGACY_LLTDIO\0000
+	Manufacturer: 
+
+MEDIA:
+	Description: High Definition Audio Device
+	Instance ID: HDAUDIO\FUNC_01&VEN_8384&DEV_7680&SUBSYS_83847680&REV_1034\4&31E60982&0&0001
+	Manufacturer: Microsoft
+
+Mouse:
+	Description: Microsoft PS/2 Mouse
+	Instance ID: ACPI\PNP0F03\4&1D401FB5&0
+	Manufacturer: Microsoft
+
+	Description: HID-compliant mouse
+	Instance ID: HID\VID_80EE&PID_0021\6&E993E07&0&0000
+	Manufacturer: Microsoft
+
+Net:
+	Description: WAN Miniport (IKEv2)
+	Instance ID: ROOT\MS_AGILEVPNMINIPORT\0000
+	Manufacturer: Microsoft
+
+	Description: WAN Miniport (L2TP)
+	Instance ID: ROOT\MS_L2TPMINIPORT\0000
+	Manufacturer: Microsoft
+
+	Description: WAN Miniport (Network Monitor)
+	Instance ID: ROOT\MS_NDISWANBH\0000
+	Manufacturer: Microsoft
+
+	Description: WAN Miniport (IP)
+	Instance ID: ROOT\MS_NDISWANIP\0000
+	Manufacturer: Microsoft
+
+	Description: WAN Miniport (IPv6)
+	Instance ID: ROOT\MS_NDISWANIPV6\0000
+	Manufacturer: Microsoft
+
+	Description: Intel(R) PRO/1000 MT Desktop Adapter
+	Instance ID: PCI\VEN_8086&DEV_100E&SUBSYS_001E8086&REV_02\3&267A616A&0&18
+	Manufacturer: Intel
+
+	Description: WAN Miniport (PPPOE)
+	Instance ID: ROOT\MS_PPPOEMINIPORT\0000
+	Manufacturer: Microsoft
+
+	Description: WAN Miniport (PPTP)
+	Instance ID: ROOT\MS_PPTPMINIPORT\0000
+	Manufacturer: Microsoft
+
+	Description: WAN Miniport (SSTP)
+	Instance ID: ROOT\MS_SSTPMINIPORT\0000
+	Manufacturer: Microsoft
+
+	Description: Microsoft ISATAP Adapter
+	Instance ID: ROOT\*ISATAP\0000
+	Manufacturer: Microsoft
+
+	Description: Microsoft Teredo Tunneling Adapter
+	Instance ID: ROOT\*TEREDO\0000
+	Manufacturer: Microsoft
+
+Ports:
+	Description: Printer Port
+	Instance ID: ACPI\PNP0400\4&1D401FB5&0
+	Manufacturer: (Standard port types)
+
+Processor:
+	Description: Intel Processor
+	Instance ID: ACPI\GENUINEINTEL_-_INTEL64_FAMILY_6_MODEL_23_-_INTEL(R)_CORE(TM)2_QUAD_CPU____Q8300__@_2.50GHZ\_0
+	Manufacturer: Intel
+
+	Description: Intel Processor
+	Instance ID: ACPI\GENUINEINTEL_-_INTEL64_FAMILY_6_MODEL_23_-_INTEL(R)_CORE(TM)2_QUAD_CPU____Q8300__@_2.50GHZ\_1
+	Manufacturer: Intel
+
+	Description: Intel Processor
+	Instance ID: ACPI\GENUINEINTEL_-_INTEL64_FAMILY_6_MODEL_23_-_INTEL(R)_CORE(TM)2_QUAD_CPU____Q8300__@_2.50GHZ\_2
+	Manufacturer: Intel
+
+System:
+	Description: Composite Bus Enumerator
+	Instance ID: ROOT\COMPOSITEBUS\0000
+	Manufacturer: Microsoft
+
+	Description: Microsoft Virtual Drive Enumerator Driver
+	Instance ID: ROOT\VDRVROOT\0000
+	Manufacturer: (Standard system devices)
+
+	Description: Volume Manager
+	Instance ID: ROOT\VOLMGR\0000
+	Manufacturer: (Standard system devices)
+
+	Description: Intel 82371SB PCI to ISA bridge
+	Instance ID: PCI\VEN_8086&DEV_7000&SUBSYS_00000000&REV_00\3&267A616A&0&08
+	Manufacturer: Intel
+
+	Description: Programmable interrupt controller
+	Instance ID: ACPI\PNP0000\4&1D401FB5&0
+	Manufacturer: (Standard system devices)
+
+	Description: System timer
+	Instance ID: ACPI\PNP0100\4&1D401FB5&0
+	Manufacturer: (Standard system devices)
+
+	Description: Direct memory access controller
+	Instance ID: ACPI\PNP0200\4&1D401FB5&0
+	Manufacturer: (Standard system devices)
+
+	Description: ACPI Fixed Feature Button
+	Instance ID: ACPI\FIXEDBUTTON\2&DABA3FF&1
+	Manufacturer: (Standard system devices)
+
+	Description: Microsoft System Management BIOS Driver
+	Instance ID: ROOT\MSSMBIOS\0000
+	Manufacturer: (Standard system devices)
+
+	Description: UMBus Enumerator
+	Instance ID: UMB\UMB\1&841921D&0&PRINTERBUSENUMERATOR
+	Manufacturer: Microsoft
+
+	Description: Printer Port Logical Interface
+	Instance ID: LPTENUM\MICROSOFTRAWPORT\5&98F833E&0&LPT1
+	Manufacturer: (Standard system devices)
+
+	Description: PCI bus
+	Instance ID: ACPI\PNP0A03\0
+	Manufacturer: (Standard system devices)
+
+	Description: VirtualBox Device
+	Instance ID: PCI\VEN_80EE&DEV_CAFE&SUBSYS_00000000&REV_00\3&267A616A&0&20
+	Manufacturer: Oracle Corporation
+
+	Description: Microsoft ACPI-Compliant System
+	Instance ID: ACPI_HAL\PNP0C08\0
+	Manufacturer: Microsoft
+
+	Description: Intel 82441FX Pentium(R) Pro Processor to PCI bridge
+	Instance ID: PCI\VEN_8086&DEV_1237&SUBSYS_00000000&REV_02\3&267A616A&0&00
+	Manufacturer: Intel
+
+	Description: Remote Desktop Device Redirector Bus
+	Instance ID: ROOT\RDPBUS\0000
+	Manufacturer: Microsoft
+
+	Description: Terminal Server Keyboard Driver
+	Instance ID: ROOT\RDP_KBD\0000
+	Manufacturer: (Standard system devices)
+
+	Description: High Definition Audio Controller
+	Instance ID: PCI\VEN_8086&DEV_2668&SUBSYS_76808384&REV_01\3&267A616A&0&28
+	Manufacturer: Microsoft
+
+	Description: Terminal Server Mouse Driver
+	Instance ID: ROOT\RDP_MOU\0000
+	Manufacturer: (Standard system devices)
+
+	Description: Plug and Play Software Device Enumerator
+	Instance ID: ROOT\SYSTEM\0000
+	Manufacturer: (Standard system devices)
+
+	Description: File as Volume Driver
+	Instance ID: ROOT\BLBDRIVE\0000
+	Manufacturer: Microsoft
+
+	Description: UMBus Root Bus Enumerator
+	Instance ID: ROOT\UMBUS\0000
+	Manufacturer: Microsoft
+
+USB:
+	Description: USB Root Hub
+	Instance ID: USB\ROOT_HUB\4&24D6EB65&0
+	Manufacturer: (Standard USB Host Controller)
+
+	Description: Standard OpenHCD USB Host Controller
+	Instance ID: PCI\VEN_106B&DEV_003F&SUBSYS_00000000&REV_00\3&267A616A&0&30
+	Manufacturer: (Standard USB Host Controller)
+
+Volume:
+	Description: Generic volume
+	Instance ID: STORAGE\VOLUME\{41933A27-472A-11E4-AD79-806E6F6E6963}#0000000000100000
+	Manufacturer: Microsoft
+
+	Description: Generic volume
+	Instance ID: STORAGE\VOLUME\{41933A27-472A-11E4-AD79-806E6F6E6963}#0000000006500000
+	Manufacturer: Microsoft
+
+VolumeSnapshot:
+	Description: Generic volume shadow copy
+	Instance ID: STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT8
+	Manufacturer: Microsoft
+
+	Description: Generic volume shadow copy
+	Instance ID: STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT16
+	Manufacturer: Microsoft
+
+	Description: Generic volume shadow copy
+	Instance ID: STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT9
+	Manufacturer: Microsoft
+
+	Description: Generic volume shadow copy
+	Instance ID: STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT17
+	Manufacturer: Microsoft
+
+	Description: Generic volume shadow copy
+	Instance ID: STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT1
+	Manufacturer: Microsoft
+
+	Description: Generic volume shadow copy
+	Instance ID: STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT2
+	Manufacturer: Microsoft
+
+	Description: Generic volume shadow copy
+	Instance ID: STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT10
+	Manufacturer: Microsoft
+
+	Description: Generic volume shadow copy
+	Instance ID: STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT3
+	Manufacturer: Microsoft
+
+	Description: Generic volume shadow copy
+	Instance ID: STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT11
+	Manufacturer: Microsoft
+
+	Description: Generic volume shadow copy
+	Instance ID: STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT4
+	Manufacturer: Microsoft
+
+	Description: Generic volume shadow copy
+	Instance ID: STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT12
+	Manufacturer: Microsoft
+
+	Description: Generic volume shadow copy
+	Instance ID: STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT5
+	Manufacturer: Microsoft
+
+	Description: Generic volume shadow copy
+	Instance ID: STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT13
+	Manufacturer: Microsoft
+
+	Description: Generic volume shadow copy
+	Instance ID: STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT6
+	Manufacturer: Microsoft
+
+	Description: Generic volume shadow copy
+	Instance ID: STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT14
+	Manufacturer: Microsoft
+
+	Description: Generic volume shadow copy
+	Instance ID: STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT7
+	Manufacturer: Microsoft
+
+	Description: Generic volume shadow copy
+	Instance ID: STORAGE\VOLUMESNAPSHOT\HARDDISKVOLUMESNAPSHOT15
+	Manufacturer: Microsoft
+
+hdc:
+	Description: Standard AHCI 1.0 Serial ATA Controller
+	Instance ID: PCI\VEN_8086&DEV_2829&SUBSYS_00000000&REV_02\3&267A616A&0&68
+	Manufacturer: Standard AHCI 1.0 Serial ATA Controller
+
+	Description: Intel(R) 82371AB/EB PCI Bus Master IDE Controller
+	Instance ID: PCI\VEN_8086&DEV_7111&SUBSYS_00000000&REV_01\3&267A616A&0&09
+	Manufacturer: Intel
+
+	Description: IDE Channel
+	Instance ID: PCIIDE\IDECHANNEL\4&2617AEAE&0&0
+	Manufacturer: (Standard IDE ATA/ATAPI controllers)
+
+	Description: IDE Channel
+	Instance ID: PCIIDE\IDECHANNEL\4&2F42C713&0&0
+	Manufacturer: (Standard IDE ATA/ATAPI controllers)
+
+	Description: IDE Channel
+	Instance ID: PCIIDE\IDECHANNEL\4&2F42C713&0&1
+	Manufacturer: (Standard IDE ATA/ATAPI controllers)
+
