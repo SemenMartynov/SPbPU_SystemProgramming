@@ -290,3 +290,147 @@ std::wstring MySystem::GetUptimeInformation(){
 
 	return ss.str();
 }
+
+void MySystem::FillHardwareInfo(HDEVINFO& di, SP_DEVINFO_DATA& did, HardwareInfo& hd) {
+	std::locale loc;
+	BYTE* pbuf = NULL;
+	DWORD reqSize = 0;
+	if (!SetupDiGetDeviceRegistryProperty(di, &did, SPDRP_DEVICEDESC, NULL, NULL, 0, &reqSize))
+	{
+		//error, but loop might continue?
+	}
+
+	pbuf = new BYTE[reqSize > 1 ? reqSize : 1];
+	if (!SetupDiGetDeviceRegistryProperty(di, &did, SPDRP_DEVICEDESC, NULL, pbuf, reqSize, NULL))
+	{
+		// device does not have this property set
+		memset(pbuf, 0, reqSize > 1 ? reqSize : 1);
+	}
+	hd.devDescrition = (wchar_t*)pbuf;
+	delete[] pbuf;
+
+	TCHAR devInstanceId[MAX_DEVICE_ID_LEN];
+	memset(devInstanceId, 0, MAX_DEVICE_ID_LEN);
+	//pbuf = new BYTE[reqSize > 1 ? reqSize : 1];
+	if (SetupDiGetDeviceInstanceId(di, &did, devInstanceId, MAX_DEVICE_ID_LEN, NULL) == FALSE) {
+		//error, but loop might continue?
+	}
+	hd.devInstanceID.assign(devInstanceId);
+	//delete[] pbuf;
+
+	reqSize = 0;
+	if (!SetupDiGetDeviceRegistryProperty(di, &did, SPDRP_MFG, NULL, NULL, 0, &reqSize))
+	{
+		//error, but loop might continue?
+	}
+
+	pbuf = new BYTE[reqSize > 1 ? reqSize : 1];
+	if (!SetupDiGetDeviceRegistryProperty(di, &did, SPDRP_MFG, NULL, pbuf, reqSize, NULL))
+	{
+		// device does not have this property set
+		memset(pbuf, 0, reqSize > 1 ? reqSize : 1);
+	}
+	hd.hardwareMFG = (wchar_t*)pbuf;
+
+	// Small hack for VM
+	if (hd.hardwareMFG.length() > 1 && !std::isalpha(hd.hardwareMFG[1], loc))
+		hd.hardwareMFG.assign(L"(none)");
+
+	delete[] pbuf;
+}
+
+
+void MySystem::GetConnectedHardwareList(std::multimap<std::wstring, HardwareInfo>& result) {
+	result.clear();
+
+	std::vector<GUID> allClassGuids;
+	// SetupDiGetClassDevs() does not work if the class GUID is NULL and the
+	// 4th parameter is different from DIGCF_ALLCLASSES. Therefore we collect all
+	// the class GUIDs in the first step, and then collect all the connected devices
+	// by feeding the collected GUIDs to SetupDiGetClassDevs() in the 2nd step
+
+	// Step 1
+	{
+		HDEVINFO di = SetupDiGetClassDevs(NULL,
+			NULL,
+			NULL,
+			DIGCF_ALLCLASSES);
+
+		if (di == INVALID_HANDLE_VALUE) {
+			DWORD ret = ::GetLastError();
+			throw - 1;
+		}
+
+		int iIdx = 0;
+		while (true) {
+			SP_DEVINFO_DATA did;
+			did.cbSize = sizeof(SP_DEVINFO_DATA);
+			if (SetupDiEnumDeviceInfo(di, iIdx, &did) == FALSE) {
+				if (::GetLastError() == ERROR_NO_MORE_ITEMS)
+				{
+					break;
+				}
+				else {
+					//error, but loop might continue?
+				}
+			}
+			if (std::find(allClassGuids.begin(), allClassGuids.end(), did.ClassGuid) == allClassGuids.end()) {
+				allClassGuids.push_back(did.ClassGuid);
+			}
+			iIdx++;
+		}
+		if (SetupDiDestroyDeviceInfoList(di) == FALSE) {
+			//error, but should be ignored?
+		}
+	}
+	// Step 2
+	for (unsigned int i = 0; i < allClassGuids.size(); i++) {
+		HDEVINFO di = SetupDiGetClassDevs(&allClassGuids[i],
+			NULL,
+			NULL,
+			DIGCF_PRESENT);
+		if (di == INVALID_HANDLE_VALUE) {
+			throw ::GetLastError();
+		}
+
+
+		int iIdx = 0;
+		HardwareInfo hd;
+		while (true)
+		{
+			SP_DEVINFO_DATA did;
+			did.cbSize = sizeof(SP_DEVINFO_DATA);
+			if (SetupDiEnumDeviceInfo(di, iIdx, &did) == FALSE) {
+				if (::GetLastError() == ERROR_NO_MORE_ITEMS) {
+					break;
+				}
+				else {
+					//error, but loop might continue?
+				}
+			}
+
+			BYTE* pbuf = NULL;
+			DWORD reqSize = 0;
+			if (!SetupDiGetDeviceRegistryProperty(di, &did, SPDRP_CLASS, NULL, NULL, 0, &reqSize))
+			{
+				//error, but loop might continue?
+			}
+
+			pbuf = new BYTE[reqSize > 1 ? reqSize : 1];
+			if (!SetupDiGetDeviceRegistryProperty(di, &did, SPDRP_CLASS, NULL, pbuf, reqSize, NULL))
+			{
+				// device does not have this property set
+				memset(pbuf, 0, reqSize > 1 ? reqSize : 1);
+			}
+
+			FillHardwareInfo(di, did, hd);
+
+			result.insert(std::multimap<std::wstring, HardwareInfo>::value_type((wchar_t*)pbuf, hd));
+			delete[] pbuf;
+			iIdx++;
+		}
+		if (SetupDiDestroyDeviceInfoList(di) == FALSE) {
+			//error, but should be ignored?
+		}
+	}
+}
